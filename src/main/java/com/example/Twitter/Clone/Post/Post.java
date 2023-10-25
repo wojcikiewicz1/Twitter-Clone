@@ -28,7 +28,4 @@ public class Post {
     @CreationTimestamp
     private LocalDateTime dateTime;
 
-    public Post(User user, Post post) {
-
-    }
 }

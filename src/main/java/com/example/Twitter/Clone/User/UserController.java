@@ -36,7 +36,6 @@ public class UserController {
         return ResponseEntity.ok("User deleted");
     }
 
-    //aktualizowanie - http://localhost:8080/users/1?name=Maria
     @PutMapping(path = "/users/{userId}")
     public ResponseEntity updateUser (@PathVariable("userId") Long userId,
                             @RequestParam(required = false) String username,
