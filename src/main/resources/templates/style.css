@@ -1,0 +1,116 @@
+*
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    margin: 10px 0 0 0;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a
+{
+    text-decoration: none;
+    color: #000;
+}
+
+@media screen and (max-width: 1200px){
+	nav, main, aside{
+		width: 100%;
+	}
+}
+
+/*--------------------------NAV---------------------------------*/
+.navbar
+{
+    float: left;
+    width: 26%;
+    position: sticky;
+}
+
+.menu
+{
+    list-style-type: none;
+    font-size: 21px;
+    line-height: 240%;
+    margin-bottom: 3px;
+    margin-top: 0;
+    margin-left: clamp(5px, 5vw, 105px);
+    min-width: 40px;
+}
+
+.menu i
+{
+    padding-right: 20px;
+    font-size: 25px;
+}
+
+.menu a
+{
+    display: inline-block;
+    border-radius: 9999px;
+    padding: 0 10px;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+}
+
+.menu a:hover
+{
+    background-color: #f0f0f1;
+}
+
+.postNav
+{
+    background-color: #1DA1F2;
+    color: white;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 10px;
+    margin-left: clamp(5px, 5vw, 140px);
+    margin-right: 30px;
+}
+
+a .postNav:hover
+{
+    background-color: #0C90E1;
+}
+
+.profile
+{
+    text-align: center;
+    border-radius: 50px;
+    font-size: 18px;
+    color: #000;
+    margin-top: 15px;
+    padding: 10px 0;
+    margin-left: clamp(5px, 5vw, 140px);
+    margin-right: 10px;
+}
+
+a .profile:hover
+{
+    background-color: #f0f0f1;
+}
+
+
+/*--------------------------MAIN---------------------------------*/
+.main
+{
+    float: left;
+    width: 40%;
+    background-color: blueviolet;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+/*--------------------------ASIDE---------------------------------*/
+.aside
+{
+    float: left;
+    width: 34%;
+    background-color: cadetblue;
+}
