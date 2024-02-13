@@ -116,9 +116,12 @@ nav
 /*--------------------------MAIN---------------------------------*/
 main
 {
+    display: flex;
+    flex-direction: column;
     flex: 0 0 40%;
     border-left: 1px solid #f0f0f1;
     border-right: 1px solid #f0f0f1;
+    min-width: 400px;
 }
 
 .topbar
@@ -507,16 +510,10 @@ aside
     font-size: 13px;
 }
 
-.dots
-{
-
-}
-
 .trendsusername
 {
     margin: 5px 0;
     font-weight: 700;
-
 }
 
 .trendsnumberofposts
@@ -562,6 +559,251 @@ aside
     align-items: center;
     margin-left: 2px;
     cursor: pointer;
+}
+
+/*----------------------------------PROFILE-----------------------*/
+
+.top
+{
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    height: 53px;
+    max-width: 1000px;
+    width: 100%;
+    align-items: center;
+    margin: auto;
+}
+
+.topL
+{
+    display: flex;
+    min-width: 56px;
+    min-height: 32px;
+    align-self: stretch;
+    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+}
+
+.topL a:hover
+{
+    border-radius: 9999px;
+    background-color: #f0f0f1;
+    padding: 10px 12px;
+}
+
+.topM
+{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.topMuser
+{
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.topMposts
+{
+    font-size: 13px;
+    color: #536471;
+    margin-top: 6px;
+}
+
+.profilemain
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.background
+{
+    overflow: hidden;
+}
+
+.background img
+{
+    max-width: 607px;
+    width: 100%;
+    max-height: 200px;
+    height: auto;
+}
+
+.user
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.profilePhoto
+{
+    padding-bottom: 30px;
+}
+
+.profilePhoto img
+{
+    max-width: 150px;
+    max-height: 150px;
+    min-width: 50px;
+    min-height: 50px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    position: absolute;
+    top: 25%;
+    left: 3%;
+    border: 5px solid white;
+    border-radius: 9999px;
+}
+
+.profileOptions
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.profileoptionsIcons
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #cfd9de;
+    border-radius: 9999px;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+
+.profileoptionsIcons:hover
+{
+    cursor: pointer;
+    background-color: #f0f0f1;
+    border-radius: 9999px;
+}
+
+.profilefollowbtn
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    background-color: #000;
+    color: white;
+    padding: 0 30px;
+    font-weight: 700;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+.profilefollowbtn:hover
+{
+    cursor: pointer;
+    background-color: #333333;
+}
+
+.profileName
+{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.profileNameUserName
+{
+    color: #536471;
+    margin-top: 6px;
+}
+
+.profileDescription
+{
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: justify;
+}
+
+.profileInfo
+{
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profileInfoDiv
+{
+    margin-bottom: 2px;
+}
+
+.profileInfoIcon
+{
+    color: #536471;
+    margin-right: 2px;
+}
+
+.profileInfoSpan
+{
+    color: #536471;
+    margin-right: 15px;
+}
+
+.profileFollow
+{
+    display: flex;
+    margin: 15px 15px;
+}
+
+.profileFollow a:hover
+{
+    text-decoration: underline;
+}
+
+.profileFollowing
+{
+    margin-right: 10px;
+}
+
+.profileFollowNumber
+{
+    font-weight: 700;
+}
+
+.profileFollowType
+{
+    color: #536471;
+}
+
+.options
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    text-align: center;
+    font-weight: 600;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.options a
+{
+    color: #536471;
+    flex-grow: 1;
+    padding: 20px 0;
+}
+
+.options a:hover
+{
+    background-color: #f0f0f1;
 }
 
 
