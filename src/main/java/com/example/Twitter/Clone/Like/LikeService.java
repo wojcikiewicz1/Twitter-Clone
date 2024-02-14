@@ -4,6 +4,7 @@ import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
+import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class LikeService {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     LikeRepository likeRepository;
     @Autowired
     UserRepository userRepository;
@@ -20,14 +23,10 @@ public class LikeService {
     PostRepository postRepository;
 
     public void LikePost (String username, Long postId) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(username);
+        User userByUsername = userService.findByUserName(username);
         Optional<Post> postById = postRepository.findById(postId);
-        if(userByUsername.isEmpty()) {
-            throw new IllegalStateException("there is no such user");
-        } else if (postById.isEmpty()) {
-            throw new IllegalStateException("there is no such post");
-        }
-        Like like = new Like(postById.get(), userByUsername.get());
+
+        Like like = new Like(postById.get(), userByUsername);
         likeRepository.save(like);
     }
 

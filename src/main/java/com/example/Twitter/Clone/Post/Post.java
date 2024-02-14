@@ -4,12 +4,15 @@ import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
-@Data
+@Getter
+@Setter
 
 @Entity
 @Table(name = "posts")
@@ -19,13 +22,16 @@ public class Post {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    @NonNull
+    @Column(nullable = false)
     private String body;
     @Column(name = "created_at")
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private Date dateTime;
 
+    public Post(User user, String body) {
+
+    }
 }

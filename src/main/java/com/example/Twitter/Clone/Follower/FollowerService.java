@@ -2,6 +2,7 @@ package com.example.Twitter.Clone.Follower;
 
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
+import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import java.util.Optional;
 public class FollowerService {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     FollowerRepository followerRepository;
     @Autowired
     UserRepository userRepository;
@@ -21,15 +24,10 @@ public class FollowerService {
     }
 
     public void followUser(String username, Long id) {
-        Optional<User> user = userRepository.findUserByUsername(username);
+        User user = userService.findByUserName(username);
         Optional<User> followingUser = userRepository.findById(id);
-        if (user.isEmpty()) {
-            throw new IllegalStateException("there is no such user");
-        }
-        if (user.equals(followingUser)) {
-            throw new IllegalStateException("can't follow yourself");
-        }
-        Follower follower = new Follower(user.get(), followingUser.get());
+
+        Follower follower = new Follower(user, followingUser.get());
         followerRepository.save(follower);
     }
 

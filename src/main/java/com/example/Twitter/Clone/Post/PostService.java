@@ -2,75 +2,59 @@ package com.example.Twitter.Clone.Post;
 
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
+import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PostService {
 
     @Autowired
-    PostRepository postRepository;
+    private UserService userService;
+
     @Autowired
-    UserRepository userRepository;
+    private PostRepository postRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
-    public List<Post> getPosts() {
-
-        return postRepository.findAll();
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("Post with id " + postId + " does not exist"));
     }
 
-    public Optional<Post> getPostById(Long postId) {
-        boolean exists = postRepository.existsById(postId);
-        if (!exists) {
-            throw new IllegalStateException("post with id " + postId + " does not exists");
-        }
-        return postRepository.findById(postId);
+    public List<Post> getPostsByUsername(String username) {
+
+        return postRepository.findPostsByUsername(username);
     }
 
-    public List<Post> getPostsByUserId(Long id) {
+    public List<Post> getPostsByFollowings (String username) {
 
-        return postRepository.findPostsByUserId(id);
+        return postRepository.findPostsByFollowings(username);
     }
 
-    public List<Post> getPostsByFollowings (Long id) {
-        return postRepository.findPostsByFollowings(id);
-    }
-
-
-    public void addNewPost(String username, String postBody) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(username);
-        if (userByUsername.isEmpty()) {
-            throw new IllegalStateException("there is no such user");
-        }
-        Post post = new Post(userByUsername.get(), postBody);
+    public void addNewPost(Principal principal, String body) {
+        User user = userRepository.findByUsername(principal.getName());
+        Post post = new Post(user, body);
         postRepository.save(post);
     }
 
-    public void sharePost(String username, Long postId) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(username);
-        Optional<Post> postById = postRepository.findById(postId);
-        if(userByUsername.isEmpty()) {
-            throw new IllegalStateException("there is no such user");
-        } else if (postById.isEmpty()) {
-            throw new IllegalStateException("there is no such post");
-        }
-        Post post = new Post(userByUsername.get(), Objects.toString((postRepository.findById(postId)).get()));
+    public void sharePost(Principal principal, Long postId) {
+        User user = userService.findByUserName(principal.getName());
+        Optional<Post> optionalPost = postRepository.findById(postId);
+
+        Post post = new Post(user, Objects.toString((postRepository.findById(postId)).get()));
         postRepository.save(post);
     }
 
     public void deletePost(Long postId) {
-        boolean exists = postRepository.existsById(postId);
-        if (!exists) {
-            throw new IllegalStateException("post with id " + postId + " does not exists");
-        }
+
         postRepository.deleteById(postId);
     }
 }

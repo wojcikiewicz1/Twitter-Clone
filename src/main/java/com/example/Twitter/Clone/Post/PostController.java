@@ -1,41 +1,39 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.User.User;
+import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping
 public class PostController {
 
     @Autowired
-    PostService postService;
+    private UserService userService;
 
-    @GetMapping (path = "/posts")
-    public List<Post> getPosts () {
-        return postService.getPosts();
-    }
+    @Autowired
+    private PostService postService;
 
-    @GetMapping (path = "/posts/{postId}")
-    public Optional<Post> getPostById (@PathVariable("postId") Long postId) {
+
+    @GetMapping (path = "/username/{postId}")
+    public Post getPostById (@PathVariable("postId") Long postId) {
+
         return postService.getPostById(postId);
     }
 
-    @GetMapping (path = "/posts/user/{userId}")
-    public List<Post> getAllPostsOfUser(@PathVariable("userId") Long id) {
+    @GetMapping (path = "/username")
+    public List<Post> getAllPostsOfUser(String username) {
+        User user = userService.findByUserName(username);
+        List<Post> posts = postService.getPostsByUsername(user.getUsername());
 
-        return postService.getPostsByUserId(id);
+        return posts;
     }
 
-    @GetMapping (path = "/posts/user/{userId}/followings")
-    public List<Post> getAllPostsByFollowings (@PathVariable("userId") Long id) {
-
-        return postService.getPostsByFollowings(id);
-    }
+/**
 
     @PostMapping (path = "/posts")
     public ResponseEntity addPost(@RequestHeader("username") String username, @RequestBody String postBody) {
@@ -55,4 +53,5 @@ public class PostController {
         return ResponseEntity.ok("Post deleted");
     }
 
+    **/
 }

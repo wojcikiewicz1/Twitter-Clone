@@ -4,6 +4,7 @@ import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
+import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.Optional;
 @Service
 public class CommentService {
 
+    @Autowired
+    private UserService userService;
     @Autowired
     CommentRepository commentRepository;
     @Autowired
@@ -26,14 +29,10 @@ public class CommentService {
     }
 
     public void AddCommentToPost (String username, Long postId, String commentBody) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(username);
+        User userByUsername = userService.findByUserName(username);
         Optional<Post> postById = postRepository.findById(postId);
-        if(userByUsername.isEmpty()) {
-            throw new IllegalStateException("there is no such user");
-        } else if (postById.isEmpty()) {
-            throw new IllegalStateException("there is no such post");
-        }
-        Comment comment = new Comment(commentBody, userByUsername.get(), postById.get());
+
+        Comment comment = new Comment(commentBody, userByUsername, postById.get());
         commentRepository.save(comment);
     }
 
