@@ -906,7 +906,7 @@
                 <li><a href="#"><i class="fa-regular fa-rectangle-list"></i>Lists</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-group"></i>Communities</a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i>Premium</a></li>
-                <li><a th:href="@{/myProfile}"><i class="fa-regular fa-user"></i>Profile</a></li>
+                <li><a th:href="@{/{username}(username=${user.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
                 <li><a href="#"><i class="fa-solid fa-ellipsis"></i>More</a></li>
             </ul>
             <a href="#"><div class="postNav">Post</div></a>
@@ -918,10 +918,10 @@
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
-                            <div class="profileFLname">Bartosz</div>
-                            <div class="profileFLname">Wójcikiewicz</div>
+                            <div class="profileFLname" th:text="${user.firstName}"></div>
+                            <div class="profileFLname" th:text="${user.lastName}"></div>
                         </div>
-                        <div class="profileUname">username</div>
+                        <div class="profileUname" th:text="'@' + ${user.username}"></div>
                     </div>
                     <div class="profileDots">
                         <i class="fa-solid fa-ellipsis"></i>

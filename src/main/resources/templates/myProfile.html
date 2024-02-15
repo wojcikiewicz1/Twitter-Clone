@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myProfile</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/7bdca9e143.js" crossorigin="anonymous"></script>
+
     <style>
         *
         {
@@ -905,7 +907,7 @@
                 <li><a href="#"><i class="fa-regular fa-rectangle-list"></i>Lists</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-group"></i>Communities</a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i>Premium</a></li>
-                <li><a th:href="@{/myProfile}"><i class="fa-regular fa-user"></i>Profile</a></li>
+                <li><a th:href="@{/{username}(username=${user.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
                 <li><a href="#"><i class="fa-solid fa-ellipsis"></i>More</a></li>
             </ul>
             <a href="#"><div class="postNav">Post</div></a>
@@ -917,10 +919,10 @@
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
-                            <div class="profileFLname">Bartosz</div>
-                            <div class="profileFLname">Wójcikiewicz</div>
+                            <div class="profileFLname" th:text="${user.firstName}"></div>
+                            <div class="profileFLname" th:text="${user.lastName}"></div>
                         </div>
-                        <div class="profileUname">username</div>
+                        <div class="profileUname" th:text="'@' + ${user.username}"></div>
                     </div>
                     <div class="profileDots">
                         <i class="fa-solid fa-ellipsis"></i>
@@ -938,7 +940,7 @@
                     <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
                 <div class="topM">
-                    <div class="topMuser">Bartosz Wójcikiewicz</div>
+                    <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
                     <div class="topMposts">134M posts</div>
                 </div>
                 <div class="topR"></div>
@@ -956,8 +958,8 @@
                         <img src="img/userPhoto.png" alt="profile photo">
                     </div>
                     <div class="profileName">
-                        <div class="topMuser">Bartosz Wójcikiewicz</div>
-                        <div class="profileNameUserName">@Bartek72619</div>
+                        <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                        <div class="profileNameUserName" th:text="'@' + ${user.username}"></div>
                     </div>
                     <div class="profileDescription">Lorem ipsum dolor sit amet consectetur
                         adipisicing elit. Accusamus possimus officia earum natus. Totam eligendi, tempora laborum aperiam nam delectus voluptatibus.
@@ -1221,6 +1223,7 @@
                     © 2024 X Corp.
                 </div>
             </footer>
+
     </aside>
 </div>
 </body>
