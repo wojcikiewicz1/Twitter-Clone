@@ -72,7 +72,7 @@ public class AuthController {
         return "redirect:/register?success";
     }
 
-    @GetMapping (path = "/home")
+    @GetMapping ("/home")
     public String getAllPostsByFollowings (Model model, Principal principal) {
         User user = userService.findByUserName(principal.getName());
 

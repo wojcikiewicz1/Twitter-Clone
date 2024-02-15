@@ -1,7 +1,9 @@
 package com.example.Twitter.Clone.User;
 
+import com.example.Twitter.Clone.Post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -11,24 +13,38 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping
+@Controller
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private UserRepository userRepository;
 
 
-    @GetMapping("/profile")
-    public String profile(Model model, Principal principal) {
-        User user = userService.findByUserName(principal.getName());
+    @GetMapping("/{username}")
+    public String profile(@PathVariable("username") String username, Model model, Principal principal) {
+        String currentUsername = principal.getName();
 
-        model.addAttribute("user", user);
-
-        return "profile";
+        if (currentUsername.equals(username)) {
+            User user = userService.findByUserName(currentUsername);
+            model.addAttribute("user", user);
+            postService.getPostsByUsername(currentUsername);
+            return "myProfile";
+        } else {
+            User user = userService.findByUserName(username);
+            if (user != null) {
+                model.addAttribute("user", user);
+                postService.getPostsByUsername(username);
+                return "userProfile";
+            } else {
+                return "redirect:/error";
+            }
+        }
     }
 
     @GetMapping("updateUser")

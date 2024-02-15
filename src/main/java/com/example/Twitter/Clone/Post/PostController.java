@@ -18,7 +18,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-
+/**
     @GetMapping (path = "/username/{postId}")
     public Post getPostById (@PathVariable("postId") Long postId) {
 
@@ -33,7 +33,7 @@ public class PostController {
         return posts;
     }
 
-/**
+
 
     @PostMapping (path = "/posts")
     public ResponseEntity addPost(@RequestHeader("username") String username, @RequestBody String postBody) {

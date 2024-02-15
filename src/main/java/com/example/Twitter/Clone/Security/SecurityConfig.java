@@ -30,7 +30,7 @@ public class SecurityConfig {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/home").authenticated()
-                                .requestMatchers("/profile").authenticated()
+                                .requestMatchers("/{username}").authenticated()
                                 .requestMatchers("/img/**").permitAll()
 
                 ).formLogin(
