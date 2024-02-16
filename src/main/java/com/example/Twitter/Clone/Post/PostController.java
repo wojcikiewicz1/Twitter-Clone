@@ -20,7 +20,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-
+/**
     @GetMapping (path = "/{username}/{postId}")
     public String getPostById (@PathVariable("postId") Long postId, @PathVariable("username") String username) {
 
@@ -29,13 +29,7 @@ public class PostController {
     }
 
 
-    @PostMapping ("/home/addpost")
-    public String addPost(@ModelAttribute("content") String content, Principal principal) {
-        postService.addNewPost(principal, content);
 
-        return "redirect:/home";
-    }
-/**
     @PostMapping (path = "/posts/share")
     public ResponseEntity sharePost(@RequestHeader("username") String username, @RequestBody Long postId) {
         postService.sharePost(username, postId);

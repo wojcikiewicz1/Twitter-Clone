@@ -77,10 +77,20 @@ public class AuthController {
         User user = userService.findByUserName(principal.getName());
 
         model.addAttribute("user", user);
-        model.addAttribute("content", new String());
+        model.addAttribute("content", "");
+
+        String principalUsername = principal.getName();
+        List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
+        model.addAttribute("randomUsers", randomUsers);
 
         postService.getPostsByFollowings(principal.getName());
         return "home";
+    }
+
+    @PostMapping ("/home/addPost")
+    public String addPost(@ModelAttribute("content") String content, Principal principal) {
+        postService.addNewPost(principal, content);
+        return "redirect:/home";
     }
 
     @GetMapping ("/logout")

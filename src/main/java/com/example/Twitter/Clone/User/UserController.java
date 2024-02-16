@@ -33,6 +33,10 @@ public class UserController {
         boolean isOwner = username.equals(principal.getName());
         model.addAttribute("isOwner", isOwner);
 
+
+        List<User> randomUsers = userService.findRandomUsers(currentUsername, 3);
+        model.addAttribute("randomUsers", randomUsers);
+
         if (currentUsername.equals(username)) {
             User user = userService.findByUserName(currentUsername);
             model.addAttribute("user", user);

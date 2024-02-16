@@ -31,7 +31,4 @@ public class Post {
     @CreationTimestamp
     private Date dateTime;
 
-    public Post(User user, String content) {
-
-    }
 }

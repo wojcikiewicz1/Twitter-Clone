@@ -8,10 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -49,6 +46,26 @@ public class UserService {
 
     public User findByUserName (String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public List<User> findRandomUsers(String principalUsername, int number) {
+        List<User> allUsers = userRepository.findAll();
+        allUsers.removeIf(user -> user.getUsername().equals(principalUsername));
+
+        if (allUsers.size() <= number) {
+            return allUsers;
+        }
+
+        List<User> randomUsers = new ArrayList<>();
+        while (randomUsers.size() < number) {
+            int index = (int) (Math.random() * allUsers.size());
+            User randomUser = allUsers.get(index);
+
+            if (!randomUsers.contains(randomUser)) {
+                randomUsers.add(randomUser);
+            }
+        }
+        return randomUsers;
     }
 
     public void updateUser (User user) {

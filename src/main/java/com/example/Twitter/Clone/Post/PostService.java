@@ -39,12 +39,15 @@ public class PostService {
         return postRepository.findPostsByFollowings(username);
     }
 
-    public void addNewPost(Principal principal, String body) {
+    public void addNewPost(Principal principal, String content) {
         User user = userRepository.findByUsername(principal.getName());
-        Post post = new Post(user, body);
+        Post post = new Post();
+        post.setUser(user);
+        post.setContent(content);
         postRepository.save(post);
     }
 
+    /**
     public void sharePost(Principal principal, Long postId) {
         User user = userService.findByUserName(principal.getName());
         Optional<Post> optionalPost = postRepository.findById(postId);
@@ -57,5 +60,6 @@ public class PostService {
 
         postRepository.deleteById(postId);
     }
+     **/
 }
 
