@@ -951,8 +951,19 @@
                     <img src="img/football.jpg" alt="background photo">
                 </div>
                 <div class="user">
-                    <div class="profileOptions">
+                    <div class="profileOptions" th:if="${isOwner}">
                         <div class="profileEditbtn" role="button">Edit profile</div>
+                    </div>
+                    <div class="profileOptions" th:if="${!isOwner}">
+                        <div class="profileoptionsIcons" role="button">
+                            <i class="fa-solid fa-ellipsis"></i>
+                            <span class="tooltip">More</span>
+                        </div>
+                        <div class="profileoptionsIcons" role="button">
+                            <i class="fa-regular fa-bell"></i>
+                            <span class="tooltip">Notify</span>
+                        </div>
+                        <div class="profilefollowbtn" role="button">Follow</div>
                     </div>
                     <div class="profilePhoto">
                         <img src="img/userPhoto.png" alt="profile photo">
@@ -1003,104 +1014,29 @@
                 </div>
             </div>
 
-            <div class="options">
+            <div class="options" th:if="${isOwner}">
                 <a href="#"><div>Posts</div></a>
                 <a href="#"><div>Replies</div></a>
                 <a href="#"><div>Highlights</div></a>
                 <a href="#"><div>Media</div></a>
                 <a href="#"><div>Likes</div></a>
             </div>
+            <div class="options" th:if="${!isOwner}">
+                <a href="#"><div>Posts</div></a>
+                <a href="#"><div>Replies</div></a>
+                <a href="#"><div>Media</div></a>
+                <a href="#"><div>Likes</div></a>
+            </div>
 
-            <div class="posts">
+            <div class="posts" th:each="post : ${posts}">
                 <a href="#">
                     <div class="post">
                         <div class="userPhotoMain">
                             <img src="img/userPhoto.png">
                         </div>
                         <div class="right">
-                            <div class="username">
-                                Username
-                            </div>
-                            <div class="content">
-                                Tresc posta <br>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                            </div>
-                            <div class="postIcons">
-                                <i class="fa-regular fa-comment"></i>
-                                <i class="fa-solid fa-retweet"></i>
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="post">
-                        <div class="userPhotoMain">
-                            <img src="img/userPhoto.png">
-                        </div>
-                        <div class="right">
-                            <div class="username">
-                                Username
-                            </div>
-                            <div class="content">
-                                Tresc posta <br>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                            </div>
-                            <div class="postIcons">
-                                <i class="fa-regular fa-comment"></i>
-                                <i class="fa-solid fa-retweet"></i>
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#">
-                    <div class="post">
-                        <div class="userPhotoMain">
-                            <img src="img/userPhoto.png">
-                        </div>
-                        <div class="right">
-                            <div class="username">
-                                Username
-                            </div>
-                            <div class="content">
-                                Tresc posta <br>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Nostrum error dolorum ad sequi impedit aspernatur!
-                                Voluptates necessitatibus rem similique nam vitae fugit
-                                a architecto exercitationem numquam, minus natus nisi
-                                illum!
-                            </div>
+                            <div class="username" th:text="${post.user.username}"></div>
+                            <div class="content" th:text="${post.content}"></div>
                             <div class="postIcons">
                                 <i class="fa-regular fa-comment"></i>
                                 <i class="fa-solid fa-retweet"></i>
