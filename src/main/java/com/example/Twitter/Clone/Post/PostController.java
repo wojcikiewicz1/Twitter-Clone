@@ -4,12 +4,14 @@ import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
-@RestController
-@RequestMapping
+@Controller
 public class PostController {
 
     @Autowired
@@ -18,29 +20,22 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+
+    @GetMapping (path = "/{username}/{postId}")
+    public String getPostById (@PathVariable("postId") Long postId, @PathVariable("username") String username) {
+
+        postService.getPostById(postId);
+        return "post";
+    }
+
+
+    @PostMapping ("/home/addpost")
+    public String addPost(@ModelAttribute("content") String content, Principal principal) {
+        postService.addNewPost(principal, content);
+
+        return "redirect:/home";
+    }
 /**
-    @GetMapping (path = "/username/{postId}")
-    public Post getPostById (@PathVariable("postId") Long postId) {
-
-        return postService.getPostById(postId);
-    }
-
-    @GetMapping (path = "/username")
-    public List<Post> getAllPostsOfUser(String username) {
-        User user = userService.findByUserName(username);
-        List<Post> posts = postService.getPostsByUsername(user.getUsername());
-
-        return posts;
-    }
-
-
-
-    @PostMapping (path = "/posts")
-    public ResponseEntity addPost(@RequestHeader("username") String username, @RequestBody String postBody) {
-        postService.addNewPost(username, postBody);
-        return ResponseEntity.ok("Post added");
-    }
-
     @PostMapping (path = "/posts/share")
     public ResponseEntity sharePost(@RequestHeader("username") String username, @RequestBody Long postId) {
         postService.sharePost(username, postId);

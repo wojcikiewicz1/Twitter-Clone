@@ -77,6 +77,7 @@ public class AuthController {
         User user = userService.findByUserName(principal.getName());
 
         model.addAttribute("user", user);
+        model.addAttribute("content", new String());
 
         postService.getPostsByFollowings(principal.getName());
         return "home";

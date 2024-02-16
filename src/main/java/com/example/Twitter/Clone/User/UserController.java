@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.User;
 
+import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,24 +30,30 @@ public class UserController {
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
         String currentUsername = principal.getName();
+        boolean isOwner = username.equals(principal.getName());
+        model.addAttribute("isOwner", isOwner);
 
         if (currentUsername.equals(username)) {
             User user = userService.findByUserName(currentUsername);
             model.addAttribute("user", user);
             postService.getPostsByUsername(currentUsername);
-            return "myProfile";
+            List<Post> posts = postService.getPostsByUsername(currentUsername);
+            model.addAttribute("posts", posts);
+            return "profile";
         } else {
             User user = userService.findByUserName(username);
             if (user != null) {
                 model.addAttribute("user", user);
                 postService.getPostsByUsername(username);
-                return "userProfile";
+                List<Post> posts = postService.getPostsByUsername(username);
+                model.addAttribute("posts", posts);
+                return "profile";
             } else {
                 return "redirect:/error";
             }
         }
     }
-
+/**
     @GetMapping("updateUser")
     public String updateUSer (Model model, Principal principal) {
         model.addAttribute("user", userService.findByUserName(principal.getName()));
@@ -120,5 +127,5 @@ public class UserController {
         return "redirect:/logout";
     }
 
-
+**/
 }

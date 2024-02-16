@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
-                                .requestMatchers("/home").authenticated()
+                                .requestMatchers("/home/**").authenticated()
                                 .requestMatchers("/{username}").authenticated()
                                 .requestMatchers("/img/**").permitAll()
 

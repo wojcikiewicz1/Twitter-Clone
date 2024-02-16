@@ -26,12 +26,12 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
     @Column(nullable = false)
-    private String body;
+    private String content;
     @Column(name = "created_at")
     @CreationTimestamp
     private Date dateTime;
 
-    public Post(User user, String body) {
+    public Post(User user, String content) {
 
     }
 }
