@@ -243,7 +243,7 @@
             margin-top: 25px;
         }
 
-        #whatishappening
+        .whatishappening
         {
             width: 97%;
             font-size: 22px;
@@ -251,7 +251,7 @@
             resize: none;
         }
 
-        #whatishappening:focus
+        .whatishappening:focus
         {
             border: none;
             outline: none;
@@ -328,7 +328,34 @@
         {
             display: flex;
             flex-direction: column;
+            width: 100%;
             padding: 0 10px;
+        }
+
+        .username
+        {
+            display: flex;
+        }
+
+        .usernameLeft
+        {
+            margin-right: 5px;
+            font-weight: 600;
+        }
+
+        .usernameRight
+        {
+            color: #536471;
+            margin-right: 5px;
+        }
+
+        .usernameDOT
+        {
+            display: flex;
+            color: #536471;
+            margin-right: 5px;
+            font-size: 2px;
+            align-items: center;
         }
 
         .username, .content {
@@ -480,9 +507,24 @@
             width: 100%;
             flex-grow: 1;
             display: flex;
-            justify-content: center;
-            align-items: center;
             justify-content: space-between;
+        }
+
+        .wtfusername
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .wtfusernameFLN
+        {
+            font-weight: 700;
+        }
+
+        .wtfusernameUN
+        {
+            color: #536471;
         }
 
         .followbtn
@@ -889,7 +931,6 @@
 
 
 
-
     </style>
 
 </head>
@@ -915,7 +956,7 @@
             <a href="#">
                 <div class="profile">
                     <div class="profileLeft">
-                        <img src="img/userPhoto.png">
+                        <img src="/static/img/userPhoto.png">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
@@ -948,7 +989,7 @@
 
             <div class="profilemain">
                 <div class="background">
-                    <img src="img/football.jpg" alt="background photo">
+                    <img src="/static/img/football.jpg" alt="background photo">
                 </div>
                 <div class="user">
                     <div class="profileOptions" th:if="${isOwner}">
@@ -966,7 +1007,7 @@
                         <div class="profilefollowbtn" role="button">Follow</div>
                     </div>
                     <div class="profilePhoto">
-                        <img src="img/userPhoto.png" alt="profile photo">
+                        <img src="/static/img/userPhoto.png">
                     </div>
                     <div class="profileName">
                         <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
@@ -1032,10 +1073,15 @@
                 <a href="#">
                     <div class="post">
                         <div class="userPhotoMain">
-                            <img src="img/userPhoto.png">
+                            <img src="/static/img/userPhoto.png">
                         </div>
                         <div class="right">
-                            <div class="username" th:text="${post.user.username}"></div>
+                            <div class="username">
+                                <div class="usernameLeft" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                                <div class="usernameRight" th:text="'@' + ${user.username}"></div>
+                                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
+                                <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
+                            </div>
                             <div class="content" th:text="${post.content}"></div>
                             <div class="postIcons">
                                 <i class="fa-regular fa-comment"></i>
@@ -1065,38 +1111,25 @@
 
             <div class="whotofollow">
                 <div class="wtftop">Who to follow</div>
-
-                <div class="proposed">
-                    <a href="#">
-                        <div class="wtfprofile">
-                            <div class="wtfphoto"><img src="img/userPhoto.png"></div>
-                            <div class="wtffollow">
-                                <div class="wtfusername">Username <br> username2 </div>
-                                <div class="wtfbutton"><button class="followbtn" type="submit">Follow</button></div>
+                <div th:each="user : ${randomUsers}">
+                    <div class="proposed">
+                        <a th:href="@{/{username}(username=${user.username})}">
+                            <div class="wtfprofile">
+                                <div class="wtfphoto">
+                                    <img th:src="@{/static/img/userPhoto.png}">
+                                </div>
+                                <div class="wtffollow">
+                                    <div class="wtfusername">
+                                        <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                                        <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
+                                    </div>
+                                    <div class="wtfbutton">
+                                        <button class="followbtn" type="submit">Follow</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="wtfprofile">
-                            <div class="wtfphoto"><img src="img/userPhoto.png"></div>
-                            <div class="wtffollow">
-                                <div class="wtfusername">Username <br> username2 </div>
-                                <div class="wtfbutton"><button class="followbtn" type="submit">Follow</button></div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="wtfprofile">
-                            <div class="wtfphoto"><img src="img/userPhoto.png"></div>
-                            <div class="wtffollow">
-                                <div class="wtfusername">Username <br> username2 </div>
-                                <div class="wtfbutton"><button class="followbtn" type="submit">Follow</button></div>
-                            </div>
-                        </div>
-                    </a>
-
+                        </a>
+                    </div>
                 </div>
                 <a href="#" class="showmore"><div>Show more</div></a>
             </div>
