@@ -20,14 +20,21 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-/**
+
     @GetMapping (path = "/{username}/{postId}")
-    public String getPostById (@PathVariable("postId") Long postId, @PathVariable("username") String username) {
+    public String getPostById (@PathVariable("postId") Long postId, @PathVariable("username") String username, Model model, Principal principal) {
+
+        User user = userService.findByUserName(principal.getName());
+        Post post = postService.getPostById(postId);
+
+        model.addAttribute("user", user);
+        model.addAttribute("post", post);
+        model.addAttribute("content", "");
 
         postService.getPostById(postId);
         return "post";
     }
-
+/**
 
 
     @PostMapping (path = "/posts/share")

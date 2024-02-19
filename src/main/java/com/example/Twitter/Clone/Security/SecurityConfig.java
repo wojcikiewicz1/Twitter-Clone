@@ -36,6 +36,7 @@ public class SecurityConfig {
                                 .requestMatchers("/static/img/**").permitAll()
                                 .requestMatchers("/home/**").authenticated()
                                 .requestMatchers("/{username}").authenticated()
+                                .requestMatchers("/{username}/{postId}").authenticated()
 
                 ).formLogin(
                         form -> form
