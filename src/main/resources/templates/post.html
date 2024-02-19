@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Post</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/7bdca9e143.js" crossorigin="anonymous"></script>
 
@@ -1051,9 +1051,7 @@
             text-align: justify;
         }
     </style>
-
 </head>
-
 <body>
 <div class="container">
     <nav>
@@ -1075,7 +1073,7 @@
             <a href="#">
                 <div class="profile">
                     <div class="profileLeft">
-                        <img src="/static/img/userPhoto.png">
+                        <img src="/img/userPhoto.png">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
@@ -1094,114 +1092,76 @@
 
     <main>
         <div class="main">
-
-            <div class="top">
+            <div class="postTop">
                 <div class="topL">
                     <a onclick="window.history.back();"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
-                <div class="topM">
-                    <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                    <div class="topMposts">134M posts</div>
+                <div class="postR">
+                    <span>Post</span>
                 </div>
-                <div class="topR"></div>
             </div>
-
-            <div class="profilemain">
-                <div class="background">
-                    <img src="/static/img/football.jpg" alt="background photo">
-                </div>
-                <div class="user">
-                    <div class="profileOptions" th:if="${isOwner}">
-                        <div class="profileEditbtn" role="button">Edit profile</div>
-                    </div>
-                    <div class="profileOptions" th:if="${!isOwner}">
-                        <div class="profileoptionsIcons" role="button">
-                            <i class="fa-solid fa-ellipsis"></i>
-                            <span class="tooltip">More</span>
+            <div class="postUser">
+                <div class="relevantmiddle">
+                    <div class="wtfprofile">
+                        <div class="wtfphoto">
+                            <img src="img/userPhoto.png">
                         </div>
-                        <div class="profileoptionsIcons" role="button">
-                            <i class="fa-regular fa-bell"></i>
-                            <span class="tooltip">Notify</span>
-                        </div>
-                        <div class="profilefollowbtn" role="button">Follow</div>
-                    </div>
-                    <div class="profilePhoto">
-                        <img src="/static/img/userPhoto.png">
-                    </div>
-                    <div class="profileName">
-                        <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                        <div class="profileNameUserName" th:text="'@' + ${user.username}"></div>
-                    </div>
-                    <div class="profileDescription">Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Accusamus possimus officia earum natus. Totam eligendi, tempora laborum aperiam nam delectus voluptatibus.
-                        Vel at architecto tempore alias temporibus, numquam sit minus.</div>
-                    <div class="profileInfo">
-                        <div class="profileInfoDiv">
-                            <span class="profileInfoIcon"><i class="fa-solid fa-location-dot"></i></span>
-                            <span class="profileInfoSpan">Łódź, Polska</span>
-                        </div>
-                        <div class="profileInfoDiv">
-                            <span class="profileInfoIcon"><i class="fa-solid fa-cake-candles"></i></span>
-                            <span class="profileInfoSpan">Born 1995</span>
-                        </div>
-                        <div class="profileInfoDiv">
-                            <span class="profileInfoIcon"><i class="fa-solid fa-calendar-days"></i></span>
-                            <span class="profileInfoSpan">Joined November 2020</span>
-                        </div>
-                        <div class="profileInfoDiv">
-                            <span class="profileInfoIcon"><i class="fa-regular fa-envelope"></i></span>
-                            <span class="profileInfoSpan">user@gmail.com</span>
-                        </div>
-                    </div>
-                    <div class="profileFollow">
-                        <div class="profileFollowing">
-                            <a href="#">
-                                <div>
-                                    <span class="profileFollowNumber">35</span>
-                                    <span class="profileFollowType">Following</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="profileFollowers">
-                            <a href="#">
-                                <div>
-                                    <span class="profileFollowNumber">234</span>
-                                    <span class="profileFollowType">Followers</span>
-                                </div>
-                            </a>
+                        <div class="wtffollow">
+                            <div class="wtfusername">
+                                <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                                <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
+                            </div>
+                            <div class="wtfbutton">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="options" th:if="${isOwner}">
-                <a href="#"><div>Posts</div></a>
-                <a href="#"><div>Replies</div></a>
-                <a href="#"><div>Highlights</div></a>
-                <a href="#"><div>Media</div></a>
-                <a href="#"><div>Likes</div></a>
+            <div class="postContent" th:text="${post.content}"></div>
+            <div class="postData">
+                <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
+                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
+                <div class="postViews">19.1 K</div>
+                <div class="usernameRight">&nbsp;Views</div>
             </div>
-            <div class="options" th:if="${!isOwner}">
-                <a href="#"><div>Posts</div></a>
-                <a href="#"><div>Replies</div></a>
-                <a href="#"><div>Media</div></a>
-                <a href="#"><div>Likes</div></a>
+            <div class="postIcons2">
+                <i class="fa-regular fa-comment"></i>
+                <i class="fa-solid fa-retweet"></i>
+                <i class="fa-regular fa-heart"></i>
             </div>
-
-            <div class="posts" th:each="post : ${posts}">
-                <a th:href="@{/username/{id}(id=${post.id}, username=${user.username})}">
+            <div class="reply">
+                <div class="relevantmiddle">
+                    <div class="wtfprofile">
+                        <div class="wtfphoto">
+                            <img src="img/userPhoto.png">
+                        </div>
+                        <div class="wtffollow">
+                            <div class="replytext">
+                                <textarea id="postyourreply" rows="1" placeholder="Post your reply"></textarea>
+                            </div>
+                            <div class="wtfbutton"><button class="replybtn" type="submit">Reply</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="replies">
+                <a href="#">
                     <div class="post">
                         <div class="userPhotoMain">
-                            <img src="/static/img/userPhoto.png">
+                            <img src="img/userPhoto.png">
                         </div>
                         <div class="right">
                             <div class="username">
-                                <div class="usernameLeft" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                <div class="usernameRight" th:text="'@' + ${user.username}"></div>
+                                <div class="usernameLeft">Bartosz Wójcikiewicz</div>
+                                <div class="usernameRight">@Bartek</div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
+                                <div class="usernameRight">16 luty</div>
                             </div>
-                            <div class="content" th:text="${post.content}"></div>
+                            <div class="content">
+                                Tresc posta <br>
+                                Lorem ipsum dolor,
+                            </div>
                             <div class="postIcons">
                                 <i class="fa-regular fa-comment"></i>
                                 <i class="fa-solid fa-retweet"></i>
@@ -1221,36 +1181,34 @@
                 <div class="searchaside"><input type="text" id="searchtxt" placeholder="Search"></div>
             </div>
 
-            <div class="subscribe">
-                <div class="subscribetop">Subscribe to premium</div>
-                <p>Subscribe to unlock new features and if  <br>
-                    eligible, receive a share of ads revenue.</p>
-                <span><button class="subscribebtn" type="submit">Subscribe</button></span>
-            </div>
-
-            <div class="whotofollow">
-                <div class="wtftop">Who to follow</div>
-                <div th:each="user : ${randomUsers}">
-                    <div class="proposed">
-                        <a th:href="@{/{username}(username=${user.username})}">
-                            <div class="wtfprofile">
-                                <div class="wtfphoto">
-                                    <img th:src="@{/static/img/userPhoto.png}">
+            <div class="relevant">
+                <div class="relevantTop">Revelant people</div>
+                <a href="#">
+                    <div class="relevantmiddle">
+                        <div class="wtfprofile">
+                            <div class="wtfphoto">
+                                <img src="img/userPhoto.png">
+                            </div>
+                            <div class="wtffollow">
+                                <div class="wtfusername">
+                                    <div class="wtfusernameFLN">Bartosz Wójcikiewicz</div>
+                                    <div class="wtfusernameUN">@Bartek</div>
                                 </div>
-                                <div class="wtffollow">
-                                    <div class="wtfusername">
-                                        <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                        <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
-                                    </div>
-                                    <div class="wtfbutton">
-                                        <button class="followbtn" type="submit">Follow</button>
-                                    </div>
+                                <div class="wtfbutton">
+                                    <button class="followbtn" type="submit">Follow</button>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
-                </div>
-                <a href="#" class="showmore"><div>Show more</div></a>
+                    <div class="revelantbottom">
+                        Lorem ipsum dolor sit,
+                        amet consectetur adipisicing elit. Corrupti
+                        inventore sequi nam dolor officiis debitis sint
+                        autem. Quo impedit sequi at, alias iusto
+                        exercitationem veritatis, ipsa deleniti velit
+                        nemo recusandae!
+                    </div>
+                </a>
             </div>
 
             <div class="trends">
@@ -1292,7 +1250,6 @@
                 </div>
 
                 <a href="#" class="showmore"><div>Show more</div></a>
-
             </div>
 
             <footer>
