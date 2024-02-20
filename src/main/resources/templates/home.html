@@ -243,7 +243,7 @@
      margin-top: 25px;
  }
 
- #whatishappening
+ .whatishappening
  {
      width: 97%;
      font-size: 22px;
@@ -251,7 +251,7 @@
      resize: none;
  }
 
- #whatishappening:focus
+ .whatishappening:focus
  {
      border: none;
      outline: none;
@@ -1074,7 +1074,7 @@
             <a href="#">
                 <div class="profile">
                     <div class="profileLeft">
-                        <img src="/img/userPhoto.png">
+                        <img src="images/userPhoto.png">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
@@ -1102,7 +1102,7 @@
 
             <form th:action="@{/home/addPost}" method="post">
                 <div class="addPost">
-                    <div class="userPhoto"><a href="#"><img src="/img/userPhoto.png"></a></div>
+                    <div class="userPhoto"><a href="#"><img src="images/userPhoto.png"></a></div>
                     <div class="addPostRight">
                         <div class="happening">
                             <textarea class="whatishappening" rows="1" placeholder="What is happening?"
@@ -1128,7 +1128,7 @@
                 <a href="#">
                     <div class="post">
                         <div class="userPhotoMain">
-                            <img src="/static/img/userPhoto.png">
+                            <img src="images/userPhoto.png">
                         </div>
                         <div class="right">
                             <div class="username">
@@ -1147,6 +1147,7 @@
                     </div>
                 </a>
             </div>
+        </div>
     </main>
 
     <aside>
@@ -1170,7 +1171,7 @@
                             <a th:href="@{/{username}(username=${user.username})}">
                                 <div class="wtfprofile">
                                     <div class="wtfphoto">
-                                        <img th:src="@{/static/img/userPhoto.png}">
+                                        <img src="images/userPhoto.png">
                                     </div>
                                     <div class="wtffollow">
                                         <div class="wtfusername">
@@ -1246,7 +1247,7 @@
                     © 2024 X Corp.
                 </div>
             </footer>
-
+        </div>
     </aside>
 </div>
 </body>

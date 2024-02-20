@@ -243,7 +243,7 @@
             margin-top: 25px;
         }
 
-        #whatishappening
+        .whatishappening
         {
             width: 97%;
             font-size: 22px;
@@ -251,7 +251,7 @@
             resize: none;
         }
 
-        #whatishappening:focus
+        .whatishappening:focus
         {
             border: none;
             outline: none;
@@ -1002,7 +1002,7 @@
             padding: 10px
         }
 
-        #postyourreply
+        .postyourreply
         {
             width: 100%;
             font-size: 22px;
@@ -1010,7 +1010,7 @@
             resize: none;
         }
 
-        #postyourreply:focus
+        .postyourreply:focus
         {
             border: none;
             outline: none;
@@ -1065,7 +1065,7 @@
                 <li><a href="#"><i class="fa-regular fa-rectangle-list"></i>Lists</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-group"></i>Communities</a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i>Premium</a></li>
-                <li><a th:href="@{/{username}(username=${user.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
+                <li><a th:href="@{/{username}(username=${myUser.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
                 <li><a href="#"><i class="fa-solid fa-ellipsis"></i>More</a></li>
             </ul>
             <a href="#"><div class="postNav">Post</div></a>
@@ -1073,14 +1073,14 @@
             <a href="#">
                 <div class="profile">
                     <div class="profileLeft">
-                        <img src="/img/userPhoto.png">
+                        <img src="/images/userPhoto.png">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
-                            <div class="profileFLname" th:text="${user.firstName}"></div>
-                            <div class="profileFLname" th:text="${user.lastName}"></div>
+                            <div class="profileFLname" th:text="${myUser.firstName}"></div>
+                            <div class="profileFLname" th:text="${myUser.lastName}"></div>
                         </div>
-                        <div class="profileUname" th:text="'@' + ${user.username}"></div>
+                        <div class="profileUname" th:text="'@' + ${myUser.username}"></div>
                     </div>
                     <div class="profileDots">
                         <i class="fa-solid fa-ellipsis"></i>
@@ -1104,12 +1104,12 @@
                 <div class="relevantmiddle">
                     <div class="wtfprofile">
                         <div class="wtfphoto">
-                            <img src="img/userPhoto.png">
+                            <img src="/images/userPhoto.png">
                         </div>
                         <div class="wtffollow">
                             <div class="wtfusername">
-                                <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
+                                <div class="wtfusernameFLN" th:text="${post.user.firstName} + ' ' + ${post.user.lastName}"></div>
+                                <div class="wtfusernameUN" th:text="'@' + ${post.user.username}"></div>
                             </div>
                             <div class="wtfbutton">
                                 <i class="fa-solid fa-ellipsis"></i>
@@ -1130,38 +1130,43 @@
                 <i class="fa-solid fa-retweet"></i>
                 <i class="fa-regular fa-heart"></i>
             </div>
-            <div class="reply">
-                <div class="relevantmiddle">
-                    <div class="wtfprofile">
-                        <div class="wtfphoto">
-                            <img src="img/userPhoto.png">
-                        </div>
-                        <div class="wtffollow">
-                            <div class="replytext">
-                                <textarea id="postyourreply" rows="1" placeholder="Post your reply"></textarea>
+
+            <form th:action="@{'/' + ${myUser.username} + '/' + ${post.id}}" method="post">
+                <div class="reply">
+                    <div class="relevantmiddle">
+                        <div class="wtfprofile">
+                            <div class="wtfphoto">
+                                <img src="/images/userPhoto.png">
                             </div>
-                            <div class="wtfbutton"><button class="replybtn" type="submit">Reply</button></div>
+                            <div class="wtffollow">
+                                <div class="replytext">
+                                    <textarea class="postyourreply" rows="1" placeholder="Post your reply"
+                                    id="body" name="body" th:value="${body}"></textarea>
+                                </div>
+                                <div class="wtfbutton"><button class="replybtn" type="submit">Reply</button></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="replies">
-                <a href="#">
+            </form>
+
+
+
+
+            <div class="replies" th:each="comment : ${comment}">
+                <a th:href="@{'/' + ${user.username} + '/' + ${post.id}}">
                     <div class="post">
                         <div class="userPhotoMain">
-                            <img src="img/userPhoto.png">
+                            <img src="/images/userPhoto.png">
                         </div>
                         <div class="right">
                             <div class="username">
-                                <div class="usernameLeft">Bartosz Wójcikiewicz</div>
-                                <div class="usernameRight">@Bartek</div>
+                                <div class="usernameLeft" th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></div>
+                                <div class="usernameRight" th:text="'@' + ${comment.user.username}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                <div class="usernameRight">16 luty</div>
+                                <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
                             </div>
-                            <div class="content">
-                                Tresc posta <br>
-                                Lorem ipsum dolor,
-                            </div>
+                            <div class="content" th:text="${comment.body}"></div>
                             <div class="postIcons">
                                 <i class="fa-regular fa-comment"></i>
                                 <i class="fa-solid fa-retweet"></i>
@@ -1187,12 +1192,12 @@
                     <div class="relevantmiddle">
                         <div class="wtfprofile">
                             <div class="wtfphoto">
-                                <img src="img/userPhoto.png">
+                                <img src="/images/userPhoto.png">
                             </div>
                             <div class="wtffollow">
                                 <div class="wtfusername">
-                                    <div class="wtfusernameFLN">Bartosz Wójcikiewicz</div>
-                                    <div class="wtfusernameUN">@Bartek</div>
+                                    <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                                    <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
                                 </div>
                                 <div class="wtfbutton">
                                     <button class="followbtn" type="submit">Follow</button>
@@ -1268,7 +1273,7 @@
                     © 2024 X Corp.
                 </div>
             </footer>
-
+        </div>
     </aside>
 </div>
 </body>

@@ -243,7 +243,7 @@
             margin-top: 25px;
         }
 
-        #whatishappening
+        .whatishappening
         {
             width: 97%;
             font-size: 22px;
@@ -251,7 +251,7 @@
             resize: none;
         }
 
-        #whatishappening:focus
+        .whatishappening:focus
         {
             border: none;
             outline: none;
@@ -1051,9 +1051,7 @@
             text-align: justify;
         }
     </style>
-
 </head>
-
 <body>
 <div class="container">
     <nav>
@@ -1067,7 +1065,7 @@
                 <li><a href="#"><i class="fa-regular fa-rectangle-list"></i>Lists</a></li>
                 <li><a href="#"><i class="fa-solid fa-user-group"></i>Communities</a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i>Premium</a></li>
-                <li><a th:href="@{/{username}(username=${user.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
+                <li><a th:href="@{/{username}(username=${myUser.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
                 <li><a href="#"><i class="fa-solid fa-ellipsis"></i>More</a></li>
             </ul>
             <a href="#"><div class="postNav">Post</div></a>
@@ -1075,14 +1073,14 @@
             <a href="#">
                 <div class="profile">
                     <div class="profileLeft">
-                        <img src="/static/img/userPhoto.png">
+                        <img src="images/userPhoto.png">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
-                            <div class="profileFLname" th:text="${user.firstName}"></div>
-                            <div class="profileFLname" th:text="${user.lastName}"></div>
+                            <div class="profileFLname" th:text="${myUser.firstName}"></div>
+                            <div class="profileFLname" th:text="${myUser.lastName}"></div>
                         </div>
-                        <div class="profileUname" th:text="'@' + ${user.username}"></div>
+                        <div class="profileUname" th:text="'@' + ${myUser.username}"></div>
                     </div>
                     <div class="profileDots">
                         <i class="fa-solid fa-ellipsis"></i>
@@ -1094,7 +1092,6 @@
 
     <main>
         <div class="main">
-
             <div class="top">
                 <div class="topL">
                     <a onclick="window.history.back();"><i class="fa-solid fa-arrow-left"></i></a>
@@ -1105,10 +1102,9 @@
                 </div>
                 <div class="topR"></div>
             </div>
-
             <div class="profilemain">
                 <div class="background">
-                    <img src="/static/img/football.jpg" alt="background photo">
+                    <img src="images/football.jpg">
                 </div>
                 <div class="user">
                     <div class="profileOptions" th:if="${isOwner}">
@@ -1126,7 +1122,7 @@
                         <div class="profilefollowbtn" role="button">Follow</div>
                     </div>
                     <div class="profilePhoto">
-                        <img src="/static/img/userPhoto.png">
+                        <img src="images/userPhoto.png">
                     </div>
                     <div class="profileName">
                         <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
@@ -1189,10 +1185,10 @@
             </div>
 
             <div class="posts" th:each="post : ${posts}">
-                <a th:href="@{/username/{id}(id=${post.id}, username=${user.username})}">
+                <a th:href="@{'/' + ${user.username} + '/' + ${post.id}}">
                     <div class="post">
                         <div class="userPhotoMain">
-                            <img src="/static/img/userPhoto.png">
+                            <img src="images/userPhoto.png">
                         </div>
                         <div class="right">
                             <div class="username">
@@ -1235,7 +1231,7 @@
                         <a th:href="@{/{username}(username=${user.username})}">
                             <div class="wtfprofile">
                                 <div class="wtfphoto">
-                                    <img th:src="@{/static/img/userPhoto.png}">
+                                    <img src="images/userPhoto.png">
                                 </div>
                                 <div class="wtffollow">
                                     <div class="wtfusername">
@@ -1311,7 +1307,7 @@
                     © 2024 X Corp.
                 </div>
             </footer>
-
+        </div>
     </aside>
 </div>
 </body>
