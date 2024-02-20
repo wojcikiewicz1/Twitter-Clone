@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
 
 @Entity
@@ -21,13 +20,13 @@ public class Comment {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String body;
-    @NonNull
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    @NonNull
     @ManyToOne
+    @JoinColumn(name = "post_id")
     private Post post;
     @Column(name = "created_at")
     @CreationTimestamp

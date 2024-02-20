@@ -1,7 +1,5 @@
 package com.example.Twitter.Clone.AuthController;
 
-import com.example.Twitter.Clone.Follower.Follower;
-import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
@@ -12,12 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Controller

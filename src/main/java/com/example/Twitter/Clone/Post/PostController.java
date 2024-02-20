@@ -1,5 +1,7 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.Comment.Comment;
+import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,34 +22,39 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private CommentService commentService;
 
-    @GetMapping (path = "/{username}/{postId}")
-    public String getPostById (@PathVariable("postId") Long postId, @PathVariable("username") String username, Model model, Principal principal) {
 
-        User user = userService.findByUserName(principal.getName());
+    @GetMapping("/{username}/{postId:[\\d]+}")
+    public String getPostById(@PathVariable("username") String username, @PathVariable("postId") Long postId, Model model, Principal principal) {
+
+        User myUser = userService.findByUserName(principal.getName());
+        User user = userService.findByUserName(username);
         Post post = postService.getPostById(postId);
+        List<Comment> commentList = commentService.getCommentsByPostId(postId);
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
-        model.addAttribute("content", "");
+        model.addAttribute("myUser", myUser);
+        model.addAttribute("comment", commentList);
 
-        postService.getPostById(postId);
         return "post";
     }
+
 /**
 
+ @PostMapping (path = " / posts / share ")
+ public ResponseEntity sharePost(@RequestHeader("username") String username, @RequestBody Long postId) {
+ postService.sharePost(username, postId);
+ return ResponseEntity.ok("Post shared");
+ }
 
-    @PostMapping (path = "/posts/share")
-    public ResponseEntity sharePost(@RequestHeader("username") String username, @RequestBody Long postId) {
-        postService.sharePost(username, postId);
-        return ResponseEntity.ok("Post shared");
-    }
+ @DeleteMapping (path = " / posts / { postId } ")
+ public ResponseEntity deletePost (@PathVariable("postId") Long postId) {
+ postService.deletePost(postId);
+ return ResponseEntity.ok("Post deleted");
+ }
+ **/
 
-    @DeleteMapping (path = "/posts/{postId}")
-    public ResponseEntity deletePost (@PathVariable("postId") Long postId) {
-        postService.deletePost(postId);
-        return ResponseEntity.ok("Post deleted");
-    }
-
-    **/
 }

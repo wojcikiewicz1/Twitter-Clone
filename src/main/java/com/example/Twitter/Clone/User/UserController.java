@@ -30,6 +30,7 @@ public class UserController {
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
         String currentUsername = principal.getName();
+        User myUser = userService.findByUserName(principal.getName());
         boolean isOwner = username.equals(principal.getName());
         model.addAttribute("isOwner", isOwner);
 
@@ -39,18 +40,18 @@ public class UserController {
 
         if (currentUsername.equals(username)) {
             User user = userService.findByUserName(currentUsername);
-            model.addAttribute("user", user);
-            postService.getPostsByUsername(currentUsername);
             List<Post> posts = postService.getPostsByUsername(currentUsername);
+            model.addAttribute("user", user);
             model.addAttribute("posts", posts);
+            model.addAttribute("myUser", myUser);
             return "profile";
         } else {
             User user = userService.findByUserName(username);
             if (user != null) {
-                model.addAttribute("user", user);
-                postService.getPostsByUsername(username);
                 List<Post> posts = postService.getPostsByUsername(username);
+                model.addAttribute("user", user);
                 model.addAttribute("posts", posts);
+                model.addAttribute("myUser", myUser);
                 return "profile";
             } else {
                 return "redirect:/error";
