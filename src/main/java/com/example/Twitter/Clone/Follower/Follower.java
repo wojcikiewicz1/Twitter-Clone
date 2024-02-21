@@ -6,7 +6,6 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
 
 @Entity
@@ -17,12 +16,12 @@ public class Follower {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NonNull
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @NonNull
     @ManyToOne
+    @JoinColumn(name = "following_id")
     private User following;
 
 }

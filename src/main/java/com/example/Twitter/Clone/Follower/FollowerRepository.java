@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface FollowerRepository extends JpaRepository <Follower, Long> {
 
-    @Query("SELECT s FROM Follower s WHERE s.user.id = :id")
-    List<Follower> findFollowingsByUserId (Long id);
+    @Query("SELECT s FROM Follower s WHERE s.user.username = :username")
+    List<Follower> findFollowingsByUsername (String username);
 }

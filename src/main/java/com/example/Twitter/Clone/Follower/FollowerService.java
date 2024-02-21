@@ -6,6 +6,7 @@ import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,19 +16,21 @@ public class FollowerService {
     @Autowired
     private UserService userService;
     @Autowired
-    FollowerRepository followerRepository;
+    private FollowerRepository followerRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    public List<Follower> getFollowingsByUserId(Long id) {
-        return followerRepository.findFollowingsByUserId(id);
+    public List<Follower> findFollowingsByUsername(String username) {
+        return followerRepository.findFollowingsByUsername(username);
     }
 
-    public void followUser(String username, Long id) {
-        User user = userService.findByUserName(username);
-        Optional<User> followingUser = userRepository.findById(id);
+    public void followUser(Principal principal, String username) {
+        User user = userService.findByUserName(principal.getName());
+        User followingUser = userService.findByUserName(username);
 
-        Follower follower = new Follower(user, followingUser.get());
+        Follower follower = new Follower();
+        follower.setUser(user);
+        follower.setFollowing(followingUser);
         followerRepository.save(follower);
     }
 

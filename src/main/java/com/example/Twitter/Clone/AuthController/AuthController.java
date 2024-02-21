@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.AuthController;
 
+import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
@@ -26,6 +27,9 @@ public class AuthController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private FollowerService followerService;
 
     @GetMapping("/index")
     public String index() {
@@ -79,13 +83,8 @@ public class AuthController {
         model.addAttribute("randomUsers", randomUsers);
 
         postService.getPostsByFollowings(principal.getName());
+        followerService.findFollowingsByUsername(principal.getName());
         return "home";
-    }
-
-    @PostMapping ("/home/addPost")
-    public String addPost(@ModelAttribute("content") String content, Principal principal) {
-        postService.addNewPost(principal, content);
-        return "redirect:/home";
     }
 
     @GetMapping ("/logout")
