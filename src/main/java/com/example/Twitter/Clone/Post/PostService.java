@@ -1,5 +1,7 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.Comment.CommentRepository;
+import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
@@ -24,6 +26,9 @@ public class PostService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     public Post getPostById(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalStateException("Post with id " + postId + " does not exist"));
@@ -46,6 +51,16 @@ public class PostService {
         post.setContent(content);
         postRepository.save(post);
     }
+
+    public List<Post> getPostsWithCommentsCount() {
+        List<Post> posts = postRepository.findAll();
+        for (Post post : posts) {
+            int count = commentRepository.countByPostId(post.getId());
+            post.setCommentsCount(count);
+        }
+        return posts;
+    }
+
 
     /**
     public void sharePost(Principal principal, Long postId) {

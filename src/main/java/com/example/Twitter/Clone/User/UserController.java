@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.User;
 
+import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,38 +27,47 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
 
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
         String currentUsername = principal.getName();
-        User myUser = userService.findByUserName(principal.getName());
-        boolean isOwner = username.equals(principal.getName());
+        User myUser = userService.findByUserName(currentUsername);
+        boolean isOwner = username.equals(currentUsername);
         model.addAttribute("isOwner", isOwner);
 
-
-        List<User> randomUsers = userService.findRandomUsers(currentUsername, 3);
-        model.addAttribute("randomUsers", randomUsers);
-
-        if (currentUsername.equals(username)) {
-            User user = userService.findByUserName(currentUsername);
-            List<Post> posts = postService.getPostsByUsername(currentUsername);
-            model.addAttribute("user", user);
-            model.addAttribute("posts", posts);
-            model.addAttribute("myUser", myUser);
-            return "profile";
+        List<Post> posts;
+        if (isOwner) {
+            posts = postService.getPostsByUsername(currentUsername);
         } else {
             User user = userService.findByUserName(username);
             if (user != null) {
-                List<Post> posts = postService.getPostsByUsername(username);
-                model.addAttribute("user", user);
-                model.addAttribute("posts", posts);
-                model.addAttribute("myUser", myUser);
-                return "profile";
+                posts = postService.getPostsByUsername(username);
             } else {
                 return "redirect:/error";
             }
         }
+
+        for (Post post : posts) {
+            int commentsCount = commentRepository.countByPostId(post.getId());
+            post.setCommentsCount(commentsCount);
+        }
+
+        model.addAttribute("posts", posts);
+
+        List<User> randomUsers = userService.findRandomUsers(currentUsername, 3);
+        model.addAttribute("randomUsers", randomUsers);
+
+        User user = userService.findByUserName(username);
+        model.addAttribute("user", user);
+        model.addAttribute("myUser", myUser);
+
+        return "profile";
     }
+}
+
 /**
     @GetMapping("updateUser")
     public String updateUSer (Model model, Principal principal) {
@@ -133,4 +143,4 @@ public class UserController {
     }
 
 **/
-}
+

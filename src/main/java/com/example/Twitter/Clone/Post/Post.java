@@ -30,5 +30,7 @@ public class Post {
     @Column(name = "created_at")
     @CreationTimestamp
     private Date dateTime;
+    @Transient
+    private int commentsCount;
 
 }

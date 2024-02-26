@@ -1,6 +1,8 @@
 package com.example.Twitter.Clone.AuthController;
 
+import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
+import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
@@ -30,6 +32,9 @@ public class AuthController {
 
     @Autowired
     private FollowerService followerService;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping("/index")
     public String index() {
@@ -73,17 +78,21 @@ public class AuthController {
 
     @GetMapping ("/home")
     public String getAllPostsByFollowings (Model model, Principal principal) {
+        String principalUsername = principal.getName();
         User user = userService.findByUserName(principal.getName());
 
         model.addAttribute("user", user);
         model.addAttribute("content", "");
 
-        String principalUsername = principal.getName();
         List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
         model.addAttribute("randomUsers", randomUsers);
 
-        postService.getPostsByFollowings(principal.getName());
-        followerService.findFollowingsByUsername(principal.getName());
+        List<Post> posts = postService.getPostsByFollowings(principalUsername);
+        for (Post post : posts) {
+            int commentsCount = commentRepository.countByPostId(post.getId());
+            post.setCommentsCount(commentsCount);
+        }
+        model.addAttribute("posts", posts);
         return "home";
     }
 

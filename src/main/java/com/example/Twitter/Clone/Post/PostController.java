@@ -35,9 +35,12 @@ public class PostController {
         User user = userService.findByUserName(username);
         Post post = postService.getPostById(postId);
         List<Comment> commentList = commentService.getCommentsByPostId(postId);
+        List<Post> posts = postService.getPostsWithCommentsCount();
+
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
+        model.addAttribute("posts", posts);
         model.addAttribute("myUser", myUser);
         model.addAttribute("comment", commentList);
 
