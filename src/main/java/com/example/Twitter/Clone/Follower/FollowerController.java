@@ -21,7 +21,7 @@ public class FollowerController {
     }
 
     @DeleteMapping ("/home/followUser")
-    public String unfollowUser (@PathVariable("followId")Long id) {
+    public String unfollowUser (@PathVariable("username")Long id) {
         followerService.unfollowUser(id);
         return "redirect:/home";
     }
