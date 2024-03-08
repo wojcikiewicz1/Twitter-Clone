@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/7bdca9e143.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -77,7 +76,8 @@
                             <i class="fa-regular fa-bell"></i>
                             <span class="tooltip">Notify</span>
                         </div>
-                        <div class="profilefollowbtn" role="button">Follow</div>
+                        <div th:if="${isFollowing}" class="unfollowButton btntofollow " th:data-username="${user.username}">Unfollow</div>
+                        <div th:unless="${isFollowing}" class="followButton btntofollow " th:data-username="${user.username}">Follow</div>
                     </div>
                     <div class="profilePhoto">
                         <img src="images/userPhoto.png">
@@ -197,7 +197,7 @@
                                         <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
                                     </div>
                                     <div class="wtfbutton">
-                                        <button class="followbtn" type="submit">Follow</button>
+                                        <button class="followbtn" data-username="${user.username}">Follow</button>
                                     </div>
                                 </div>
                             </div>
@@ -268,5 +268,6 @@
         </div>
     </aside>
 </div>
+<script src="/javascript/follow.js"></script>
 </body>
 </html>

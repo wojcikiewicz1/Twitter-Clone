@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home / Twitter</title>
-    <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/7bdca9e143.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -136,7 +135,7 @@
                                             <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
                                         </div>
                                         <div class="wtfbutton">
-                                            <button class="followbtn" type="submit">Follow</button>
+                                            <button class="followbtn" data-username="${user.username}">Follow</button>
                                         </div>
                                     </div>
                                 </div>
@@ -207,5 +206,6 @@
         </div>
     </aside>
 </div>
+<script src="/javascript/follow.js"></script>
 </body>
 </html>
