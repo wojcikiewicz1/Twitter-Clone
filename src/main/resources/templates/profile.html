@@ -55,7 +55,10 @@
                 </div>
                 <div class="topM">
                     <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                    <div class="topMposts">134M posts</div>
+                    <div class="topMposts">
+                        <span class="profileFollowNumber" th:text="${numberOfPosts}"></span>
+                        <span class="profileFollowType">posts</span>
+                    </div>
                 </div>
                 <div class="topR"></div>
             </div>
@@ -111,7 +114,7 @@
                         <div class="profileFollowing">
                             <a href="#">
                                 <div>
-                                    <span class="profileFollowNumber">35</span>
+                                    <span class="profileFollowNumber" th:text="${following}"></span>
                                     <span class="profileFollowType">Following</span>
                                 </div>
                             </a>
@@ -119,7 +122,7 @@
                         <div class="profileFollowers">
                             <a href="#">
                                 <div>
-                                    <span class="profileFollowNumber">234</span>
+                                    <span class="profileFollowNumber" th:text="${followers}"></span>
                                     <span class="profileFollowType">Followers</span>
                                 </div>
                             </a>
