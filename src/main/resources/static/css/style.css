@@ -352,7 +352,7 @@ a:hover .post
 }
 
 .postIcons {
-    color: #1DA1F2;
+    color: #536471;
     display: flex;
     justify-content: space-around;
     padding-top: 10px;
@@ -982,7 +982,7 @@ aside
 
 .postIcons2
 {
-    color: #929292;
+    color: #536471;
     display: flex;
     justify-content: space-around;
     border-top: 1px solid #eff3f4;
@@ -990,6 +990,11 @@ aside
     font-size: 20px;
     padding: 10px 0;
     margin: 10px 0;
+}
+
+.postIcons2Numbers
+{
+    font-size: 13px;
 }
 
 .reply
