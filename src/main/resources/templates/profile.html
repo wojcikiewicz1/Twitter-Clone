@@ -56,8 +56,7 @@
                 <div class="topM">
                     <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
                     <div class="topMposts">
-                        <span class="profileFollowNumber" th:text="${numberOfPosts}"></span>
-                        <span class="profileFollowType">posts</span>
+                        <span class="profileFollowNumber" th:text="${numberOfPosts} + (${numberOfPosts} == 1 ? ' Post' : ' Posts')"></span>
                     </div>
                 </div>
                 <div class="topR"></div>
@@ -160,9 +159,9 @@
                             </div>
                             <div class="content" th:text="${post.content}"></div>
                             <div class="postIcons">
-                                <i class="fa-regular fa-comment"></i><span th:text="${post.commentsCount}"></span>
-                                <i class="fa-solid fa-retweet"></i>
-                                <i class="fa-regular fa-heart"></i>
+                                <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
+                                <div><i class="fa-solid fa-retweet"></i></div>
+                                <div><i class="fa-regular fa-heart"></i></div>
                             </div>
                         </div>
                     </div>
