@@ -1,6 +1,7 @@
 package com.example.Twitter.Clone.Follower;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +15,24 @@ public class FollowerController {
     @Autowired
     private FollowerService followerService;
 
-    @PostMapping ("/home/followUser")
-    public String followUser(Principal principal, @ModelAttribute("username") String username) {
-        followerService.followUser(principal, username);
-        return "redirect:/home";
+    @PostMapping("/api/follow")
+    public ResponseEntity<?> followUser(Principal principal, @RequestParam("username") String username) {
+        try {
+            followerService.followUser(principal, username);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to follow user: " + username);
+        }
     }
 
-    @DeleteMapping ("/home/followUser")
-    public String unfollowUser (@PathVariable("username")Long id) {
-        followerService.unfollowUser(id);
-        return "redirect:/home";
+    @PostMapping("/api/unfollow")
+    public ResponseEntity<?> unfollowUser (Principal principal, @RequestParam("username") String username) {
+        try {
+            followerService.unfollowUser(principal, username);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to unfollow user: " + username);
+        }
     }
 
 }

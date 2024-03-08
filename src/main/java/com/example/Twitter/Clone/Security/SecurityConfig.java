@@ -34,9 +34,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
-                                .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                                 .requestMatchers("/home/**").authenticated()
                                 .requestMatchers("/{username}/**").authenticated()
+                                .requestMatchers("/api/follow", "/api/unfollow").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

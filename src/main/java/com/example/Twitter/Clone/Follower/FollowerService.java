@@ -15,30 +15,39 @@ public class FollowerService {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private FollowerRepository followerRepository;
-    @Autowired
-    private UserRepository userRepository;
+
 
     public List<Follower> findFollowingsByUsername(String username) {
         return followerRepository.findFollowingsByUsername(username);
     }
 
     public void followUser(Principal principal, String username) {
-        User user = userService.findByUserName(principal.getName());
-        User followingUser = userService.findByUserName(username);
+        User MyUser = userService.findByUserName(principal.getName());
+        User userToFollow = userService.findByUserName(username);
 
         Follower follower = new Follower();
-        follower.setUser(user);
-        follower.setFollowing(followingUser);
+        follower.setUser(MyUser);
+        follower.setUserToFollow(userToFollow);
         followerRepository.save(follower);
     }
 
-    public void unfollowUser (Long id) {
-        boolean exists = followerRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("following with id " + id + " does not exists");
-        }
-        followerRepository.deleteById(id);
+    public void unfollowUser (Principal principal, String username) {
+        User MyUser = userService.findByUserName(principal.getName());
+        User userToUnfollow = userService.findByUserName(username);
+
+        Follower follower = followerRepository.findByUserAndUserToFollow(MyUser, userToUnfollow);
+
+        followerRepository.delete(follower);
+    }
+
+    public boolean isFollowing(Principal principal, String username) {
+        User MyUser = userService.findByUserName(principal.getName());
+        User userToCheck = userService.findByUserName(username);
+
+        Follower follower = followerRepository.findByUserAndUserToFollow(MyUser, userToCheck);
+        return follower != null;
     }
 }

@@ -17,7 +17,7 @@ public interface PostRepository extends JpaRepository <Post, Long> {
     @Query("SELECT p " +
             "FROM Post p " +
             "INNER JOIN Follower f " +
-            "ON p.user.id = f.following.id " +
+            "ON p.user.id = f.userToFollow.id " +
             "WHERE f.user.username = :username " +
             "ORDER BY p.dateTime DESC")
     List<Post> findPostsByFollowings (String username);
