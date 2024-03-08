@@ -77,7 +77,7 @@
             </div>
             <div class="postContent" th:text="${comment.body}"></div>
             <div class="postData">
-                <div class="usernameRight" th:text="${comment.getDateTime()}"></div>
+                <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                 <div class="postViews">19.1 K</div>
                 <div class="usernameRight">&nbsp;Views</div>
@@ -121,7 +121,7 @@
                                 <div class="usernameLeft" th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></div>
                                 <div class="usernameRight" th:text="'@' + ${comment.user.username}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                <div class="usernameRight" th:text="${comment.getDateTime()}"></div>
+                                <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
                             </div>
                             <div class="content" th:text="${comment.body}"></div>
                             <div class="postIcons">
