@@ -29,8 +29,15 @@ public class CommentService {
 
 
     public List<Comment> getCommentsByPostId (Long id) {
+
         return commentRepository.findCommentsByPostId(id);
     }
+
+    public List<Comment> getResponsesByCommentId (Long id) {
+        return commentRepository.findResponsesByCommentId(id);
+    }
+    public Comment getCommentById (Long id) {
+        return commentRepository.getCommentById(id);}
 
 
     public void AddCommentToPost (Principal principal, Long postId, String body) {
@@ -42,6 +49,27 @@ public class CommentService {
         comment.setBody(body);
         commentRepository.save(comment);
     }
+
+    public void AddCommentToComment (Principal principal, Long commentId, String body) {
+        User myUser = userService.findByUserName(principal.getName());
+        Comment comment1 = commentRepository.getCommentById(commentId);
+        Comment comment = new Comment();
+        comment.setUser(myUser);
+        comment.setComment(comment1);
+        comment.setBody(body);
+        commentRepository.save(comment);
+    }
+
+    public List<Comment> getCommentsWithCommentsCount() {
+        List<Comment> comments = commentRepository.findAll();
+        for (Comment comment : comments) {
+            int count = commentRepository.countByCommentId(comment.getId());
+            comment.setCommentsCount(count);
+        }
+        return comments;
+    }
+
+
 
     /**
     public void DeleteComment (Long commentId) {

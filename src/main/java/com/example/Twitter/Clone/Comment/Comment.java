@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,7 +29,12 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
     @Column(name = "created_at")
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private Date dateTime;
+    @Transient
+    private int commentsCount;
 }
