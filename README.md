@@ -15,6 +15,7 @@ Simple Twitter clone app.
 - JavaScript 
 - HTML
 - CSS
+- Thymeleaf
 - Bootstrap
 
 **Database:** 
