@@ -36,13 +36,14 @@ public class PostController {
         Post post = postService.getPostById(postId);
         List<Comment> commentList = commentService.getCommentsByPostId(postId);
         List<Post> posts = postService.getPostsWithCommentsCount();
-
+        List<Comment> comments = commentService.getCommentsWithCommentsCount();
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("posts", posts);
         model.addAttribute("myUser", myUser);
         model.addAttribute("comment", commentList);
+        model.addAttribute("comments", comments);
 
         return "post";
     }

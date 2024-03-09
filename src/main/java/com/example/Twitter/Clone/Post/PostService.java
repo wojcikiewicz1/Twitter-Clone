@@ -30,8 +30,7 @@ public class PostService {
     private CommentRepository commentRepository;
 
     public Post getPostById(Long postId) {
-        return postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalStateException("Post with id " + postId + " does not exist"));
+        return postRepository.getPostById(postId);
     }
 
     public List<Post> getPostsByUsername(String username) {
@@ -55,7 +54,7 @@ public class PostService {
     public List<Post> getPostsWithCommentsCount() {
         List<Post> posts = postRepository.findAll();
         for (Post post : posts) {
-            int count = commentRepository.countByPostId(post.getId());
+            int count = postRepository.countByPostId(post.getId());
             post.setCommentsCount(count);
         }
         return posts;
