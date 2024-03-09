@@ -3,6 +3,7 @@ package com.example.Twitter.Clone.AuthController;
 import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Post.Post;
+import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
@@ -35,6 +36,9 @@ public class AuthController {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @GetMapping("/index")
     public String index() {
@@ -77,11 +81,14 @@ public class AuthController {
     }
 
     @GetMapping ("/home")
-    public String getAllPostsByFollowings (Model model, Principal principal) {
+    public String getAllPostsByFollowings (Model model, Principal principal, String username) {
         String principalUsername = principal.getName();
-        User user = userService.findByUserName(principal.getName());
+        User myUser = userService.findByUserName(principal.getName());
 
+
+        User user = userService.findByUserName(username);
         model.addAttribute("user", user);
+        model.addAttribute("myUser", myUser);
         model.addAttribute("content", "");
 
         List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
@@ -89,7 +96,7 @@ public class AuthController {
 
         List<Post> posts = postService.getPostsByFollowings(principalUsername);
         for (Post post : posts) {
-            int commentsCount = commentRepository.countByPostId(post.getId());
+            int commentsCount = postRepository.countByPostId(post.getId());
             post.setCommentsCount(commentsCount);
         }
         model.addAttribute("posts", posts);
