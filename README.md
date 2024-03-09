@@ -11,7 +11,7 @@ Simple Twitter clone app.
 - Spring Security 
 - Lombok
 
-**Backend:** 
+**Frontend:** 
 - JavaScript 
 - HTML
 - CSS
