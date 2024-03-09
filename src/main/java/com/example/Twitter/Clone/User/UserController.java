@@ -1,8 +1,10 @@
 package com.example.Twitter.Clone.User;
 
 import com.example.Twitter.Clone.Comment.CommentRepository;
+import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Post.Post;
+import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,12 @@ public class UserController {
     @Autowired
     private FollowerService followerService;
 
+    @Autowired
+    private FollowerRepository followerRepository;
+
+    @Autowired
+    private PostRepository postRepository;
+
 
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
@@ -52,7 +60,7 @@ public class UserController {
         }
 
         for (Post post : posts) {
-            int commentsCount = commentRepository.countByPostId(post.getId());
+            int commentsCount = postRepository.countByPostId(post.getId());
             post.setCommentsCount(commentsCount);
         }
 
@@ -67,6 +75,15 @@ public class UserController {
 
         boolean isFollowing = followerService.isFollowing(principal, username);
         model.addAttribute("isFollowing", isFollowing);
+
+        int followers = followerRepository.followers(user.getId());
+        int following = followerRepository.following(user.getId());
+
+        model.addAttribute("following", following);
+        model.addAttribute("followers", followers);
+
+        int numberOfPosts = postRepository.numberOfPosts(user.getId());
+        model.addAttribute("numberOfPosts", numberOfPosts);
 
         return "profile";
     }
