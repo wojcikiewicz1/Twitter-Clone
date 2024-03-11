@@ -7,15 +7,17 @@ Simple Twitter clone app.
 **Backend:** 
 - Spring Boot 
 - Spring Web 
-- Spring Data 
+- Spring Data
+- Spring Security 
 - Lombok
+
+**Frontend:** 
+- JavaScript 
+- HTML
+- CSS
+- Thymeleaf
+- Bootstrap
 
 **Database:** 
 - MySQL
 
-**Other:** 
-- Postman
-
-# Installation
-
-Before starting the app, remember to fill database username and password in application.properties file.
