@@ -515,7 +515,7 @@ aside
     color: #536471;
 }
 
-.followbtn
+.followBtn
 {
     background-color: #000;
     color: white;
@@ -524,6 +524,31 @@ aside
     font-size: 14px;
     font-weight: 600;
     padding: 10px;
+}
+
+.unfollowBtn
+{
+    background-color: #ffffff;
+    color: black;
+    border-radius: 50px;
+    border: 1px solid #cfd9de;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.followBtn:hover
+{
+    cursor: pointer;
+    background-color: #333333;
+}
+
+.unfollowBtn:hover
+{
+    cursor: pointer;
+    background-color: #ff8c73;
+    color: red;
+    border: 1px solid red;
 }
 
 .showmore

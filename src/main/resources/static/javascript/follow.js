@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll('.btntofollow').forEach(button => {
+    document.querySelectorAll('.js-followToggle').forEach(button => {
         button.addEventListener('click', function(e) {
+            e.preventDefault();
+
             const username = this.dataset.username;
-            const isFollowing = this.classList.contains('unfollowButton');
+            const isFollowing = this.classList.contains('unfollowButton') || this.classList.contains('unfollowBtn');
             const url = `/api/${isFollowing ? 'unfollow' : 'follow'}`;
             const headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -13,23 +15,32 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: headers,
                 body: `username=${username}`,
                 credentials: 'include'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        if (isFollowing) {
-                            this.textContent = 'Follow';
+            }).then(response => {
+                if (response.ok) {
+                    if (isFollowing) {
+                        this.textContent = 'Follow';
+                        if (this.classList.contains('unfollowBtn')) {
+                            this.classList.remove('unfollowBtn');
+                            this.classList.add('followBtn');
+                        } else if (this.classList.contains('unfollowButton')) {
                             this.classList.remove('unfollowButton');
                             this.classList.add('followButton');
-                        } else {
-                            this.textContent = 'Unfollow';
-                            this.classList.add('unfollowButton');
-                            this.classList.remove('followButton');
                         }
-                        updateButtonStyles(this);
                     } else {
-                        throw new Error('Action failed');
+                        this.textContent = 'Unfollow';
+                        if (this.classList.contains('followBtn')) {
+                            this.classList.remove('followBtn');
+                            this.classList.add('unfollowBtn');
+                        } else if (this.classList.contains('followButton')) {
+                            this.classList.remove('followButton');
+                            this.classList.add('unfollowButton');
+                        }
                     }
-                })
+                    updateButtonStyles(this);
+                } else {
+                    throw new Error('Action failed');
+                }
+            })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('Action failed');
@@ -41,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function updateButtonStyles(button) {
     button.style = '';
 
-    if (button.classList.contains('followButton')) {
+    if (button.classList.contains('followButton') || button.classList.contains('followBtn')) {
         button.onmouseover = function() {
             this.style.cursor = 'pointer';
             this.style.backgroundColor = '#333333';
@@ -49,7 +60,9 @@ function updateButtonStyles(button) {
         button.onmouseout = function() {
             this.style.backgroundColor = '';
         };
-    } else if (button.classList.contains('unfollowButton')) {
+    }
+
+    else if (button.classList.contains('unfollowButton') || button.classList.contains('unfollowBtn')) {
         button.onmouseover = function() {
             this.style.cursor = 'pointer';
             this.style.backgroundColor = '#ff8c73';
