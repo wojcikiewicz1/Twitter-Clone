@@ -20,13 +20,12 @@ document.addEventListener("DOMContentLoaded", function() {
                             this.textContent = 'Follow';
                             this.classList.remove('unfollowButton');
                             this.classList.add('followButton');
-                            updateButtonStyles(this);
                         } else {
                             this.textContent = 'Unfollow';
                             this.classList.add('unfollowButton');
                             this.classList.remove('followButton');
-                            updateButtonStyles(this);
                         }
+                        updateButtonStyles(this);
                     } else {
                         throw new Error('Action failed');
                     }
