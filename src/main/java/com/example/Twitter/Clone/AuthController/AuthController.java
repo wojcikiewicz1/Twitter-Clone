@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AuthController {
@@ -84,15 +86,10 @@ public class AuthController {
     public String getAllPostsByFollowings (Model model, Principal principal, String username) {
         String principalUsername = principal.getName();
         User myUser = userService.findByUserName(principal.getName());
-
-
         User user = userService.findByUserName(username);
         model.addAttribute("user", user);
         model.addAttribute("myUser", myUser);
         model.addAttribute("content", "");
-
-        List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
-        model.addAttribute("randomUsers", randomUsers);
 
         List<Post> posts = postService.getPostsByFollowings(principalUsername);
         for (Post post : posts) {
@@ -100,6 +97,16 @@ public class AuthController {
             post.setCommentsCount(commentsCount);
         }
         model.addAttribute("posts", posts);
+
+        List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
+        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        for (User randomUser : randomUsers) {
+            boolean isFollowing = followerService.isFollowing(principal, randomUser.getUsername());
+            isFollowingMap.put(randomUser.getUsername(), isFollowing);
+        }
+        model.addAttribute("randomUsers", randomUsers);
+        model.addAttribute("isFollowingMap", isFollowingMap);
+
         return "home";
     }
 

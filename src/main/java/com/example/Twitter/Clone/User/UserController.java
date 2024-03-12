@@ -15,7 +15,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -42,14 +44,14 @@ public class UserController {
 
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
-        String currentUsername = principal.getName();
-        User myUser = userService.findByUserName(currentUsername);
-        boolean isOwner = username.equals(currentUsername);
+        String principalUsername = principal.getName();
+        User myUser = userService.findByUserName(principalUsername);
+        boolean isOwner = username.equals(principalUsername);
         model.addAttribute("isOwner", isOwner);
 
         List<Post> posts;
         if (isOwner) {
-            posts = postService.getPostsByUsername(currentUsername);
+            posts = postService.getPostsByUsername(principalUsername);
         } else {
             User user = userService.findByUserName(username);
             if (user != null) {
@@ -63,27 +65,31 @@ public class UserController {
             int commentsCount = postRepository.countByPostId(post.getId());
             post.setCommentsCount(commentsCount);
         }
-
         model.addAttribute("posts", posts);
-
-        List<User> randomUsers = userService.findRandomUsers(currentUsername, 3);
-        model.addAttribute("randomUsers", randomUsers);
 
         User user = userService.findByUserName(username);
         model.addAttribute("user", user);
         model.addAttribute("myUser", myUser);
 
-        boolean isFollowing = followerService.isFollowing(principal, username);
-        model.addAttribute("isFollowing", isFollowing);
+        boolean isFollowingMain = followerService.isFollowing(principal, username);
+        model.addAttribute("isFollowingMain", isFollowingMain);
 
         int followers = followerRepository.followers(user.getId());
         int following = followerRepository.following(user.getId());
-
         model.addAttribute("following", following);
         model.addAttribute("followers", followers);
 
         int numberOfPosts = postRepository.numberOfPosts(user.getId());
         model.addAttribute("numberOfPosts", numberOfPosts);
+
+        List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
+        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        for (User randomUser : randomUsers) {
+            boolean isFollowing = followerService.isFollowing(principal, randomUser.getUsername());
+            isFollowingMap.put(randomUser.getUsername(), isFollowing);
+        }
+        model.addAttribute("randomUsers", randomUsers);
+        model.addAttribute("isFollowingMap", isFollowingMap);
 
         return "profile";
     }
