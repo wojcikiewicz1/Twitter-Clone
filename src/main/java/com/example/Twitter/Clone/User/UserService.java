@@ -48,9 +48,9 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> findRandomUsers(String principalUsername, int number) {
+    public List<User> findRandomUsers(String principalUsername, String currentProfileUsername, int number) {
         List<User> allUsers = userRepository.findAll();
-        allUsers.removeIf(user -> user.getUsername().equals(principalUsername));
+        allUsers.removeIf(user -> user.getUsername().equals(principalUsername) || user.getUsername().equals(currentProfileUsername));
 
         if (allUsers.size() <= number) {
             return allUsers;

@@ -1,6 +1,5 @@
 package com.example.Twitter.Clone.AuthController;
 
-import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
@@ -35,9 +34,6 @@ public class AuthController {
 
     @Autowired
     private FollowerService followerService;
-
-    @Autowired
-    private CommentRepository commentRepository;
 
     @Autowired
     private PostRepository postRepository;
@@ -98,14 +94,7 @@ public class AuthController {
         }
         model.addAttribute("posts", posts);
 
-        List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
-        Map<String, Boolean> isFollowingMap = new HashMap<>();
-        for (User randomUser : randomUsers) {
-            boolean isFollowing = followerService.isFollowing(principal, randomUser.getUsername());
-            isFollowingMap.put(randomUser.getUsername(), isFollowing);
-        }
-        model.addAttribute("randomUsers", randomUsers);
-        model.addAttribute("isFollowingMap", isFollowingMap);
+        randomUsers(model, principal, username, principalUsername, userService, followerService);
 
         return "home";
     }
@@ -113,5 +102,18 @@ public class AuthController {
     @GetMapping ("/logout")
     public String logout() {
         return "logout";
+    }
+
+
+
+    public static void randomUsers(Model model, Principal principal, String username, String principalUsername, UserService userService, FollowerService followerService) {
+        List<User> randomUsers = userService.findRandomUsers(principalUsername,username, 3);
+        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        for (User randomUser : randomUsers) {
+            boolean isFollowing = followerService.isFollowing(principal, randomUser.getUsername());
+            isFollowingMap.put(randomUser.getUsername(), isFollowing);
+        }
+        model.addAttribute("randomUsers", randomUsers);
+        model.addAttribute("isFollowingMap", isFollowingMap);
     }
 }

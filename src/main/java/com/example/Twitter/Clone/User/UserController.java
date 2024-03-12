@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.User;
 
+import com.example.Twitter.Clone.AuthController.AuthController;
 import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
@@ -7,18 +8,13 @@ import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -28,9 +24,6 @@ public class UserController {
 
     @Autowired
     private PostService postService;
-
-    @Autowired
-    private CommentRepository commentRepository;
 
     @Autowired
     private FollowerService followerService;
@@ -82,14 +75,7 @@ public class UserController {
         int numberOfPosts = postRepository.numberOfPosts(user.getId());
         model.addAttribute("numberOfPosts", numberOfPosts);
 
-        List<User> randomUsers = userService.findRandomUsers(principalUsername, 3);
-        Map<String, Boolean> isFollowingMap = new HashMap<>();
-        for (User randomUser : randomUsers) {
-            boolean isFollowing = followerService.isFollowing(principal, randomUser.getUsername());
-            isFollowingMap.put(randomUser.getUsername(), isFollowing);
-        }
-        model.addAttribute("randomUsers", randomUsers);
-        model.addAttribute("isFollowingMap", isFollowingMap);
+        AuthController.randomUsers(model, principal, username, principalUsername, userService, followerService);
 
         return "profile";
     }
