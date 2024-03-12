@@ -78,8 +78,8 @@
                             <i class="fa-regular fa-bell"></i>
                             <span class="tooltip">Notify</span>
                         </div>
-                        <div th:if="${isFollowing}" class="unfollowButton btntofollow " th:data-username="${user.username}">Unfollow</div>
-                        <div th:unless="${isFollowing}" class="followButton btntofollow " th:data-username="${user.username}">Follow</div>
+                        <div th:if="${isFollowingMain}" class="unfollowButton js-followToggle " th:data-username="${user.username}">Unfollow</div>
+                        <div th:unless="${isFollowingMain}" class="followButton js-followToggle " th:data-username="${user.username}">Follow</div>
                     </div>
                     <div class="profilePhoto">
                         <img src="images/userPhoto.png">
@@ -186,20 +186,21 @@
 
             <div class="whotofollow">
                 <div class="wtftop">Who to follow</div>
-                <div th:each="user : ${randomUsers}">
+                <div th:each="randomUser : ${randomUsers}">
                     <div class="proposed">
-                        <a th:href="@{/{username}(username=${user.username})}">
+                        <a th:href="@{/{username}(username=${randomUser.username})}">
                             <div class="wtfprofile">
                                 <div class="wtfphoto">
                                     <img src="images/userPhoto.png">
                                 </div>
                                 <div class="wtffollow">
                                     <div class="wtfusername">
-                                        <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                        <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
+                                        <div class="wtfusernameFLN" th:text="${randomUser.firstName} + ' ' + ${randomUser.lastName}"></div>
+                                        <div class="wtfusernameUN" th:text="'@' + ${randomUser.username}"></div>
                                     </div>
                                     <div class="wtfbutton">
-                                        <button class="followbtn" data-username="${user.username}">Follow</button>
+                                        <div th:if="${isFollowingMap[randomUser.username]}" class="unfollowBtn js-followToggle " th:data-username="${randomUser.username}">Unfollow</div>
+                                        <div th:unless="${isFollowingMap[randomUser.username]}" class="followBtn js-followToggle " th:data-username="${randomUser.username}">Follow</div>
                                     </div>
                                 </div>
                             </div>

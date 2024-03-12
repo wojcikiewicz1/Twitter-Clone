@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
             e.preventDefault();
 
             const username = this.dataset.username;
-            const isFollowing = this.classList.contains('unfollowButton') || this.classList.contains('unfollowBtn');
+            const isFollowing = this.classList.contains('unfollowBtn') || this.classList.contains('unfollowButton');
             const url = `/api/${isFollowing ? 'unfollow' : 'follow'}`;
             const headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded',
