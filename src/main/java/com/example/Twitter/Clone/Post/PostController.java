@@ -37,6 +37,7 @@ public class PostController {
         List<Comment> commentList = commentService.getCommentsByPostId(postId);
         List<Post> posts = postService.getPostsWithCommentsCount();
         List<Comment> comments = commentService.getCommentsWithCommentsCount();
+        List<Post> postsWithLikes = postService.getPostsWithLikesCount();
 
         model.addAttribute("user", user);
         model.addAttribute("post", post);
@@ -44,6 +45,7 @@ public class PostController {
         model.addAttribute("myUser", myUser);
         model.addAttribute("comment", commentList);
         model.addAttribute("comments", comments);
+        model.addAttribute("postsWithLikes", postsWithLikes);
 
         return "post";
     }

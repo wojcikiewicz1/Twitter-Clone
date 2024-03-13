@@ -25,29 +25,29 @@ public class FollowerService {
     }
 
     public void followUser(Principal principal, String username) {
-        User MyUser = userService.findByUserName(principal.getName());
+        User myUser = userService.findByUserName(principal.getName());
         User userToFollow = userService.findByUserName(username);
 
         Follower follower = new Follower();
-        follower.setUser(MyUser);
+        follower.setUser(myUser);
         follower.setUserToFollow(userToFollow);
         followerRepository.save(follower);
     }
 
     public void unfollowUser (Principal principal, String username) {
-        User MyUser = userService.findByUserName(principal.getName());
+        User myUser = userService.findByUserName(principal.getName());
         User userToUnfollow = userService.findByUserName(username);
 
-        Follower follower = followerRepository.findByUserAndUserToFollow(MyUser, userToUnfollow);
+        Follower follower = followerRepository.findByUserAndUserToFollow(myUser, userToUnfollow);
 
         followerRepository.delete(follower);
     }
 
     public boolean isFollowing(Principal principal, String username) {
-        User MyUser = userService.findByUserName(principal.getName());
+        User myUser = userService.findByUserName(principal.getName());
         User userToCheck = userService.findByUserName(username);
 
-        Follower follower = followerRepository.findByUserAndUserToFollow(MyUser, userToCheck);
+        Follower follower = followerRepository.findByUserAndUserToFollow(myUser, userToCheck);
         return follower != null;
     }
 }

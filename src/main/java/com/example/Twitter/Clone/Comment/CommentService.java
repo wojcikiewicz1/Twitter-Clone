@@ -21,24 +21,19 @@ public class CommentService {
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PostRepository postRepository;
-    @Autowired
     private PostService postService;
 
 
     public List<Comment> getCommentsByPostId (Long id) {
-
         return commentRepository.findCommentsByPostId(id);
     }
 
     public List<Comment> getResponsesByCommentId (Long id) {
         return commentRepository.findResponsesByCommentId(id);
     }
+
     public Comment getCommentById (Long id) {
         return commentRepository.getCommentById(id);}
-
 
     public void AddCommentToPost (Principal principal, Long postId, String body) {
         User myUser = userService.findByUserName(principal.getName());
@@ -65,6 +60,15 @@ public class CommentService {
         for (Comment comment : comments) {
             int count = commentRepository.countByCommentId(comment.getId());
             comment.setCommentsCount(count);
+        }
+        return comments;
+    }
+
+    public List<Comment> getCommentsWithLikesCount() {
+        List<Comment> comments = commentRepository.findAll();
+        for (Comment comment : comments) {
+            int count = commentRepository.countLikesByCommentId(comment.getId());
+            comment.setLikesCount(count);
         }
         return comments;
     }

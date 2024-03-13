@@ -60,6 +60,15 @@ public class PostService {
         return posts;
     }
 
+    public List<Post> getPostsWithLikesCount() {
+        List<Post> posts = postRepository.findAll();
+        for (Post post : posts) {
+            int count = postRepository.countLikesByPostId(post.getId());
+            post.setLikesCount(count);
+        }
+        return posts;
+    }
+
 
     /**
     public void sharePost(Principal principal, Long postId) {

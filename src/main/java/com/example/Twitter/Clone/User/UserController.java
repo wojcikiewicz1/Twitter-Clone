@@ -21,16 +21,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private PostService postService;
-
     @Autowired
     private FollowerService followerService;
-
     @Autowired
     private FollowerRepository followerRepository;
-
     @Autowired
     private PostRepository postRepository;
 

@@ -37,4 +37,6 @@ public class Comment {
     private Date dateTime;
     @Transient
     private int commentsCount;
+    @Transient
+    private int likesCount;
 }

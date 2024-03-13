@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.AuthController;
 
+import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
@@ -90,7 +91,9 @@ public class AuthController {
         List<Post> posts = postService.getPostsByFollowings(principalUsername);
         for (Post post : posts) {
             int commentsCount = postRepository.countByPostId(post.getId());
+            int likesCount = postRepository.countLikesByPostId(post.getId());
             post.setCommentsCount(commentsCount);
+            post.setLikesCount(likesCount);
         }
         model.addAttribute("posts", posts);
 

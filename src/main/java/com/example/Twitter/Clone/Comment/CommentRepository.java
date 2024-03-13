@@ -15,10 +15,11 @@ public interface CommentRepository extends JpaRepository <Comment, Long> {
     @Query("SELECT s FROM Comment s WHERE s.comment.id = :id")
     List<Comment> findResponsesByCommentId(Long id);
 
-
-
     @Query("SELECT COUNT(s) FROM Comment s WHERE s.comment.id = :commentId")
     int countByCommentId(Long commentId);
+
+    @Query("SELECT COUNT(s) FROM Like s WHERE s.comment.id = :commentId")
+    int countLikesByCommentId(Long commentId);
 
     Comment getCommentById(Long id);
 }
