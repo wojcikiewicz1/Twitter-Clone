@@ -1,7 +1,10 @@
 package com.example.Twitter.Clone.AuthController;
 
+import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Comment.CommentRepository;
+import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerService;
+import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
@@ -26,18 +29,16 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private PostService postService;
-
     @Autowired
     private FollowerService followerService;
-
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private LikeService likeService;
 
     @GetMapping("/index")
     public String index() {
@@ -97,6 +98,8 @@ public class AuthController {
         }
         model.addAttribute("posts", posts);
 
+
+        likedPosts(model, principal, principalUsername, postService, likeService);
         randomUsers(model, principal, username, principalUsername, userService, followerService);
 
         return "home";
@@ -118,5 +121,16 @@ public class AuthController {
         }
         model.addAttribute("randomUsers", randomUsers);
         model.addAttribute("isFollowingMap", isFollowingMap);
+    }
+
+    public static void likedPosts(Model model, Principal principal, String principalUsername, PostService postService , LikeService likeService) {
+        List<Post> posts = postService.getPostsByFollowings(principalUsername);
+        Map<Long, Boolean> isLikedMap = new HashMap<>();
+        for (Post post : posts) {
+            boolean isLiked = likeService.isPostLiked(principal, post.getId());
+            isLikedMap.put(post.getId(), isLiked);
+        }
+        model.addAttribute("posts", posts);
+        model.addAttribute("isLikedMap", isLikedMap);
     }
 }
