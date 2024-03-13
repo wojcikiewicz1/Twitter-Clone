@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.js-followToggle').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();

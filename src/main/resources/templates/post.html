@@ -85,7 +85,7 @@
             <div class="postIcons2">
                 <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
                 <div><i class="fa-solid fa-retweet"></i></div>
-                <div><i class="fa-regular fa-heart"></i></div>
+                <div class="like-heart" th:data-postId="${post.id}"><i class="fa-regular fa-heart" ></i><span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span></div>
             </div>
 
             <form th:action="@{'/' + ${myUser.username} + '/' + ${post.id}}" method="post">
@@ -127,7 +127,7 @@
                             <div class="postIcons">
                                 <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span></div>
                                 <div><i class="fa-solid fa-retweet"></i></div>
-                                <div><i class="fa-regular fa-heart"></i></div>
+                                <div class="like-heart" th:data-commentId="${comment.id}"><i class="fa-regular fa-heart" ></i><span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span></div>
                             </div>
                         </div>
                     </div>
@@ -234,5 +234,6 @@
     </aside>
 </div>
 <script src="/javascript/follow.js"></script>
+<script src="/javascript/post.js"></script>
 </body>
 </html>
