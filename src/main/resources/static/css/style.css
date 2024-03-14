@@ -161,6 +161,9 @@ main
     font-weight: 600;
     box-sizing: border-box;
     justify-content: space-between;
+    z-index: 1000;
+    background-color: #FFFFFFF2;
+    backdrop-filter: blur(3px);
 }
 
 .foryoufollowing
@@ -356,6 +359,20 @@ a:hover .post
     display: flex;
     justify-content: space-around;
     padding-top: 10px;
+}
+
+.likePost, .likeComment {
+    color: #536471;
+    cursor: pointer;
+}
+
+.likePost:hover, .unlikePost:hover, .likeComment:hover, .unlikeComment:hover   {
+    color: red;
+}
+
+.unlikePost, .unlikeComment  {
+    color: red;
+    cursor: pointer;
 }
 
 /*--------------------------ASIDE---------------------------------*/
