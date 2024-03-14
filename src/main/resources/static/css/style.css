@@ -327,6 +327,7 @@ a:hover .post
 .username
 {
     display: flex;
+    margin-top: 5px;
 }
 
 .usernameLeft
@@ -352,6 +353,7 @@ a:hover .post
 
 .content {
     text-align: justify;
+    margin-top: 7px;
 }
 
 .postIcons {
@@ -684,6 +686,9 @@ aside
     width: 100%;
     align-items: center;
     margin: auto;
+    z-index: 1000;
+    background-color: #FFFFFFF2;
+    backdrop-filter: blur(3px);
 }
 
 .topL
@@ -994,6 +999,11 @@ aside
 .postTop
 {
     display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #FFFFFFF2;
+    backdrop-filter: blur(3px);
 }
 
 .postR

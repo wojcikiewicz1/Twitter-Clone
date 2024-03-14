@@ -117,7 +117,7 @@
 
 
 
-            <div class="replies" th:each="comment : ${commentList}">
+            <div class="replies" th:each="comment : ${comments}">
                 <a th:href="@{'/' + ${comment.user.username} + '/comment/' + ${comment.id}}">
                     <div class="post">
                         <div class="userPhotoMain">
