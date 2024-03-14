@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.Comment;
 
+import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
@@ -27,6 +28,8 @@ public class CommentController {
     private UserService userService;
     @Autowired
     private LikeService likeService;
+    @Autowired
+    private FollowerService followerService;
 
     @GetMapping("/{username}/comment/{commentId:[\\d]+}")
     public String getCommentById(@PathVariable("username") String username, @PathVariable("commentId") Long commentId, Model model, Principal principal) {
@@ -37,6 +40,7 @@ public class CommentController {
         List<Comment> responses = commentService.getResponsesByCommentId(commentId);
         List<Comment> commentsWithLikes = commentService.getCommentsWithLikesCount();
         boolean isCommentLiked = likeService.isCommentLiked(principal, comment.getId());
+        boolean isFollowed = followerService.isFollowing(principal, username);
 
         model.addAttribute("myUser", myUser);
         model.addAttribute("user", user);
@@ -44,6 +48,7 @@ public class CommentController {
         model.addAttribute("responses", responses);
         model.addAttribute("commentsWithLikes", commentsWithLikes);
         model.addAttribute("isCommentLiked", isCommentLiked);
+        model.addAttribute("isFollowed", isFollowed);
 
         for (Comment response : responses) {
             int commentsCount = commentRepository.countByCommentId(response.getId());

@@ -44,7 +44,6 @@ public class PostController {
         User user = userService.findByUserName(username);
         Post post = postService.getPostById(postId);
         List<Post> posts = postService.getPostsWithCommentsCount();
-        List<Comment> commentList = commentService.getCommentsWithCommentsCount();
         List<Post> postsWithLikes = postService.getPostsWithLikesCount();
         boolean isPostLiked = likeService.isPostLiked(principal, post.getId());
         boolean isFollowed = followerService.isFollowing(principal, username);
@@ -53,7 +52,6 @@ public class PostController {
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("posts", posts);
-        model.addAttribute("commentList", commentList);
         model.addAttribute("postsWithLikes", postsWithLikes);
         model.addAttribute("isPostLiked", isPostLiked);
         model.addAttribute("isFollowed", isFollowed);
