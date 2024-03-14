@@ -3,6 +3,7 @@ package com.example.Twitter.Clone.Post;
 import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Comment.CommentService;
+import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
@@ -32,6 +33,8 @@ public class PostController {
     private CommentRepository commentRepository;
     @Autowired
     private LikeService likeService;
+    @Autowired
+    private FollowerService followerService;
 
 
     @GetMapping("/{username}/{postId:[\\d]+}")
@@ -44,6 +47,7 @@ public class PostController {
         List<Comment> commentList = commentService.getCommentsWithCommentsCount();
         List<Post> postsWithLikes = postService.getPostsWithLikesCount();
         boolean isPostLiked = likeService.isPostLiked(principal, post.getId());
+        boolean isFollowed = followerService.isFollowing(principal, username);
 
         model.addAttribute("myUser", myUser);
         model.addAttribute("user", user);
@@ -52,6 +56,7 @@ public class PostController {
         model.addAttribute("commentList", commentList);
         model.addAttribute("postsWithLikes", postsWithLikes);
         model.addAttribute("isPostLiked", isPostLiked);
+        model.addAttribute("isFollowed", isFollowed);
 
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         for (Comment comment : comments) {
