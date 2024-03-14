@@ -171,7 +171,8 @@
                                     <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
                                 </div>
                                 <div class="wtfbutton">
-                                    <button class="followbtn" data-username="${user.username}">Follow</button>
+                                    <div th:if="${isFollowed}" class="unfollowBtn js-followToggle " th:data-username="${user.username}">Unfollow</div>
+                                    <div th:unless="${isFollowed}" class="followBtn js-followToggle " th:data-username="${user.username}">Follow</div>
                                 </div>
                             </div>
                         </div>
