@@ -85,11 +85,11 @@
             <div class="postIcons2">
                 <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span></div>
                 <div><i class="fa-solid fa-retweet"></i></div>
-                <div th:if="${isLikedMap[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
+                <div th:if="${isCommentLiked}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
                     <i class="fa-regular fa-heart"></i>
                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
                 </div>
-                <div th:unless="${isLikedMap[comment.id]}" class="like-heart likeComment" th:data-comment-id="${comment.id}">
+                <div th:unless="${isCommentLiked}" class="like-heart likeComment" th:data-comment-id="${comment.id}">
                     <i class="fa-regular fa-heart"></i>
                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
                 </div>
@@ -117,7 +117,7 @@
 
 
 
-            <div class="replies" th:each="comment : ${commentList}">
+            <div class="replies" th:each="comment : ${responses}">
                 <a th:href="@{'/' + ${comment.user.username} + '/comment/' + ${comment.id}}">
                     <div class="post">
                         <div class="userPhotoMain">
