@@ -19,13 +19,10 @@ public class PostService {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private PostRepository postRepository;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private CommentRepository commentRepository;
 

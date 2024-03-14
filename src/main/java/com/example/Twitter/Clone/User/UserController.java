@@ -4,6 +4,7 @@ import com.example.Twitter.Clone.AuthController.AuthController;
 import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
+import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -25,6 +28,8 @@ public class UserController {
     private PostService postService;
     @Autowired
     private FollowerService followerService;
+    @Autowired
+    private LikeService likeService;
     @Autowired
     private FollowerRepository followerRepository;
     @Autowired
@@ -56,6 +61,15 @@ public class UserController {
         }
         model.addAttribute("posts", posts);
 
+        Map<Long, Boolean> isLikedMap = new HashMap<>();
+        for (Post post : posts) {
+            boolean isLiked = likeService.isPostLiked(principal, post.getId());
+            isLikedMap.put(post.getId(), isLiked);
+        }
+        List<Post> postsWithLikes = postService.getPostsWithLikesCount();
+        model.addAttribute("isLikedMap", isLikedMap);
+        model.addAttribute("postsWithLikes", postsWithLikes);
+
         User user = userService.findByUserName(username);
         model.addAttribute("user", user);
         model.addAttribute("myUser", myUser);
@@ -75,6 +89,7 @@ public class UserController {
 
         return "profile";
     }
+
 }
 
 /**
