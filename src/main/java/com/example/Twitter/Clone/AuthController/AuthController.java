@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -82,8 +83,8 @@ public class AuthController {
         String principalUsername = principal.getName();
         User myUser = userService.findByUserName(principal.getName());
         User user = userService.findByUserName(username);
-        model.addAttribute("user", user);
         model.addAttribute("myUser", myUser);
+        model.addAttribute("user", user);
         model.addAttribute("content", "");
 
         List<Post> posts = postService.getPostsByFollowings(principalUsername);
@@ -94,7 +95,6 @@ public class AuthController {
             post.setLikesCount(likesCount);
         }
         model.addAttribute("posts", posts);
-
 
         likedPosts(model, principal, principalUsername, postService, likeService);
         randomUsers(model, principal, username, principalUsername, userService, followerService);
