@@ -20,4 +20,6 @@ public interface FollowerRepository extends JpaRepository <Follower, Long> {
     int followers (Long id);
 
     Follower findByUserAndUserToFollow(User user, User userToUnfollow);
+
+    void deleteByUserIdOrUserToFollowId(Long userId, Long userToFollowId);
 }

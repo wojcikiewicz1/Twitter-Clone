@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -107,6 +104,12 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    @PostMapping("/deleteUser")
+    public String deleteUser(Principal principal) {
+        User user = userService.findByUserName(principal.getName());
+        userService.deleteUser(user);
+        return "redirect:/logout";
+    }
 
 
     public static void randomUsers(Model model, Principal principal, String username, String principalUsername, UserService userService, FollowerService followerService) {

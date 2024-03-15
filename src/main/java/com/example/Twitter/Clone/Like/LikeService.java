@@ -43,7 +43,6 @@ public class LikeService {
         likeRepository.save(like);
     }
 
-
     public void unlikePost(Principal principal, Long postId) {
         User myUser = userService.findByUserName(principal.getName());
         Post postToUnlike = postService.getPostById(postId);

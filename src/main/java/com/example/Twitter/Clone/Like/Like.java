@@ -4,7 +4,9 @@ import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor

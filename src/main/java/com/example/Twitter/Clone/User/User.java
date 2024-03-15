@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.User;
 
+import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Role.Role;
 import jakarta.persistence.*;
@@ -37,8 +38,11 @@ public class User {
     @Column(nullable=false)
     private String lastName;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Comment> comments;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

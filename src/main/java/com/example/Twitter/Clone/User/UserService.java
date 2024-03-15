@@ -1,5 +1,9 @@
 package com.example.Twitter.Clone.User;
 
+import com.example.Twitter.Clone.Comment.CommentRepository;
+import com.example.Twitter.Clone.Follower.FollowerRepository;
+import com.example.Twitter.Clone.Like.LikeRepository;
+import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Role.Role;
 import com.example.Twitter.Clone.Role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +19,18 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private RoleRepository roleRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private LikeRepository likeRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private FollowerRepository followerRepository;
 
     public void saveUser (User user) {
         User user1 = new User();
@@ -67,7 +77,26 @@ public class UserService {
         }
         return randomUsers;
     }
+    @Transactional
+    public void deleteUser(User user) {
 
+        user.getComments().forEach(comment -> likeRepository.deleteByCommentId(comment.getId()));
+
+        user.getPosts().forEach(post -> {
+            likeRepository.deleteByPostId(post.getId());
+            commentRepository.deleteByPostId(post.getId());
+        });
+
+        commentRepository.deleteByUserId(user.getId());
+
+        likeRepository.deleteByUserId(user.getId());
+
+        followerRepository.deleteByUserIdOrUserToFollowId(user.getId(), user.getId());
+
+        postRepository.deleteAll(user.getPosts());
+
+        userRepository.delete(user);
+    }
     public void updateUser (User user) {
         userRepository.save(user);
     }
