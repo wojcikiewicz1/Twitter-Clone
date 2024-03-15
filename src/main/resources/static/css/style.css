@@ -543,6 +543,12 @@ aside
     display: flex;
 }
 
+.wtfphoto img {
+    width: auto;
+    height: 48px;
+    object-fit: cover;
+}
+
 .wtffollow
 {
     width: 100%;
@@ -720,7 +726,7 @@ aside
     width: 100%;
     align-items: center;
     margin: auto;
-    z-index: 1000;
+    z-index: 1;
     background-color: #FFFFFFF2;
     backdrop-filter: blur(3px);
 }
@@ -1034,7 +1040,7 @@ aside
     display: flex;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1;
     background-color: #FFFFFFF2;
     backdrop-filter: blur(3px);
 }
@@ -1117,6 +1123,8 @@ aside
     font-size: 22px;
     border: none;
     resize: none;
+    overflow-y: hidden;
+    min-height: 10px;
 }
 
 .postyourreply:focus

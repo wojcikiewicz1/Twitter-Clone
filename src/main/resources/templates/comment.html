@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
+<body id="commentPage">
 <div class="container">
     <nav>
         <div class="navbar">
@@ -32,7 +32,7 @@
                     <span class="close">&times;</span>
                     <form th:action="@{/home/addPost}" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a href="#"><img src="images/userPhoto.png"></a></div>
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
@@ -58,7 +58,7 @@
             <br>
             <div class="profile" onclick="toggleOptions(event)">
                 <div class="profileLeft">
-                    <img src="images/userPhoto.png">
+                    <img src="/images/userPhoto.png">
                 </div>
                 <div class="profileRight">
                     <div class="profileFL">
@@ -190,7 +190,7 @@
 
             <div class="relevant">
                 <div class="relevantTop">Revelant people</div>
-                <a href="#">
+                <a th:href="@{/{username}(username=${user.username})}">
                     <div class="relevantmiddle">
                         <div class="wtfprofile">
                             <div class="wtfphoto">

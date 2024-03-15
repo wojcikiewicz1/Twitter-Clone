@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
+<body id="homePage">
 <div class="container">
     <nav>
         <div class="navbar">
@@ -32,7 +32,7 @@
                     <span class="close">&times;</span>
                     <form th:action="@{/home/addPost}" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a href="#"><img src="images/userPhoto.png"></a></div>
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="images/userPhoto.png"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
@@ -89,7 +89,7 @@
 
             <form th:action="@{/home/addPost}" method="post">
                 <div class="addPost">
-                    <div class="userPhoto"><a href="#"><img src="images/userPhoto.png"></a></div>
+                    <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="images/userPhoto.png"></a></div>
                     <div class="addPostRight">
                         <div class="happening">
                             <textarea class="whatishappening" rows="1" placeholder="What is happening?"
