@@ -25,10 +25,38 @@
                 <li><a th:href="@{/{username}(username=${myUser.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
                 <li><a href="#"><i class="fa-solid fa-ellipsis"></i>More</a></li>
             </ul>
-            <a href="#"><div class="postNav">Post</div></a>
+            <div id="openPostModal" class="postNav">Post</div>
+
+            <div id="postModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form th:action="@{/home/addPost}" method="post">
+                        <div class="addPost">
+                            <div class="userPhoto"><a href="#"><img src="images/userPhoto.png"></a></div>
+                            <div class="addPostRight">
+                                <div class="happening">
+                                    <textarea class="whatishappening" rows="1" placeholder="What is happening?"
+                                              id="contentModal" name="content" th:value="${content}"></textarea>
+                                </div>
+                                <div class="addPostBottom">
+                                    <div class="icons">
+                                        <a href="#"><i class="fa-regular fa-image"></i></a>
+                                        <a href="#"><i class="fa-solid fa-video"></i></a>
+                                        <a href="#"><i class="fa-solid fa-sliders"></i></a>
+                                        <a href="#"><i class="fa-regular fa-face-smile"></i></a>
+                                        <a href="#"><i class="fa-regular fa-calendar"></i></a>
+                                        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                                    </div>
+                                    <span><button class="btn" type="submit">Post</button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <br>
-            <a href="#">
-                <div class="profile">
+                <div class="profile" onclick="toggleOptions(event)">
                     <div class="profileLeft">
                         <img src="images/userPhoto.png">
                     </div>
@@ -42,8 +70,11 @@
                     <div class="profileDots">
                         <i class="fa-solid fa-ellipsis"></i>
                     </div>
+                    <div class="profileOptionsWindow" style="display: none;">
+                        <div class="powoption">Add an existing account</div>
+                        <a th:href="@{/logout}"><div class="powoption">Log out <span th:text="'@' + ${myUser.username}"></span></div></a>
+                    </div>
                 </div>
-            </a>
         </div>
     </nav>
 
@@ -62,8 +93,7 @@
                     <div class="addPostRight">
                         <div class="happening">
                             <textarea class="whatishappening" rows="1" placeholder="What is happening?"
-                            id="content" name="content" th:value="${content}"></textarea>
-
+                            id="contentMain" name="content" th:value="${content}"></textarea>
                         </div>
                         <div class="addPostBottom">
                             <div class="icons">
@@ -216,5 +246,6 @@
 </div>
 <script src="/javascript/follow.js"></script>
 <script src="/javascript/like.js"></script>
+<script src="/javascript/modals.js"></script>
 </body>
 </html>

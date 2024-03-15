@@ -93,6 +93,7 @@ nav
 .postNav:hover
 {
     background-color: #0C90E1;
+    cursor: pointer;
 }
 
 .profile
@@ -105,6 +106,7 @@ nav
     margin-right: 10px;
     align-items: center;
     justify-content: space-evenly;
+    position: relative;
 }
 
 .profileLeft
@@ -137,8 +139,37 @@ nav
 .profile:hover
 {
     background-color: #f0f0f1;
+    cursor: pointer;
 }
 
+.profileOptionsWindow {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    padding: 10px 0;
+    border-radius: 10px;
+    width: 320px;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    color: #000000;
+    font-weight: 700;
+}
+
+.powoption {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.powoption:last-child {
+    border-bottom: none;
+}
+
+.powoption:hover {
+    background-color: #f0f0f0;
+}
 
 /*--------------------------MAIN---------------------------------*/
 main
@@ -156,12 +187,12 @@ main
     display: flex;
     position: sticky;
     top: 0;
+    z-index: 1;
     border-bottom: 1px solid #f0f0f0;
     text-align: center;
     font-weight: 600;
     box-sizing: border-box;
     justify-content: space-between;
-    z-index: 1000;
     background-color: #FFFFFFF2;
     backdrop-filter: blur(3px);
 }
@@ -241,6 +272,8 @@ main
     font-size: 22px;
     border: none;
     resize: none;
+    overflow-y: hidden;
+    min-height: 50px;
 }
 
 .whatishappening:focus
@@ -396,6 +429,7 @@ aside
     padding-top: 10px;
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 
 .searchimg
@@ -697,7 +731,6 @@ aside
     min-width: 56px;
     min-height: 32px;
     align-self: stretch;
-    align-items: flex-start;
     justify-content: center;
     align-items: center;
 }
@@ -1125,4 +1158,43 @@ aside
     margin-right: 30px;
     padding-bottom: 20px;
     text-align: justify;
+}
+
+/*-----------------------------MODALS-------------------------------------*/
+.modal {
+    display: none;
+    position: fixed;
+    flex: 1;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 15px;
+    width: 600px;
+    min-height: 200px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
