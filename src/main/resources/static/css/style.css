@@ -361,6 +361,8 @@ a:hover .post
 {
     display: flex;
     margin-top: 5px;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .usernameLeft
@@ -382,6 +384,10 @@ a:hover .post
     margin-right: 5px;
     font-size: 2px;
     align-items: center;
+}
+
+.postDots {
+    margin-left: auto;
 }
 
 .content {

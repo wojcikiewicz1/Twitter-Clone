@@ -82,8 +82,8 @@
         <div class="main">
 
             <div class="topbar">
-                <a href="#"><div class="foryoufollowing">For you</div></a>
-                <a href="#"><div class="foryoufollowing">Following</div></a>
+                <a href="#"><div id="for-you" class="foryoufollowing">For you</div></a>
+                <a href="#"><div id="following" class="foryoufollowing">Following</div></a>
                 <div class="settings"><a href="#"><i class="fa-solid fa-gear"></i></a></div>
             </div>
 
@@ -114,7 +114,7 @@
                 <a th:href="@{'/' + ${post.getUser().getUsername()} + '/' + ${post.id}}">
                     <div class="post">
                         <div class="userPhotoMain">
-                            <img src="images/userPhoto.png">
+                            <img src="/images/userPhoto.png">
                         </div>
                         <div class="right">
                             <div class="username">
@@ -122,6 +122,7 @@
                                 <div class="usernameRight" th:text="'@' + ${post.getUser().getUsername()}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                 <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
+                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
                             </div>
                             <div class="content" th:text="${post.content}"></div>
                             <div class="postIcons">

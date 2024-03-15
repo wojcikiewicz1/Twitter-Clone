@@ -160,6 +160,7 @@
                                 <div class="usernameRight" th:text="'@' + ${comment.user.username}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                 <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
+                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
                             </div>
                             <div class="content" th:text="${comment.body}"></div>
                             <div class="postIcons">
