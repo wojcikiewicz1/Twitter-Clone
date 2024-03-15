@@ -23,7 +23,19 @@
                 <li><a href="#"><i class="fa-solid fa-user-group"></i>Communities</a></li>
                 <li><a href="#"><i class="fa-brands fa-twitter"></i>Premium</a></li>
                 <li><a th:href="@{/{username}(username=${myUser.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
-                <li><a href="#"><i class="fa-solid fa-ellipsis"></i>More</a></li>
+                <li class="menu-item">
+                    <div class="menu-link" onclick="moreWindow(event)"><i class="fa-solid fa-ellipsis"></i>More</div>
+                    <div class="moreOptionsWindow" style="display: none;">
+                        <div class="mowoption">Update account information</div>
+                        <div class="mowoption">Change password</div>
+                        <div class="mowoption" onclick="confirmDelete()">
+                            <form id="deleteForm" action="/deleteUser" method="post" style="display: none;">
+                                <button type="submit" id="deleteButton"></button>
+                            </form>
+                            Delete your account
+                        </div>
+                    </div>
+                </li>
             </ul>
             <div id="openPostModal" class="postNav">Post</div>
 
@@ -56,7 +68,7 @@
             </div>
 
             <br>
-                <div class="profile" onclick="toggleOptions(event)">
+                <div class="profile" onclick="logoutWindow(event)">
                     <div class="profileLeft">
                         <img src="images/userPhoto.png">
                     </div>

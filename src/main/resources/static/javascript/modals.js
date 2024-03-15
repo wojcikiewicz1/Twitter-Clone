@@ -1,5 +1,5 @@
-//--------------------------------Modal for logout------------------------
-function toggleOptions(event) {
+//--------------------------------Window for logout------------------------
+function logoutWindow(event) {
     event.stopPropagation();
     let  options = event.currentTarget.querySelector('.profileOptionsWindow');
     let  isVisible = options.style.display === "block";
@@ -13,6 +13,26 @@ function toggleOptions(event) {
 document.addEventListener('click', function(event) {
     if (!event.target.closest('.profile')) {
         document.querySelectorAll('.profileOptionsWindow').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }
+});
+
+//--------------------------------Window for more------------------------
+function moreWindow(event) {
+    event.stopPropagation();
+    let options = event.currentTarget.nextElementSibling;
+    let isVisible = options.style.display === "block";
+
+    document.querySelectorAll('.moreOptionsWindow').forEach(function(element) {
+        element.style.display = 'none';
+    });
+    options.style.display = isVisible ? 'none' : 'block';
+}
+
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.fa-ellipsis')) {
+        document.querySelectorAll('.moreOptionsWindow').forEach(function(element) {
             element.style.display = 'none';
         });
     }
@@ -170,4 +190,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//-------------------------------------------------------------------------
+//--------------------------------Deleting account-----------------------------------------
+function confirmDelete() {
+    let confirmAction = confirm("Are you sure you want to delete your account?");
+    if (confirmAction) {
+        document.getElementById('deleteForm').submit();
+    } else {
+        console.log('Account deletion cancelled.');
+    }
+}
