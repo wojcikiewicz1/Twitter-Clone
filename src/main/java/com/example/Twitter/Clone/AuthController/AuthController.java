@@ -1,8 +1,5 @@
 package com.example.Twitter.Clone.AuthController;
 
-import com.example.Twitter.Clone.Comment.Comment;
-import com.example.Twitter.Clone.Comment.CommentRepository;
-import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.Post.Post;
@@ -107,7 +104,7 @@ public class AuthController {
 
     @GetMapping ("/logout")
     public String logout() {
-        return "logout";
+        return "redirect:/login";
     }
 
 
