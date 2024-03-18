@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -96,6 +98,7 @@ public class AuthController {
         likedPosts(model, principal, principalUsername, postService, likeService);
         randomUsers(model, principal, username, principalUsername, userService, followerService);
 
+
         return "home";
     }
 
@@ -110,7 +113,6 @@ public class AuthController {
         userService.deleteUser(user);
         return "redirect:/logout";
     }
-
 
     public static void randomUsers(Model model, Principal principal, String username, String principalUsername, UserService userService, FollowerService followerService) {
         List<User> randomUsers = userService.findRandomUsers(principalUsername,username, 3);
@@ -133,4 +135,5 @@ public class AuthController {
         model.addAttribute("posts", posts);
         model.addAttribute("isLikedMap", isLikedMap);
     }
+
 }

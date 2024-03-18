@@ -11,9 +11,9 @@ import com.example.Twitter.Clone.Post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -90,6 +90,7 @@ public class UserController {
 
         return "profile";
     }
+
 }
 
 /**
@@ -136,34 +137,5 @@ public class UserController {
  return "redirect:/logout";
  }
 
- @GetMapping("changePassword")
- public String changePassword (Model model, Principal principal) {
- model.addAttribute("passwordForm", new PasswordForm());
- return "changePassword";
- }
-
- @PostMapping("changePassword")
- public String changePassword (@ModelAttribute("passwordForm") @Validated PasswordForm passwordForm,
- BindingResult result, Principal principal, Model model) {
-
- User user = userService.findByUserName(principal.getName());
-
- if (!userService.verifyUserPassword(user, passwordForm.getCurrentPassword())) {
- result.rejectValue("currentPassword", null, "Invalid password.");
- }
-
- if (!passwordForm.getNewPassword().equals(passwordForm.getConfirmPassword())) {
- result.rejectValue("newPassword", null, "Passwords do not match.");
- result.rejectValue("confirmPassword", null, "Passwords do not match.");
- }
-
- if (result.hasErrors()) {
- model.addAttribute("passwordForm", passwordForm);
- return "changePassword";
- }
-
- userService.changePassword(user, passwordForm.getNewPassword());
- return "redirect:/logout";
- }
 
  **/
