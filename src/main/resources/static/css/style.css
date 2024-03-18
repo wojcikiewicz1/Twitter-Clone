@@ -1266,6 +1266,24 @@ aside
 }
 
 /*-----------------------------------------SETTINGS----------------------------------------------------*/
+.card-header
+{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card-body
+{
+    text-align: center;
+}
+
+.form-group
+{
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
 .text-danger
 {
     color: red;

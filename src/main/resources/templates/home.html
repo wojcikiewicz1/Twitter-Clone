@@ -27,7 +27,7 @@
                     <div class="menu-link" onclick="moreWindow(event)"><i class="fa-solid fa-ellipsis"></i>More</div>
 
                     <div class="moreOptionsWindow" style="display: none;">
-                        <a th:href="@{/home}" id="updateAccountModal" class="mowoptionLink1">Update account</a>
+                        <a th:href="@{/settings/updateUser}" id="updateAccountModal" class="mowoptionLink1">Update account</a>
                         <a th:href="@{/settings/changePassword}" id="changePasswordModal" class="mowoptionLink2">Change password</a>
                         <div class="mowoption" onclick="confirmDelete()">
                             <form id="deleteForm" action="/deleteUser" method="post" style="display: none;">
@@ -71,7 +71,7 @@
             <br>
                 <div class="profile" onclick="logoutWindow(event)">
                     <div class="profileLeft">
-                        <img src="images/userPhoto.png">
+                        <img src="/images/userPhoto.png">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post</title>
+    <title>Update User</title>
     <script src="https://kit.fontawesome.com/7bdca9e143.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body id="postPage">
+<body id="homePage">
 <div class="container">
     <nav>
         <div class="navbar">
@@ -90,109 +90,59 @@
             </div>
         </div>
     </nav>
-
     <main>
         <div class="main">
-
-            <div class="postTop">
+            <div class="top">
                 <div class="topL">
                     <a onclick="window.history.back();"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
-                <div class="postR">
-                    <span>Post</span>
+                <div class="topM">
+                    <div class="topMuser">Settings</div>
                 </div>
+                <div class="topR"></div>
             </div>
 
-            <div class="postUser">
-                <div class="relevantmiddle">
-                    <div class="wtfprofile">
-                        <div class="wtfphoto">
-                            <img src="/images/userPhoto.png">
-                        </div>
-                        <div class="wtffollow">
-                            <div class="wtfusername">
-                                <div class="wtfusernameFLN" th:text="${post.user.firstName} + ' ' + ${post.user.lastName}"></div>
-                                <div class="wtfusernameUN" th:text="'@' + ${post.user.username}"></div>
-                            </div>
-                            <div class="wtfbutton">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </div>
-                        </div>
+            <div class="card-header">
+                <h2 class="text-center">Update your data.</h2>
+                <p class="text-center"> After a successful update, you will be logged out.</p>
+            </div>
+
+            <div class="card-body">
+                <form method="post" role="form" th:action="@{updateUser}" th:object="${user}"
+                >
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input class="form-control" id="username" name="username" placeholder="Enter user name"
+                                th:field="*{username}" type="text" required="required"/>
+                        <p th:errors = "*{username}" class="text-danger"
+                           th:if="${#fields.hasErrors('username')}"></p>
                     </div>
-                </div>
-            </div>
-            <div class="postContent" th:text="${post.content}"></div>
-            <div class="postData">
-                <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
-                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                <div class="postViews">19.1 K</div>
-                <div class="usernameRight">&nbsp;Views</div>
-            </div>
-            <div class="postIcons2">
-                <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
-                <div><i class="fa-solid fa-retweet"></i></div>
-                <div th:if="${isPostLiked}" class="like-heart unlikePost" th:data-id="${post.id}">
-                    <i class="fa-regular fa-heart"></i>
-                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
-                </div>
-                <div th:unless="${isPostLiked}" class="like-heart likePost" th:data-id="${post.id}">
-                    <i class="fa-regular fa-heart"></i>
-                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
-                </div>
-            </div>
 
-            <form th:action="@{'/' + ${myUser.username} + '/' + ${post.id}}" method="post">
-                <div class="reply">
-                    <div class="relevantmiddle">
-                        <div class="wtfprofile">
-                            <div class="wtfphoto">
-                                <img src="/images/userPhoto.png">
-                            </div>
-                            <div class="wtffollow">
-                                <div class="replytext">
-                                    <textarea class="postyourreply" rows="1" placeholder="Post your reply"
-                                    id="body" name="body" th:value="${body}"></textarea>
-                                </div>
-                                <div class="wtfbutton"><button class="replybtn" type="submit">Reply</button></div>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input class="form-control" id="email" name="email" placeholder="Enter user email"
+                               th:field="*{email}" type="email" required="required"/>
+                        <p th:errors = "*{email}" class="text-danger"
+                           th:if="${#fields.hasErrors('email')}"></p>
                     </div>
-                </div>
-            </form>
 
-
-
-
-            <div class="replies" th:each="comment : ${comments}">
-                <a th:href="@{'/' + ${comment.user.username} + '/comment/' + ${comment.id}}">
-                    <div class="post">
-                        <div class="userPhotoMain">
-                            <img src="/images/userPhoto.png">
-                        </div>
-                        <div class="right">
-                            <div class="username">
-                                <div class="usernameLeft" th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></div>
-                                <div class="usernameRight" th:text="'@' + ${comment.user.username}"></div>
-                                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
-                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
-                            </div>
-                            <div class="content" th:text="${comment.body}"></div>
-                            <div class="postIcons">
-                                <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span></div>
-                                <div><i class="fa-solid fa-retweet"></i></div>
-                                <div th:if="${isLikedMap[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
-                                </div>
-                                <div th:unless="${isLikedMap[comment.id]}" class="like-heart likeComment" th:data-comment-id="${comment.id}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Firstname</label>
+                        <input class="form-control" id="firstName" name="firstName" placeholder="Enter firstname"
+                                th:field="*{firstName}" type="text" required="required"/>
                     </div>
-                </a>
+
+                    <div class="form-group">
+                        <label class="form-label">Lastname</label>
+                        <input class="form-control" id="lastName" name="lastName" placeholder="Enter lastname"
+                                th:field="*{lastName}" type="text" required="required"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Update</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
@@ -204,35 +154,11 @@
                 <div class="searchaside"><input type="text" id="searchtxt" placeholder="Search"></div>
             </div>
 
-            <div class="relevant">
-                <div class="relevantTop">Revelant people</div>
-                <a th:href="@{/{username}(username=${user.username})}">
-                    <div class="relevantmiddle">
-                        <div class="wtfprofile">
-                            <div class="wtfphoto">
-                                <img src="/images/userPhoto.png">
-                            </div>
-                            <div class="wtffollow">
-                                <div class="wtfusername">
-                                    <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                    <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
-                                </div>
-                                <div class="wtfbutton">
-                                    <div th:if="${isFollowed}" class="unfollowBtn js-followToggle " th:data-username="${user.username}">Unfollow</div>
-                                    <div th:unless="${isFollowed}" class="followBtn js-followToggle " th:data-username="${user.username}">Follow</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="revelantbottom">
-                        Lorem ipsum dolor sit,
-                        amet consectetur adipisicing elit. Corrupti
-                        inventore sequi nam dolor officiis debitis sint
-                        autem. Quo impedit sequi at, alias iusto
-                        exercitationem veritatis, ipsa deleniti velit
-                        nemo recusandae!
-                    </div>
-                </a>
+            <div class="subscribe">
+                <div class="subscribetop">Subscribe to premium</div>
+                <p>Subscribe to unlock new features and if  <br>
+                    eligible, receive a share of ads revenue.</p>
+                <span><button class="subscribebtn" type="submit">Subscribe</button></span>
             </div>
 
             <div class="trends">
@@ -274,6 +200,7 @@
                 </div>
 
                 <a href="#" class="showmore"><div>Show more</div></a>
+
             </div>
 
             <footer>
