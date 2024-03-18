@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 import java.security.Principal;
 
 @Controller
@@ -19,6 +18,9 @@ public class UserSettingsController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+
 
 
     @GetMapping("/changePassword")
@@ -32,7 +34,7 @@ public class UserSettingsController {
         return "changePassword";
     }
 
-    @PostMapping("changePassword")
+    @PostMapping("/changePassword")
     public String changePassword (@ModelAttribute("passwordForm") @Validated PasswordForm passwordForm,
                                   BindingResult result, Principal principal, Model model, String username) {
         User myUser = userService.findByUserName(principal.getName());
@@ -55,6 +57,52 @@ public class UserSettingsController {
         }
 
         userService.changePassword(myUser, passwordForm.getNewPassword());
+        return "redirect:/logout";
+    }
+
+    @GetMapping("/updateUser")
+    public String updateUSer (Principal principal, Model model) {
+        User myUser = userService.findByUserName(principal.getName());
+        model.addAttribute("myUser", myUser);
+        model.addAttribute("user", myUser);
+        return "updateUser";
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser (@ModelAttribute("user") User user,Principal principal,
+                              Model model, BindingResult result) {
+
+        User myUser = userService.findByUserName(principal.getName());
+        model.addAttribute("myUser", myUser);
+
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        User existingUser1 = userRepository.findByEmail(user.getEmail());
+
+        if (myUser.getUsername().equals(user.getUsername())){
+
+        }
+        else if(existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
+            result.rejectValue("username", null, "There is already an account registered with the same username.");
+        }
+
+        if (myUser.getEmail().equals(user.getEmail())){
+
+        }
+        else if(existingUser1 != null && existingUser1.getEmail() != null && !existingUser1.getEmail().isEmpty()){
+            result.rejectValue("email", null, "There is already an account registered with the same email.");
+        }
+
+        if(result.hasErrors()){
+            model.addAttribute("user", user);
+            return "updateUser";
+        }
+
+        myUser.setUsername(user.getUsername());
+        myUser.setEmail(user.getEmail());
+        myUser.setFirstName(user.getFirstName());
+        myUser.setLastName(user.getLastName());
+
+        userService.updateUser(myUser);
         return "redirect:/logout";
     }
 

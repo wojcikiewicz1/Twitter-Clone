@@ -43,8 +43,7 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login() {
-        return "login";
+    public String login() { return "login";
     }
 
     @GetMapping ("/register")
@@ -100,11 +99,6 @@ public class AuthController {
 
 
         return "home";
-    }
-
-    @GetMapping ("/logout")
-    public String logout() {
-        return "redirect:/login";
     }
 
     @PostMapping("/deleteUser")
