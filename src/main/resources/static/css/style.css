@@ -138,7 +138,8 @@ nav
     cursor: pointer;
 }
 
-.profileOptionsWindow {
+.profileOptionsWindow
+{
     position: absolute;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
@@ -153,21 +154,27 @@ nav
     font-weight: 700;
 }
 
-.powoption {
+.powoption
+{
     padding: 20px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
 
-.powoption:last-child {
+.powoption:last-child
+{
     border-bottom: none;
 }
 
-.powoption:hover {
+.powoption:hover
+{
     background-color: #f0f0f0;
 }
 
-.moreOptionsWindow {
+.moreOptionsWindow
+{
+    display: flex;
+    flex-direction: column;
     position: absolute;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
@@ -181,25 +188,38 @@ nav
     font-weight: 700;
 }
 
-.mowoption {
+.moreOptionsWindow a
+{
+    display: block;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.mowoptionLink1:hover
+{
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+}
+
+.mowoptionLink2:hover
+{
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.mowoption
+{
     padding: 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     font-size: 15px;
-}
-
-.mowoption:first-child {
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-}
-
-.mowoption:last-child {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     color: red;
 }
 
-.mowoption:hover {
+.mowoption:hover
+{
     background-color: #f0f0f0;
 }
 
@@ -1243,4 +1263,10 @@ aside
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/*-----------------------------------------SETTINGS----------------------------------------------------*/
+.text-danger
+{
+    color: red;
 }
