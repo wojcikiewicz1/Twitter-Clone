@@ -3,10 +3,11 @@ package com.example.Twitter.Clone.Comment;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor

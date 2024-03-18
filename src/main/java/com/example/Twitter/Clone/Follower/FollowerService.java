@@ -1,14 +1,12 @@
 package com.example.Twitter.Clone.Follower;
 
 import com.example.Twitter.Clone.User.User;
-import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FollowerService {
@@ -18,7 +16,6 @@ public class FollowerService {
 
     @Autowired
     private FollowerRepository followerRepository;
-
 
     public List<Follower> findFollowingsByUsername(String username) {
         return followerRepository.findFollowingsByUsername(username);

@@ -2,7 +2,9 @@ package com.example.Twitter.Clone.Follower;
 
 import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor

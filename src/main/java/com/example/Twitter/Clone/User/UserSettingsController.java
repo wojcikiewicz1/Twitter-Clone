@@ -21,8 +21,6 @@ public class UserSettingsController {
     @Autowired
     private UserRepository userRepository;
 
-
-
     @GetMapping("/changePassword")
     public String changePasswordForm(Principal principal, String username, Model model) {
         User myUser = userService.findByUserName(principal.getName());
