@@ -89,12 +89,14 @@ public class AuthController {
         for (Post post : posts) {
             int commentsCount = postRepository.countByPostId(post.getId());
             int likesCount = postRepository.countLikesByPostId(post.getId());
+            int repostsCount = postRepository.countRepostsByPostId(post.getId());
             post.setCommentsCount(commentsCount);
             post.setLikesCount(likesCount);
+            post.setRepostsCount(repostsCount);
         }
         model.addAttribute("posts", posts);
 
-        likedPosts(model, principal, principalUsername, postService, likeService);
+        preparePostsData(model, principal, principalUsername, postService, likeService);
         randomUsers(model, principal, username, principalUsername, userService, followerService);
 
         return "home";
@@ -118,15 +120,22 @@ public class AuthController {
         model.addAttribute("isFollowingMap", isFollowingMap);
     }
 
-    public static void likedPosts(Model model, Principal principal, String principalUsername, PostService postService , LikeService likeService) {
+    public static void preparePostsData(Model model, Principal principal, String principalUsername, PostService postService, LikeService likeService) {
         List<Post> posts = postService.getPostsAndRepostsByFollowings(principalUsername);
         Map<Long, Boolean> isLikedMap = new HashMap<>();
+        Map<Long, Boolean> isRepostedMap = new HashMap<>();
+
         for (Post post : posts) {
             boolean isLiked = likeService.isPostLiked(principal, post.getId());
+            boolean isReposted = postService.isPostRepostedByUser(principal, post.getId());
+
             isLikedMap.put(post.getId(), isLiked);
+            isRepostedMap.put(post.getId(), isReposted);
         }
+
         model.addAttribute("posts", posts);
         model.addAttribute("isLikedMap", isLikedMap);
+        model.addAttribute("isRepostedMap", isRepostedMap);
     }
 
 }

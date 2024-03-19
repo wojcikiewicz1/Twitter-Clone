@@ -38,6 +38,8 @@ public class Post {
     @Transient
     private int likesCount;
     @Transient
+    private int repostsCount;
+    @Transient
     private boolean isReposted;
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private Set<Repost> reposts = new HashSet<>();

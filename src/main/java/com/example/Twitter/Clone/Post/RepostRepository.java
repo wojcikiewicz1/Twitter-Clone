@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface RepostRepository extends JpaRepository<Repost, Long> {
     List<Repost> findByWhoReposted(User user);
+
+    Repost findByWhoRepostedAndPostId(User myUser, Long postId);
 }

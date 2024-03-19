@@ -23,7 +23,7 @@ public class LikeController {
     private CommentRepository commentRepository;
 
     @PostMapping("/api/like/post")
-    public ResponseEntity<?> likePost(Principal principal, @RequestParam("postId") Long postId) {
+    public ResponseEntity<?> likePost(@RequestParam("postId") Long postId, Principal principal) {
         try {
             likeService.likePost(principal, postId);
             int likesCount = postRepository.countLikesByPostId(postId);
@@ -34,7 +34,7 @@ public class LikeController {
     }
 
     @PostMapping("/api/like/comment")
-    public ResponseEntity<?> likeComment(Principal principal, @RequestParam("commentId") Long commentId) {
+    public ResponseEntity<?> likeComment(@RequestParam("commentId") Long commentId, Principal principal) {
         try {
             likeService.likeComment(principal, commentId);
             int likesCount = commentRepository.countLikesByCommentId(commentId);
@@ -45,7 +45,7 @@ public class LikeController {
     }
 
     @PostMapping("/api/unlike/post")
-    public ResponseEntity<?> unlikePost(Principal principal, @RequestParam("postId") Long postId) {
+    public ResponseEntity<?> unlikePost(@RequestParam("postId") Long postId ,Principal principal) {
         try {
             likeService.unlikePost(principal, postId);
             int likesCount = postRepository.countLikesByPostId(postId);
@@ -56,7 +56,7 @@ public class LikeController {
     }
 
     @PostMapping("/api/unlike/comment")
-    public ResponseEntity<?> unlikeComment (Principal principal, @RequestParam("commentId") Long commentId) {
+    public ResponseEntity<?> unlikeComment (@RequestParam("commentId") Long commentId, Principal principal) {
         try {
             likeService.unlikeComment(principal, commentId);
             int likesCount = commentRepository.countLikesByCommentId(commentId);

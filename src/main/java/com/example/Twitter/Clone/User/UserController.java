@@ -69,6 +69,15 @@ public class UserController {
         model.addAttribute("isLikedMap", isLikedMap);
         model.addAttribute("postsWithLikes", postsWithLikes);
 
+        Map<Long, Boolean> isRepostedMap = new HashMap<>();
+        for (Post post : posts) {
+            boolean isReposted = postService.isPostRepostedByUser(principal, post.getId());
+            isRepostedMap.put(post.getId(), isReposted);
+        }
+        List<Post> postsWithReposts = postService.getPostsWithRepostsCount();
+        model.addAttribute("isRepostedMap", isRepostedMap);
+        model.addAttribute("postsWithReposts", postsWithReposts);
+
         User user = userService.findByUserName(username);
         model.addAttribute("user", user);
         model.addAttribute("myUser", myUser);

@@ -8,6 +8,7 @@ import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,8 @@ public class PostController {
     private LikeService likeService;
     @Autowired
     private FollowerService followerService;
+    @Autowired
+    private PostRepository postRepository;
 
 
     @GetMapping("/{username}/{postId:[\\d]+}")
@@ -43,16 +46,20 @@ public class PostController {
         Post post = postService.getPostById(postId);
         List<Post> posts = postService.getPostsWithCommentsCount();
         List<Post> postsWithLikes = postService.getPostsWithLikesCount();
+        List<Post> postsWithReposts = postService.getPostsWithRepostsCount();
         boolean isPostLiked = likeService.isPostLiked(principal, post.getId());
         boolean isFollowed = followerService.isFollowing(principal, username);
+        boolean isPostReposted = postService.isPostRepostedByUser(principal, postId);
 
         model.addAttribute("myUser", myUser);
         model.addAttribute("user", user);
         model.addAttribute("post", post);
         model.addAttribute("posts", posts);
         model.addAttribute("postsWithLikes", postsWithLikes);
+        model.addAttribute("postsWithReposts", postsWithReposts);
         model.addAttribute("isPostLiked", isPostLiked);
         model.addAttribute("isFollowed", isFollowed);
+        model.addAttribute("isPostReposted", isPostReposted);
 
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         for (Comment comment : comments) {
@@ -87,9 +94,25 @@ public class PostController {
 
     @PostMapping("/api/repost")
     public ResponseEntity<?> repost(@RequestParam("postId") Long postId, Principal principal) {
+        try {
         User user = userService.findByUserName(principal.getName());
         postService.repost(postId, user);
-        return ResponseEntity.ok().body("Post reposted successfully");
+        int repostsCount = postRepository.countRepostsByPostId(postId);
+        return ResponseEntity.ok(Map.of("repostsCount", repostsCount, "isReposted", true));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to repost post: " + postId);
+        }
+    }
+
+    @PostMapping("/api/unrepost")
+    public ResponseEntity<?> unrepost(@RequestParam("postId") Long postId, Principal principal) {
+        try {
+            postService.unRepost(postId, principal);
+            int repostsCount = postRepository.countRepostsByPostId(postId);
+            return ResponseEntity.ok(Map.of("repostsCount", repostsCount, "isReposted", false));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to unrepost post: " + postId);
+        }
     }
 
 /**

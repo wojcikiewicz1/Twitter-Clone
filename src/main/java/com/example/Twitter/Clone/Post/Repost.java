@@ -23,13 +23,13 @@ public class Repost {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "original_author_id", referencedColumnName = "id")
+    @JoinColumn(name = "original_author_id")
     private User originalAuthor;
     @ManyToOne
-    @JoinColumn(name = "who_reposted_id", referencedColumnName = "id")
+    @JoinColumn(name = "who_reposted_id")
     private User whoReposted;
     @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "id")
+    @JoinColumn(name = "post_id")
     private Post post;
     @Column(name = "repost_time")
     @Temporal(TemporalType.TIMESTAMP)

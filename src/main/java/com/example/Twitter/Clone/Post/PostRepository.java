@@ -22,4 +22,7 @@ public interface PostRepository extends JpaRepository <Post, Long> {
     Post getPostById(Long id);
 
     List<Post> findByUser(User user);
+
+    @Query("SELECT COUNT(s) FROM Repost s WHERE s.post.id = :postId")
+    int countRepostsByPostId(Long postId);
 }
