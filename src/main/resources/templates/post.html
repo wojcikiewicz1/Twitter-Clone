@@ -130,7 +130,7 @@
             </div>
             <div class="postIcons2">
                 <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
-                <div><i class="fa-solid fa-retweet"></i></div>
+                <div class="share-post" th:data-id="${post.id}"><i class="fa-solid fa-retweet"></i></div>
                 <div th:if="${isPostLiked}" class="like-heart unlikePost" th:data-id="${post.id}">
                     <i class="fa-regular fa-heart"></i>
                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
@@ -297,6 +297,7 @@
 </div>
 <script src="/javascript/follow.js"></script>
 <script src="/javascript/like.js"></script>
+<script src="/javascript/repost.js"></script>
 <script src="/javascript/modals.js"></script>
 </body>
 </html>
