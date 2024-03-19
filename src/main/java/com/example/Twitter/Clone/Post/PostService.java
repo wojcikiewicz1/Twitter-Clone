@@ -1,30 +1,31 @@
 package com.example.Twitter.Clone.Post;
 
 import com.example.Twitter.Clone.Comment.CommentRepository;
-import com.example.Twitter.Clone.Comment.CommentService;
+import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CommentRepository commentRepository;
+    private RepostRepository repostRepository;
+    @Autowired
+    private FollowerRepository followerRepository;
 
     public Post getPostById(Long postId) {
         return postRepository.getPostById(postId);
@@ -34,14 +35,27 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public List<Post> getPostsByUsername(String username) {
+    public List<Post> getPostsAndRepostsByFollowings(String username) {
 
-        return postRepository.findPostsByUsername(username);
-    }
+        User user = userRepository.findByUsername(username);
+        List<User> followingUsers = followerRepository.findFollowingsByUser(user);
 
-    public List<Post> getPostsByFollowings (String username) {
+        List<Post> allPosts = new ArrayList<>();
 
-        return postRepository.findPostsByFollowings(username);
+        for (User followingUser : followingUsers) {
+
+            allPosts.addAll(postRepository.findByUser(followingUser));
+
+            List<Repost> reposts = repostRepository.findByWhoReposted(followingUser);
+            List<Post> repostedPosts = reposts.stream()
+                    .map(Repost::getPost)
+                    .collect(Collectors.toList());
+            allPosts.addAll(repostedPosts);
+        }
+
+        allPosts.sort(Comparator.comparing(Post::getDateTime).reversed());
+
+        return allPosts;
     }
 
     public void addNewPost(Principal principal, String content) {
@@ -49,6 +63,7 @@ public class PostService {
         Post post = new Post();
         post.setUser(user);
         post.setContent(content);
+        post.setReposted(false);
         postRepository.save(post);
     }
 
@@ -70,16 +85,34 @@ public class PostService {
         return posts;
     }
 
-
-    /**
-    public void sharePost(Principal principal, Long postId) {
-        User user = userService.findByUserName(principal.getName());
-        Optional<Post> optionalPost = postRepository.findById(postId);
-
-        Post post = new Post(user, Objects.toString((postRepository.findById(postId)).get()));
-        postRepository.save(post);
+    public void repost(Long postId, User user) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+        Repost repost = new Repost();
+        repost.setWhoReposted(user);
+        repost.setOriginalAuthor(post.getUser());
+        repost.setPost(post);
+        repost.setRepostTime(new Date());
+        repostRepository.save(repost);
     }
 
+    public List<Post> getAllUserPostsAndReposts(String username) {
+        User user = userRepository.findByUsername(username);
+
+        List<Post> posts = postRepository.findByUser(user);
+        List<Repost> reposts = repostRepository.findByWhoReposted(user);
+
+        List<Post> repostedPosts = reposts.stream()
+                .map(Repost::getPost)
+                .collect(Collectors.toList());
+
+        List<Post> allPosts = new ArrayList<>(posts);
+        allPosts.addAll(repostedPosts);
+        allPosts.sort(Comparator.comparing(Post::getDateTime).reversed());
+
+        return allPosts;
+    }
+
+/**
     public void deletePost(Long postId) {
 
         postRepository.deleteById(postId);

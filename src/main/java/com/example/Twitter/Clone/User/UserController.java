@@ -44,11 +44,11 @@ public class UserController {
 
         List<Post> posts;
         if (isOwner) {
-            posts = postService.getPostsByUsername(principalUsername);
+            posts = postService.getAllUserPostsAndReposts(principalUsername);
         } else {
             User user = userService.findByUserName(username);
             if (user != null) {
-                posts = postService.getPostsByUsername(username);
+                posts = postService.getAllUserPostsAndReposts(username);
             } else {
                 return "redirect:/error";
             }

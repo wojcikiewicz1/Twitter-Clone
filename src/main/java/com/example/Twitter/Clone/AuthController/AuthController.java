@@ -85,7 +85,7 @@ public class AuthController {
         model.addAttribute("user", user);
         model.addAttribute("content", "");
 
-        List<Post> posts = postService.getPostsByFollowings(principalUsername);
+        List<Post> posts = postService.getPostsAndRepostsByFollowings(principalUsername);
         for (Post post : posts) {
             int commentsCount = postRepository.countByPostId(post.getId());
             int likesCount = postRepository.countLikesByPostId(post.getId());
@@ -96,7 +96,6 @@ public class AuthController {
 
         likedPosts(model, principal, principalUsername, postService, likeService);
         randomUsers(model, principal, username, principalUsername, userService, followerService);
-
 
         return "home";
     }
@@ -120,7 +119,7 @@ public class AuthController {
     }
 
     public static void likedPosts(Model model, Principal principal, String principalUsername, PostService postService , LikeService likeService) {
-        List<Post> posts = postService.getPostsByFollowings(principalUsername);
+        List<Post> posts = postService.getPostsAndRepostsByFollowings(principalUsername);
         Map<Long, Boolean> isLikedMap = new HashMap<>();
         for (Post post : posts) {
             boolean isLiked = likeService.isPostLiked(principal, post.getId());

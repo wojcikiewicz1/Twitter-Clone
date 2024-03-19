@@ -8,12 +8,10 @@ import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -87,14 +85,14 @@ public class PostController {
         model.addAttribute("isLikedMap", isLikedMap);
     }
 
+    @PostMapping("/api/repost")
+    public ResponseEntity<?> repost(@RequestParam("postId") Long postId, Principal principal) {
+        User user = userService.findByUserName(principal.getName());
+        postService.repost(postId, user);
+        return ResponseEntity.ok().body("Post reposted successfully");
+    }
+
 /**
-
- @PostMapping (path = " / posts / share ")
- public ResponseEntity sharePost(@RequestHeader("username") String username, @RequestBody Long postId) {
- postService.sharePost(username, postId);
- return ResponseEntity.ok("Post shared");
- }
-
  @DeleteMapping (path = " / posts / { postId } ")
  public ResponseEntity deletePost (@PathVariable("postId") Long postId) {
  postService.deletePost(postId);

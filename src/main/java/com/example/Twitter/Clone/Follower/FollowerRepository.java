@@ -3,6 +3,7 @@ package com.example.Twitter.Clone.Follower;
 import com.example.Twitter.Clone.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface FollowerRepository extends JpaRepository <Follower, Long> {
     Follower findByUserAndUserToFollow(User user, User userToUnfollow);
 
     void deleteByUserIdOrUserToFollowId(Long userId, Long userToFollowId);
+
+    @Query("SELECT f.userToFollow FROM Follower f WHERE f.user = :user")
+    List<User> findFollowingsByUser(User user);
 }
