@@ -49,7 +49,7 @@
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
-                                              id="contentModal" name="content" th:value="${content}"></textarea>
+                                              id="contentModal" name="content" required th:value="${content}"></textarea>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
@@ -189,35 +189,50 @@
             </div>
 
             <div class="posts" th:each="post : ${posts}">
-                <a th:href="@{'/' + ${user.username} + '/' + ${post.id}}">
-                    <div th:each="repost : ${post.reposts}">
-                        <div th:if="${repost.whoReposted.username == user.username}">
-                            <p th:text="${repost.whoReposted.firstName} + ' ' + ${repost.whoReposted.lastName} + ' reposted'"></p>
-                        </div>
-                    </div>
-                    <div class="post">
-                        <div class="userPhotoMain">
-                            <img src="/images/userPhoto.png">
-                        </div>
-                        <div class="right">
-                            <div class="username">
-                                <div class="usernameLeft" th:text="${post.user.firstName} + ' ' + ${post.user.lastName}"></div>
-                                <div class="usernameRight" th:text="'@' + ${post.user.username}"></div>
-                                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
-                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
-                            </div>
-                            <div class="content" th:text="${post.content}"></div>
-                            <div class="postIcons">
-                                <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
-                                <div class="share-post" th:data-id="${post.id}"><i class="fa-solid fa-retweet"></i></div>
-                                <div th:if="${isLikedMap[post.id]}" class="like-heart unlikePost" th:data-id="${post.id}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
+                <a th:href="@{'/' + ${post.user.username} + '/' + ${post.id}}">
+                    <div class="postMain">
+                        <div class="postUp">
+                            <div class="ifPostReposted">
+                                <div th:each="repost : ${post.reposts}">
+                                    <div th:if="${repost.whoReposted.username == user.username}">
+                                        <i class="fa-solid fa-retweet"></i>
+                                        <span th:text="${repost.whoReposted.username} + ' '"></span>
+                                        <span>reposted</span>
+                                    </div>
                                 </div>
-                                <div th:unless="${isLikedMap[post.id]}" class="like-heart likePost" th:data-id="${post.id}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
+                            </div>
+                        </div>
+                        <div class="postDown">
+                            <div class="userPhotoMain">
+                                <img src="/images/userPhoto.png">
+                            </div>
+                            <div class="right">
+                                <div class="username">
+                                    <div class="usernameLeft" th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></div>
+                                    <div class="usernameRight" th:text="'@' + ${post.getUser().getUsername()}"></div>
+                                    <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
+                                    <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
+                                    <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
+                                </div>
+                                <div class="content" th:text="${post.content}"></div>
+                                <div class="postIcons">
+                                    <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
+                                    <div th:if="${isRepostedMap[post.id]}" class="retweet unRetweetPost" th:data-id="${post.id}">
+                                        <i class="fa-solid fa-retweet"></i>
+                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.repostsCount}"></span>
+                                    </div>
+                                    <div th:unless="${isRepostedMap[post.id]}" class="retweet retweetPost" th:data-id="${post.id}">
+                                        <i class="fa-solid fa-retweet"></i>
+                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.repostsCount}"></span>
+                                    </div>
+                                    <div th:if="${isLikedMap[post.id]}" class="like-heart unlikePost" th:data-id="${post.id}">
+                                        <i class="fa-regular fa-heart"></i>
+                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
+                                    </div>
+                                    <div th:unless="${isLikedMap[post.id]}" class="like-heart likePost" th:data-id="${post.id}">
+                                        <i class="fa-regular fa-heart"></i>
+                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

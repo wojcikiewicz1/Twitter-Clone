@@ -49,7 +49,7 @@
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
-                                              id="contentModal" name="content" th:value="${content}"></textarea>
+                                              id="contentModal" name="content" required th:value="${content}"></textarea>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
@@ -113,7 +113,7 @@
                     <div class="form-group">
                         <label class="form-label">Username</label>
                         <input class="form-control" id="username" name="username" placeholder="Enter user name"
-                                th:field="*{username}" type="text" required="required"/>
+                                th:field="*{username}" type="text" required/>
                         <p th:errors = "*{username}" class="text-danger"
                            th:if="${#fields.hasErrors('username')}"></p>
                     </div>
@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <input class="form-control" id="email" name="email" placeholder="Enter user email"
-                               th:field="*{email}" type="email" required="required"/>
+                               th:field="*{email}" type="email" required/>
                         <p th:errors = "*{email}" class="text-danger"
                            th:if="${#fields.hasErrors('email')}"></p>
                     </div>
@@ -129,13 +129,13 @@
                     <div class="form-group">
                         <label class="form-label">Firstname</label>
                         <input class="form-control" id="firstName" name="firstName" placeholder="Enter firstname"
-                                th:field="*{firstName}" type="text" required="required"/>
+                                th:field="*{firstName}" type="text" required/>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Lastname</label>
                         <input class="form-control" id="lastName" name="lastName" placeholder="Enter lastname"
-                                th:field="*{lastName}" type="text" required="required"
+                                th:field="*{lastName}" type="text" required
                         />
                     </div>
 

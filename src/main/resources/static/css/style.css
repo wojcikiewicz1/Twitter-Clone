@@ -390,9 +390,30 @@ main
     padding: 10px;
 }
 
-a:hover .post
+.postMain
+{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #f0f0f1;
+    padding: 10px;
+}
+
+.postDown
+{
+    display: flex;
+}
+
+a:hover .post, a:hover .postMain
 {
     background-color: #f0f0f1;
+}
+
+.ifPostReposted
+{
+    color: #536471FF ;
+    margin-left: 40px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .userPhotoMain
@@ -454,18 +475,46 @@ a:hover .post
     padding-top: 10px;
 }
 
-.likePost, .likeComment {
+.likePost, .likeComment, .retweetPost {
     color: #536471;
     cursor: pointer;
 }
 
-.likePost:hover, .unlikePost:hover, .likeComment:hover, .unlikeComment:hover   {
+.likePost:hover, .unlikePost:hover, .likeComment:hover, .unlikeComment:hover {
     color: red;
+}
+
+.likePost:hover > .fa-heart, .unlikePost:hover > .fa-heart, .likeComment:hover > .fa-heart, .unlikeComment:hover > .fa-heart {
+    box-shadow: 0 0 0 5px #ff6a6a;
+    background-color: #ff6a6a;
+    border-radius: 50%;
 }
 
 .unlikePost, .unlikeComment  {
     color: red;
     cursor: pointer;
+}
+
+.retweetPost:hover, unRetweetPost:hover {
+    color: darkgreen;
+}
+
+.retweetPost:hover > .fa-retweet, .unRetweetPost:hover > .fa-retweet {
+    box-shadow: 0 0 0 5px #5be35b;
+    background-color: #5be35b;
+    border-radius: 50%;
+}
+
+.unRetweetPost {
+    color: darkgreen;
+    cursor: pointer;
+}
+
+.fa-comment:hover {
+    box-shadow: 0 0 0 5px dodgerblue;
+    background-color: dodgerblue;
+    border-radius: 50%;
+    color: darkblue;
 }
 
 /*--------------------------ASIDE---------------------------------*/
