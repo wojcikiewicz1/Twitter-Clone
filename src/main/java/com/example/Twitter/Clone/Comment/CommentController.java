@@ -2,6 +2,7 @@ package com.example.Twitter.Clone.Comment;
 
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
+import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class CommentController {
         User myUser = userService.findByUserName(principal.getName());
         User user = userService.findByUserName(username);
         Comment comment = commentService.getCommentById(commentId);
+        List<Comment> comments = commentService.getCommentsWithCommentsCount();
         List<Comment> responses = commentService.getResponsesByCommentId(commentId);
         List<Comment> commentsWithLikes = commentService.getCommentsWithLikesCount();
         boolean isCommentLiked = likeService.isCommentLiked(principal, comment.getId());
@@ -45,6 +47,7 @@ public class CommentController {
         model.addAttribute("myUser", myUser);
         model.addAttribute("user", user);
         model.addAttribute("comment", comment);
+        model.addAttribute("comments", comments);
         model.addAttribute("responses", responses);
         model.addAttribute("commentsWithLikes", commentsWithLikes);
         model.addAttribute("isCommentLiked", isCommentLiked);

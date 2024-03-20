@@ -75,7 +75,7 @@ public class PostController {
         return "post";
     }
 
-    @PostMapping("/home/addPost")
+    @PostMapping("/api/addPost")
     public String addPost(@ModelAttribute("content") String content, Principal principal) {
         postService.addNewPost(principal, content);
         return "redirect:/home";
