@@ -42,8 +42,8 @@
 
             <div id="postModal" class="modal">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <form th:action="@{/home/addPost}" method="post">
+                    <span class="closePostModal">&times;</span>
+                    <form th:action="@{/api/addPost}" method="post">
                         <div class="addPost">
                             <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
                             <div class="addPostRight">
@@ -127,7 +127,10 @@
                 <div class="usernameRight">&nbsp;Views</div>
             </div>
             <div class="postIcons2">
-                <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span></div>
+                <div class="openCommentModal" th:data-comment-id="${comment.id}">
+                    <i class="fa-regular fa-comment"></i>
+                    <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
+                </div>
                 <div><i class="fa-solid fa-retweet"></i></div>
                 <div th:if="${isCommentLiked}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
                     <i class="fa-regular fa-heart"></i>
@@ -158,9 +161,6 @@
                 </div>
             </form>
 
-
-
-
             <div class="replies" th:each="comment : ${responses}">
                 <a th:href="@{'/' + ${comment.user.username} + '/comment/' + ${comment.id}}">
                     <div class="post">
@@ -177,8 +177,10 @@
                             </div>
                             <div class="content" th:text="${comment.body}"></div>
                             <div class="postIcons">
-                                <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span></div>
-                                <div><i class="fa-solid fa-retweet"></i></div>
+                                <div class="openCommentModal" th:data-comment-id="${comment.id}">
+                                    <i class="fa-regular fa-comment"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
+                                </div>                                <div><i class="fa-solid fa-retweet"></i></div>
                                 <div th:if="${isLikedMap[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
                                     <i class="fa-regular fa-heart"></i>
                                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
@@ -192,6 +194,35 @@
                     </div>
                 </a>
             </div>
+
+            <div id="commentModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeCommentModal">&times;</span>
+                    <form id="commentForm" action="" method="post">
+                        <div class="addPost">
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+                            <div class="addPostRight">
+                                <div class="happening">
+                                         <textarea class="whatishappening" rows="1" placeholder="Post your reply"
+                                                   id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                </div>
+                                <div class="addPostBottom">
+                                    <div class="icons">
+                                        <a href="#"><i class="fa-regular fa-image"></i></a>
+                                        <a href="#"><i class="fa-solid fa-video"></i></a>
+                                        <a href="#"><i class="fa-solid fa-sliders"></i></a>
+                                        <a href="#"><i class="fa-regular fa-face-smile"></i></a>
+                                        <a href="#"><i class="fa-regular fa-calendar"></i></a>
+                                        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                                    </div>
+                                    <span><button class="btn" type="submit">Reply</button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
 

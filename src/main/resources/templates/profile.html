@@ -42,8 +42,8 @@
 
             <div id="postModal" class="modal">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <form th:action="@{/home/addPost}" method="post">
+                    <span class="closePostModal">&times;</span>
+                    <form th:action="@{/api/addPost}" method="post">
                         <div class="addPost">
                             <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="images/userPhoto.png"></a></div>
                             <div class="addPostRight">
@@ -216,7 +216,10 @@
                                 </div>
                                 <div class="content" th:text="${post.content}"></div>
                                 <div class="postIcons">
-                                    <div><i class="fa-regular fa-comment"></i><span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span></div>
+                                    <div class="openCommentModal" th:data-post-id="${post.id}">
+                                        <i class="fa-regular fa-comment"></i>
+                                        <span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span>
+                                    </div>
                                     <div th:if="${isRepostedMap[post.id]}" class="retweet unRetweetPost" th:data-id="${post.id}">
                                         <i class="fa-solid fa-retweet"></i>
                                         <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.repostsCount}"></span>
@@ -239,6 +242,35 @@
                     </div>
                 </a>
             </div>
+
+            <div id="commentModal" class="modal">
+                <div class="modal-content">
+                    <span class="closeCommentModal">&times;</span>
+                    <form id="commentForm" action="" method="post">
+                        <div class="addPost">
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+                            <div class="addPostRight">
+                                <div class="happening">
+                                         <textarea class="whatishappening" rows="1" placeholder="Post your reply"
+                                                   id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                </div>
+                                <div class="addPostBottom">
+                                    <div class="icons">
+                                        <a href="#"><i class="fa-regular fa-image"></i></a>
+                                        <a href="#"><i class="fa-solid fa-video"></i></a>
+                                        <a href="#"><i class="fa-solid fa-sliders"></i></a>
+                                        <a href="#"><i class="fa-regular fa-face-smile"></i></a>
+                                        <a href="#"><i class="fa-regular fa-calendar"></i></a>
+                                        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                                    </div>
+                                    <span><button class="btn" type="submit">Reply</button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
 
