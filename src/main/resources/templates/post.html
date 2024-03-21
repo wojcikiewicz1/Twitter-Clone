@@ -178,8 +178,8 @@
                         </div>
                         <div class="right">
                             <div class="username">
-                                <div class="usernameLeft" th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></div>
-                                <div class="usernameRight" th:text="'@' + ${comment.user.username}"></div>
+                                <div class="usernameLeft" th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></div>
+                                <div class="usernameRight" th:text="'@' + ${comment.getUser().getUsername()}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                 <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
                                 <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
@@ -190,7 +190,14 @@
                                     <i class="fa-regular fa-comment"></i>
                                     <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
                                 </div>
-                                <div><i class="fa-solid fa-retweet"></i></div>
+                                <div th:if="${isRepostedMap[comment.id]}"  class="retweet unRetweetComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-solid fa-retweet"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                                </div>
+                                <div th:unless="${isRepostedMap[comment.id]}"  class="retweet retweetComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-solid fa-retweet"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                                </div>
                                 <div th:if="${isLikedMap[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
                                     <i class="fa-regular fa-heart"></i>
                                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>

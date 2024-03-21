@@ -475,7 +475,7 @@ a:hover .post, a:hover .postMain
     padding-top: 10px;
 }
 
-.likePost, .likeComment, .retweetPost {
+.likePost, .likeComment, .retweetPost, .retweetComment {
     color: #536471;
     cursor: pointer;
 }
@@ -495,17 +495,17 @@ a:hover .post, a:hover .postMain
     cursor: pointer;
 }
 
-.retweetPost:hover, unRetweetPost:hover {
+.retweetPost:hover, unRetweetPost:hover, .retweetComment:hover, unRetweetComment:hover {
     color: darkgreen;
 }
 
-.retweetPost:hover > .fa-retweet, .unRetweetPost:hover > .fa-retweet {
+.retweetPost:hover > .fa-retweet, .unRetweetPost:hover > .fa-retweet, .retweetComment:hover > .fa-retweet, .unRetweetComment:hover > .fa-retweet {
     box-shadow: 0 0 0 5px #5be35b;
     background-color: #5be35b;
     border-radius: 50%;
 }
 
-.unRetweetPost {
+.unRetweetPost, .unRetweetComment {
     color: darkgreen;
     cursor: pointer;
 }

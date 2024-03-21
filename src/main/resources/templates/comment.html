@@ -131,7 +131,14 @@
                     <i class="fa-regular fa-comment"></i>
                     <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
                 </div>
-                <div><i class="fa-solid fa-retweet"></i></div>
+                <div th:if="${isCommentReposted}" class="retweet unRetweetComment" th:data-comment-id="${comment.id}">
+                    <i class="fa-solid fa-retweet"></i>
+                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                </div>
+                <div th:unless="${isCommentReposted}" class="retweet retweetComment" th:data-comment-id="${comment.id}">
+                    <i class="fa-solid fa-retweet"></i>
+                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                </div>
                 <div th:if="${isCommentLiked}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
                     <i class="fa-regular fa-heart"></i>
                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
@@ -180,7 +187,15 @@
                                 <div class="openCommentModal" th:data-comment-id="${comment.id}">
                                     <i class="fa-regular fa-comment"></i>
                                     <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
-                                </div>                                <div><i class="fa-solid fa-retweet"></i></div>
+                                </div>
+                                <div th:if="${isCommentReposted}" class="retweet unRetweetComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-solid fa-retweet"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                                </div>
+                                <div th:unless="${isCommentReposted}" class="retweet retweetComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-solid fa-retweet"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                                </div>
                                 <div th:if="${isLikedMap[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
                                     <i class="fa-regular fa-heart"></i>
                                     <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>

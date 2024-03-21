@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const postId = this.dataset.id;
             const commentId = this.dataset.commentId;
             const isLiked = this.classList.contains('unlikePost') || this.classList.contains('unlikeComment');
-            const headers = new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded',
-            });
+            const headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded',});
 
             if(postId) {
                 const urlPost = `/api/${isLiked ? 'unlike/post' : 'like/post'}`;
@@ -73,5 +71,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-
