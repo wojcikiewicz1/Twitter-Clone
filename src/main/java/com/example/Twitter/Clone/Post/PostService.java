@@ -1,7 +1,10 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.Comment.Comment;
+import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
-import com.example.Twitter.Clone.Like.Like;
+import com.example.Twitter.Clone.Repost.Repost;
+import com.example.Twitter.Clone.Repost.RepostRepository;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
@@ -35,7 +38,6 @@ public class PostService {
     }
 
     public List<Post> getPostsAndRepostsByFollowings(String username) {
-
         User user = userRepository.findByUsername(username);
         List<User> followingUsers = followerRepository.findFollowingsByUser(user);
 
@@ -98,29 +100,13 @@ public class PostService {
         return posts;
     }
 
-    public void repost(Long postId, User user) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
-        Repost repost = new Repost();
-        repost.setWhoReposted(user);
-        repost.setOriginalAuthor(post.getUser());
-        repost.setPost(post);
-        repost.setRepostTime(new Date());
-        repostRepository.save(repost);
-    }
-
-    public void unRepost(Long postId, Principal principal) {
-        User myUser = userService.findByUserName(principal.getName());
-        Post postToUnRepost = getPostById(postId);
-
-        Repost repost = repostRepository.findByWhoRepostedAndPostId(myUser, postToUnRepost.getId());
-
-        repostRepository.delete(repost);
-    }
-
-
     public boolean isPostRepostedByUser(Principal principal, Long postId) {
         User myUser = userService.findByUserName(principal.getName());
         Post postToCheck = getPostById(postId);
+
+        if (postToCheck == null) {
+            return false;
+        }
 
         Repost repost = repostRepository.findByWhoRepostedAndPostId(myUser, postToCheck.getId());
         return repost !=null;
@@ -133,14 +119,35 @@ public class PostService {
         List<Repost> reposts = repostRepository.findByWhoReposted(user);
 
         List<Post> repostedPosts = reposts.stream()
+                .filter(repost -> repost.getPost() != null)
                 .map(Repost::getPost)
                 .collect(Collectors.toList());
 
+        List<Post> repostedCommentsAsPosts = reposts.stream()
+                .filter(repost -> repost.getComment() != null)
+                .map(repost -> convertCommentToPost(repost.getComment()))
+                .collect(Collectors.toList());
+
+
         List<Post> allPosts = new ArrayList<>(posts);
         allPosts.addAll(repostedPosts);
+        allPosts.addAll(repostedCommentsAsPosts);
         allPosts.sort(Comparator.comparing(Post::getDateTime).reversed());
 
         return allPosts;
+    }
+
+    public Post convertCommentToPost(Comment comment) {
+        Post post = new Post();
+        post.setUser(comment.getUser());
+        post.setContent(comment.getBody());
+        post.setDateTime(comment.getDateTime());
+        post.setCommentsCount(comment.getCommentsCount());
+        post.setLikesCount(comment.getLikesCount());
+        post.setRepostsCount(comment.getRepostsCount());
+        post.setReposted(false);
+
+        return post;
     }
 
 /**

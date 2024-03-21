@@ -1,6 +1,7 @@
 package com.example.Twitter.Clone.Comment;
 
 import com.example.Twitter.Clone.Post.Post;
+import com.example.Twitter.Clone.Repost.Repost;
 import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,4 +43,10 @@ public class Comment {
     private int commentsCount;
     @Transient
     private int likesCount;
+    @Transient
+    private int repostsCount;
+    @Transient
+    private boolean isReposted;
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY)
+    private Set<Repost> reposts = new HashSet<>();
 }

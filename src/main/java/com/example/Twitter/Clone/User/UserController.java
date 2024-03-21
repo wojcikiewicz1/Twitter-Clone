@@ -61,21 +61,19 @@ public class UserController {
         model.addAttribute("posts", posts);
 
         Map<Long, Boolean> isLikedMap = new HashMap<>();
+        Map<Long, Boolean> isRepostedMap = new HashMap<>();
         for (Post post : posts) {
             boolean isLiked = likeService.isPostLiked(principal, post.getId());
             isLikedMap.put(post.getId(), isLiked);
-        }
-        List<Post> postsWithLikes = postService.getPostsWithLikesCount();
-        model.addAttribute("isLikedMap", isLikedMap);
-        model.addAttribute("postsWithLikes", postsWithLikes);
-
-        Map<Long, Boolean> isRepostedMap = new HashMap<>();
-        for (Post post : posts) {
             boolean isReposted = postService.isPostRepostedByUser(principal, post.getId());
             isRepostedMap.put(post.getId(), isReposted);
         }
+        List<Post> postsWithLikes = postService.getPostsWithLikesCount();
         List<Post> postsWithReposts = postService.getPostsWithRepostsCount();
+
+        model.addAttribute("isLikedMap", isLikedMap);
         model.addAttribute("isRepostedMap", isRepostedMap);
+        model.addAttribute("postsWithLikes", postsWithLikes);
         model.addAttribute("postsWithReposts", postsWithReposts);
 
         User user = userService.findByUserName(username);

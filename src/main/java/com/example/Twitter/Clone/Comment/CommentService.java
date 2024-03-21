@@ -3,6 +3,8 @@ package com.example.Twitter.Clone.Comment;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
+import com.example.Twitter.Clone.Repost.Repost;
+import com.example.Twitter.Clone.Repost.RepostRepository;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
@@ -22,6 +24,8 @@ public class CommentService {
     private CommentRepository commentRepository;
     @Autowired
     private PostService postService;
+    @Autowired
+    private RepostRepository repostRepository;
 
 
     public List<Comment> getCommentsByPostId (Long id) {
@@ -71,6 +75,23 @@ public class CommentService {
             comment.setLikesCount(count);
         }
         return comments;
+    }
+
+    public List<Comment> getCommentsWithRepostsCount() {
+        List<Comment> comments = commentRepository.findAll();
+        for (Comment comment : comments) {
+            int count = commentRepository.countRepostsByCommentId(comment.getId());
+            comment.setRepostsCount(count);
+        }
+        return comments;
+    }
+
+    public boolean isCommentRepostedByUser(Principal principal, Long commentId) {
+        User myUser = userService.findByUserName(principal.getName());
+        Comment commentToCheck = getCommentById(commentId);
+
+        Repost repost = repostRepository.findByWhoRepostedAndCommentId(myUser, commentToCheck.getId());
+        return repost !=null;
     }
 
 

@@ -8,11 +8,12 @@ import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -34,8 +35,6 @@ public class PostController {
     private LikeService likeService;
     @Autowired
     private FollowerService followerService;
-    @Autowired
-    private PostRepository postRepository;
 
 
     @GetMapping("/{username}/{postId:[\\d]+}")
@@ -64,13 +63,25 @@ public class PostController {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
         for (Comment comment : comments) {
             int commentsCount = commentRepository.countByCommentId(comment.getId());
-            int likesCount = commentRepository.countLikesByCommentId(comment.getId());
             comment.setCommentsCount(commentsCount);
-            comment.setLikesCount(likesCount);
         }
         model.addAttribute("comments", comments);
 
-        likedComments(model, principal, postId, commentService, likeService);
+        Map<Long, Boolean> isLikedMap = new HashMap<>();
+        Map<Long, Boolean> isRepostedMap = new HashMap<>();
+        for (Comment comment : comments) {
+            boolean isLiked = likeService.isCommentLiked(principal, comment.getId());
+            isLikedMap.put(comment.getId(), isLiked);
+            boolean isReposted = commentService.isCommentRepostedByUser(principal, comment.getId());
+            isRepostedMap.put(comment.getId(), isReposted);
+        }
+        List<Comment> commentsWithLikes = commentService.getCommentsWithLikesCount();
+        List<Comment> commentsWithReposts = commentService.getCommentsWithRepostsCount();
+
+        model.addAttribute("isLikedMap", isLikedMap);
+        model.addAttribute("isRepostedMap", isRepostedMap);
+        model.addAttribute("commentsWithLikes", commentsWithLikes);
+        model.addAttribute("commentsWithReposts", commentsWithReposts);
 
         return "post";
     }
@@ -81,39 +92,6 @@ public class PostController {
         return "redirect:/home";
     }
 
-    public static void likedComments(Model model, Principal principal, Long postId, CommentService commentService , LikeService likeService) {
-        List<Comment> comments = commentService.getCommentsByPostId(postId);
-        Map<Long, Boolean> isLikedMap = new HashMap<>();
-        for (Comment comment : comments) {
-            boolean isLiked = likeService.isCommentLiked(principal, comment.getId());
-            isLikedMap.put(comment.getId(), isLiked);
-        }
-        model.addAttribute("comments", comments);
-        model.addAttribute("isLikedMap", isLikedMap);
-    }
-
-    @PostMapping("/api/repost")
-    public ResponseEntity<?> repost(@RequestParam("postId") Long postId, Principal principal) {
-        try {
-        User user = userService.findByUserName(principal.getName());
-        postService.repost(postId, user);
-        int repostsCount = postRepository.countRepostsByPostId(postId);
-        return ResponseEntity.ok(Map.of("repostsCount", repostsCount, "isReposted", true));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to repost post: " + postId);
-        }
-    }
-
-    @PostMapping("/api/unrepost")
-    public ResponseEntity<?> unrepost(@RequestParam("postId") Long postId, Principal principal) {
-        try {
-            postService.unRepost(postId, principal);
-            int repostsCount = postRepository.countRepostsByPostId(postId);
-            return ResponseEntity.ok(Map.of("repostsCount", repostsCount, "isReposted", false));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to unrepost post: " + postId);
-        }
-    }
 
 /**
  @DeleteMapping (path = " / posts / { postId } ")

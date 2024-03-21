@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.Repost.Repost;
 import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

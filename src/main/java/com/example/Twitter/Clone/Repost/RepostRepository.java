@@ -1,4 +1,4 @@
-package com.example.Twitter.Clone.Post;
+package com.example.Twitter.Clone.Repost;
 
 import com.example.Twitter.Clone.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +11,6 @@ public interface RepostRepository extends JpaRepository<Repost, Long> {
     List<Repost> findByWhoReposted(User user);
 
     Repost findByWhoRepostedAndPostId(User myUser, Long postId);
+
+    Repost findByWhoRepostedAndCommentId(User myUser, Long commentId);
 }
