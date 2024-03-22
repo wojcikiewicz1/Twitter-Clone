@@ -1,7 +1,5 @@
 package com.example.Twitter.Clone.Post;
 
-import com.example.Twitter.Clone.Comment.Comment;
-import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Repost.Repost;
 import com.example.Twitter.Clone.Repost.RepostRepository;
@@ -123,31 +121,12 @@ public class PostService {
                 .map(Repost::getPost)
                 .collect(Collectors.toList());
 
-        List<Post> repostedCommentsAsPosts = reposts.stream()
-                .filter(repost -> repost.getComment() != null)
-                .map(repost -> convertCommentToPost(repost.getComment()))
-                .collect(Collectors.toList());
-
 
         List<Post> allPosts = new ArrayList<>(posts);
         allPosts.addAll(repostedPosts);
-        allPosts.addAll(repostedCommentsAsPosts);
         allPosts.sort(Comparator.comparing(Post::getDateTime).reversed());
 
         return allPosts;
-    }
-
-    public Post convertCommentToPost(Comment comment) {
-        Post post = new Post();
-        post.setUser(comment.getUser());
-        post.setContent(comment.getBody());
-        post.setDateTime(comment.getDateTime());
-        post.setCommentsCount(comment.getCommentsCount());
-        post.setLikesCount(comment.getLikesCount());
-        post.setRepostsCount(comment.getRepostsCount());
-        post.setReposted(false);
-
-        return post;
     }
 
 /**

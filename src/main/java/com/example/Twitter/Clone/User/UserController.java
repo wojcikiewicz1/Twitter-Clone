@@ -1,6 +1,9 @@
 package com.example.Twitter.Clone.User;
 
 import com.example.Twitter.Clone.AuthController.AuthController;
+import com.example.Twitter.Clone.Comment.Comment;
+import com.example.Twitter.Clone.Comment.CommentRepository;
+import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
@@ -33,7 +36,10 @@ public class UserController {
     private FollowerRepository followerRepository;
     @Autowired
     private PostRepository postRepository;
-
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
@@ -43,12 +49,15 @@ public class UserController {
         model.addAttribute("isOwner", isOwner);
 
         List<Post> posts;
+        List<Comment> comments;
         if (isOwner) {
             posts = postService.getAllUserPostsAndReposts(principalUsername);
+            comments = commentService.getAllUserRepostedComments(principalUsername);
         } else {
             User user = userService.findByUserName(username);
             if (user != null) {
                 posts = postService.getAllUserPostsAndReposts(username);
+                comments = commentService.getAllUserRepostedComments(username);
             } else {
                 return "redirect:/error";
             }
@@ -75,6 +84,28 @@ public class UserController {
         model.addAttribute("isRepostedMap", isRepostedMap);
         model.addAttribute("postsWithLikes", postsWithLikes);
         model.addAttribute("postsWithReposts", postsWithReposts);
+
+        for (Comment comment : comments) {
+            int commentsCount = commentRepository.countByCommentId(comment.getId());
+            comment.setCommentsCount(commentsCount);
+        }
+        model.addAttribute("comments", comments);
+
+        Map<Long, Boolean> isLikedMapComments = new HashMap<>();
+        Map<Long, Boolean> isRepostedMapComments = new HashMap<>();
+        for (Comment comment : comments) {
+            boolean isLikedComment = likeService.isCommentLiked(principal, comment.getId());
+            isLikedMapComments.put(comment.getId(), isLikedComment);
+            boolean isRepostedComment = commentService.isCommentRepostedByUser(principal, comment.getId());
+            isRepostedMapComments.put(comment.getId(), isRepostedComment);
+        }
+        List<Comment> commentsWithLikes = commentService.getCommentsWithLikesCount();
+        List<Comment> commentsWithReposts = commentService.getCommentsWithRepostsCount();
+
+        model.addAttribute("isLikedMapComments", isLikedMapComments);
+        model.addAttribute("isRepostedMapComments", isRepostedMapComments);
+        model.addAttribute("commentsWithLikes", commentsWithLikes);
+        model.addAttribute("commentsWithReposts", commentsWithReposts);
 
         User user = userService.findByUserName(username);
         model.addAttribute("user", user);

@@ -1,7 +1,6 @@
 package com.example.Twitter.Clone.Comment;
 
 import com.example.Twitter.Clone.Post.Post;
-import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.Repost.Repost;
 import com.example.Twitter.Clone.Repost.RepostRepository;
@@ -12,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -92,6 +92,23 @@ public class CommentService {
 
         Repost repost = repostRepository.findByWhoRepostedAndCommentId(myUser, commentToCheck.getId());
         return repost !=null;
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+    public List<Comment> getAllUserRepostedComments(String username) {
+        User user = userRepository.findByUsername(username);
+
+        List<Repost> reposts = repostRepository.findByWhoReposted(user);
+
+        List<Comment> repostedComments = reposts.stream()
+                .filter(repost -> repost.getComment() != null)
+                .map(Repost::getComment)
+                .collect(Collectors.toList());
+
+        List<Comment> comments = new ArrayList<>(repostedComments);
+
+        return comments;
     }
 
 

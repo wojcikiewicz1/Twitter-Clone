@@ -49,12 +49,6 @@ public class RepostService {
 
     public void repostComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new RuntimeException("Comment not found"));
-
-        /*
-        Post postFromComment = postService.convertCommentToPost(comment);
-        postFromComment.setDateTime(new Date());
-        postRepository.save(postFromComment);
-*/
         Repost repost = new Repost();
         repost.setWhoReposted(user);
         repost.setOriginalAuthor(comment.getUser());
