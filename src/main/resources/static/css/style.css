@@ -1337,3 +1337,37 @@ aside
 {
     color: red;
 }
+
+.optionsWindow
+{
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+    border-radius: 10px;
+    width: 250px;
+    z-index: 1;
+    color: #000000;
+    font-weight: 700;
+    right: 20%;
+}
+
+.optionsWindowOptionUnfollow
+{
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    color: red;
+}
+
+.optionsWindowOptionFollow
+{
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.optionsWindowOptionUnfollow:hover, .optionsWindowOptionFollow:hover
+{
+    background-color: #f0f0f0;
+}
+

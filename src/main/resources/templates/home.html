@@ -130,7 +130,7 @@
                             <div class="ifPostReposted">
                                 <div th:if="${!post.reposts.isEmpty()}">
                                     <div th:each="repost : ${post.reposts}">
-                                        <div th:if="${isFollowingMap[repost.whoReposted.username]}">
+                                        <div th:if="${isFollowingMapRandom[repost.whoReposted.username]}">
                                             <div>
                                                 <i class="fa-solid fa-retweet"></i>
                                                 <span th:text="${repost.whoReposted.username}"></span>
@@ -151,8 +151,16 @@
                                     <div class="usernameRight" th:text="'@' + ${post.getUser().getUsername()}"></div>
                                     <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                     <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
-                                    <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
+                                    <div class="postDots" onclick="optionsWindow(event)">
+                                        <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
+                                    </div>
                                 </div>
+
+                                <div class="optionsWindow" style="display: none;">
+                                    <div th:if="${isFollowingMapRandom[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
+                                    <div th:unless="${isFollowingMapRandom[post.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${post.user.username}" th:text="'Follow @' + ${post.getUser().getUsername()}"></div>
+                                </div>
+
                                 <div class="content" th:text="${post.content}"></div>
                                 <div class="postIcons">
                                     <div class="openCommentModal" th:data-post-id="${post.id}">
@@ -180,7 +188,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </a>
 
             <div id="commentModal" class="modal">
                 <div class="modal-content">
@@ -242,8 +250,8 @@
                                             <div class="wtfusernameUN" th:text="'@' + ${randomUser.username}"></div>
                                         </div>
                                         <div class="wtfbutton">
-                                            <div th:if="${isFollowingMap[randomUser.username]}" class="unfollowBtn js-followToggle " th:data-username="${randomUser.username}">Unfollow</div>
-                                            <div th:unless="${isFollowingMap[randomUser.username]}" class="followBtn js-followToggle " th:data-username="${randomUser.username}">Follow</div>
+                                            <div th:if="${isFollowingMapRandom[randomUser.username]}" class="unfollowBtn js-followToggle " th:data-username="${randomUser.username}">Unfollow</div>
+                                            <div th:unless="${isFollowingMapRandom[randomUser.username]}" class="followBtn js-followToggle " th:data-username="${randomUser.username}">Follow</div>
                                         </div>
                                     </div>
                                 </div>

@@ -112,12 +112,21 @@
                                 <div class="wtfusernameFLN" th:text="${comment.user.firstName} + ' ' + ${comment.user.lastName}"></div>
                                 <div class="wtfusernameUN" th:text="'@' + ${comment.user.username}"></div>
                             </div>
-                            <div class="wtfbutton">
-                                <i class="fa-solid fa-ellipsis"></i>
+                            <div class="postDots" onclick="optionsWindow(event)">
+                                <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
+                    <div>Delete comment</div>
+                </div>
+                <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
+                    <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
+                    <div th:unless="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${comment.user.username}" th:text="'Follow @' + ${comment.getUser().getUsername()}"></div>
+                </div>
+
             </div>
             <div class="postContent" th:text="${comment.body}"></div>
             <div class="postData">
@@ -180,8 +189,19 @@
                                 <div class="usernameRight" th:text="'@' + ${comment.user.username}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                 <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
-                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
+                                <div class="postDots" onclick="optionsWindow(event)">
+                                    <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
+                                </div>
                             </div>
+
+                            <div class="optionsWindow" style="display: none;" th:if="${isAuthorMap[comment.id]}">
+                                <div>Delete comment</div>
+                            </div>
+                            <div class="optionsWindow" style="display: none;" th:if="${!isAuthorMap[comment.id]}">
+                                <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
+                                <div th:unless="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${comment.user.username}" th:text="'Follow @' + ${comment.getUser().getUsername()}"></div>
+                            </div>
+
                             <div class="content" th:text="${comment.body}"></div>
                             <div class="postIcons">
                                 <div class="openCommentModal" th:data-comment-id="${comment.id}">

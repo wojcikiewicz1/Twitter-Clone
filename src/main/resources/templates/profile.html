@@ -212,8 +212,19 @@
                                     <div class="usernameRight" th:text="'@' + ${post.getUser().getUsername()}"></div>
                                     <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                     <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
-                                    <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
+                                    <div class="postDots" onclick="optionsWindow(event)">
+                                        <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
+                                    </div>
                                 </div>
+
+                                <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
+                                    <div>Delete post</div>
+                                </div>
+                                <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
+                                    <div th:if="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
+                                    <div th:unless="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${post.user.username}" th:text="'Follow @' + ${post.getUser().getUsername()}"></div>
+                                </div>
+
                                 <div class="content" th:text="${post.content}"></div>
                                 <div class="postIcons">
                                     <div class="openCommentModal" th:data-post-id="${post.id}">
@@ -267,8 +278,19 @@
                                 <div class="usernameRight" th:text="'@' + ${comment.getUser().getUsername()}"></div>
                                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
                                 <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
-                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
+                                <div class="postDots" onclick="optionsWindow(event)">
+                                    <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
+                                </div>
                             </div>
+
+                            <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
+                                <div>Delete comment</div>
+                            </div>
+                            <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
+                                <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
+                                <div th:unless="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${comment.user.username}" th:text="'Follow @' + ${comment.getUser().getUsername()}"></div>
+                            </div>
+
                             <div class="content" th:text="${comment.body}"></div>
                             <div class="postIcons">
                                 <div class="openCommentModal" th:data-comment-id="${comment.id}">
@@ -358,8 +380,8 @@
                                         <div class="wtfusernameUN" th:text="'@' + ${randomUser.username}"></div>
                                     </div>
                                     <div class="wtfbutton">
-                                        <div th:if="${isFollowingMap[randomUser.username]}" class="unfollowBtn js-followToggle " th:data-username="${randomUser.username}">Unfollow</div>
-                                        <div th:unless="${isFollowingMap[randomUser.username]}" class="followBtn js-followToggle " th:data-username="${randomUser.username}">Follow</div>
+                                        <div th:if="${isFollowingMapRandom[randomUser.username]}" class="unfollowBtn js-followToggle " th:data-username="${randomUser.username}">Unfollow</div>
+                                        <div th:unless="${isFollowingMapRandom[randomUser.username]}" class="followBtn js-followToggle " th:data-username="${randomUser.username}">Follow</div>
                                     </div>
                                 </div>
                             </div>

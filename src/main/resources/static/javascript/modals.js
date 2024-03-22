@@ -18,7 +18,7 @@ document.addEventListener('click', function(event) {
     }
 });
 
-//--------------------------------Window for more------------------------
+//----------------------------------------------Window for more--------------------------------------------------------
 function moreWindow(event) {
     event.stopPropagation();
     let options = event.currentTarget.nextElementSibling;
@@ -31,13 +31,40 @@ function moreWindow(event) {
 }
 
 document.addEventListener('click', function(event) {
-    if (!event.target.closest('.fa-ellipsis')) {
+    if (!event.target.closest('.menu-link')) {
         document.querySelectorAll('.moreOptionsWindow').forEach(function(element) {
             element.style.display = 'none';
         });
     }
 });
-//------------------------------------------Modals functions------------------------------------------------------
+//------------------------------------------Window for post/comment options---------------------------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.fa-ellipsisPost').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const postElement = event.target.closest('.right') || event.target.closest('.postUser');
+            const options = postElement.querySelector('.optionsWindow');
+            let isVisible = options.style.display === "block";
+
+            document.querySelectorAll('.optionsWindow').forEach(function(element) {
+             element.style.display = 'none';
+            });
+            options.style.display = isVisible ? 'none' : 'block';
+        });
+    });
+});
+
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.postDots')) {
+        document.querySelectorAll('.optionsWindow').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }
+});
+
+//----------------------------------------------Modals functions--------------------------------------------------------
 let modals = {};
 function initializeModalHandlers(modalId, closeButtonClass) {
     let modal = document.getElementById(modalId);

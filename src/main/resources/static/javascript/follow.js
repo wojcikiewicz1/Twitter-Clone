@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             const username = this.dataset.username;
-            const isFollowing = this.classList.contains('unfollowBtn') || this.classList.contains('unfollowButton');
+            const isFollowing = this.classList.contains('unfollowBtn') || this.classList.contains('unfollowButton') || this.classList.contains('optionsWindowOptionUnfollow');
             const url = `/api/${isFollowing ? 'unfollow' : 'follow'}`;
             const headers = new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         } else if (this.classList.contains('unfollowButton')) {
                             this.classList.remove('unfollowButton');
                             this.classList.add('followButton');
+                        } else if (this.classList.contains('optionsWindowOptionUnfollow')) {
+                            this.classList.remove('optionsWindowOptionUnfollow');
+                            this.classList.add('optionsWindowOptionFollow');
                         }
                     } else {
                         this.textContent = 'Unfollow';
@@ -34,6 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         } else if (this.classList.contains('followButton')) {
                             this.classList.remove('followButton');
                             this.classList.add('unfollowButton');
+                        } else if (this.classList.contains('optionsWindowOptionFollow')) {
+                            this.classList.remove('optionsWindowOptionFollow');
+                            this.classList.add('optionsWindowOptionUnfollow');
                         }
                     }
                     updateButtonStyles(this);
@@ -73,6 +79,28 @@ function updateButtonStyles(button) {
             this.style.backgroundColor = '';
             this.style.color = '';
             this.style.border = '';
+        };
+    }
+
+    if (button.classList.contains('optionsWindowOptionFollow')) {
+        button.onmouseover = function() {
+            this.style.cursor = 'pointer';
+            this.style.backgroundColor = '#f0f0f0';
+        };
+        button.onmouseout = function() {
+            this.style.backgroundColor = '';
+        };
+    }
+
+    else if (button.classList.contains('optionsWindowOptionUnfollow')) {
+        button.onmouseover = function() {
+            this.style.cursor = 'pointer';
+            this.style.backgroundColor = '#f0f0f0';
+            this.style.color = 'red';
+        };
+        button.onmouseout = function() {
+            this.style.backgroundColor = '';
+            this.style.color = '';
         };
     }
 }
