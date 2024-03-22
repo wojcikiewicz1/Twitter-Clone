@@ -111,13 +111,13 @@ public class AuthController {
 
     public static void randomUsers(Model model, Principal principal, String username, String principalUsername, UserService userService, FollowerService followerService) {
         List<User> randomUsers = userService.findRandomUsers(principalUsername,username, 3);
-        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        Map<String, Boolean> isFollowingMapRandom = new HashMap<>();
         for (User randomUser : randomUsers) {
             boolean isFollowing = followerService.isFollowing(principal, randomUser.getUsername());
-            isFollowingMap.put(randomUser.getUsername(), isFollowing);
+            isFollowingMapRandom.put(randomUser.getUsername(), isFollowing);
         }
         model.addAttribute("randomUsers", randomUsers);
-        model.addAttribute("isFollowingMap", isFollowingMap);
+        model.addAttribute("isFollowingMapRandom", isFollowingMapRandom);
     }
 
     public static void preparePostsData(Model model, Principal principal, String principalUsername, PostService postService, LikeService likeService) {

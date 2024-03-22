@@ -3,6 +3,8 @@ package com.example.Twitter.Clone.Comment;
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.User.User;
+import com.example.Twitter.Clone.User.UserController;
+import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ public class CommentController {
     private LikeService likeService;
     @Autowired
     private FollowerService followerService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/{username}/comment/{commentId:[\\d]+}")
     public String getCommentById(@PathVariable("username") String username, @PathVariable("commentId") Long commentId, Model model, Principal principal) {
@@ -64,19 +68,29 @@ public class CommentController {
 
         Map<Long, Boolean> isLikedMap = new HashMap<>();
         Map<Long, Boolean> isRepostedMap = new HashMap<>();
+        Map<Long, Boolean> isAuthorMap = new HashMap<>();
         for (Comment response : responses) {
             boolean isLiked = likeService.isCommentLiked(principal, response.getId());
             isLikedMap.put(response.getId(), isLiked);
             boolean isReposted = commentService.isCommentRepostedByUser(principal, response.getId());
             isRepostedMap.put(response.getId(), isReposted);
+            boolean isAuthor = response.getUser().getUsername().equals(principal.getName());
+            isAuthorMap.put(response.getId(), isAuthor);
         }
         List<Comment> responsesWithLikes = commentService.getCommentsWithLikesCount();
         List<Comment> responsesWithReposts = commentService.getCommentsWithRepostsCount();
 
         model.addAttribute("isLikedMap", isLikedMap);
         model.addAttribute("isRepostedMap", isRepostedMap);
+        model.addAttribute("isAuthorMap", isAuthorMap);
         model.addAttribute("responsesWithLikes", responsesWithLikes);
         model.addAttribute("responsesWithReposts", responsesWithReposts);
+
+        UserController.isUserFollowed(model, principal, userRepository, followerService);
+
+        String principalUsername = principal.getName();
+        boolean isOwner = username.equals(principalUsername);
+        model.addAttribute("isOwner", isOwner);
 
         return "comment";
     }

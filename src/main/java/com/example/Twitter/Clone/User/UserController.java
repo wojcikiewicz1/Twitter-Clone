@@ -40,6 +40,8 @@ public class UserController {
     private CommentService commentService;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/{username}")
     public String profile(@PathVariable("username") String username, Model model, Principal principal) {
@@ -75,7 +77,7 @@ public class UserController {
             boolean isLiked = likeService.isPostLiked(principal, post.getId());
             isLikedMap.put(post.getId(), isLiked);
             boolean isReposted = postService.isPostRepostedByUser(principal, post.getId());
-            isRepostedMap.put(post.getId(), isReposted);
+            isRepostedMap.put(post.getId(), isReposted);;
         }
         List<Post> postsWithLikes = postService.getPostsWithLikesCount();
         List<Post> postsWithReposts = postService.getPostsWithRepostsCount();
@@ -119,12 +121,25 @@ public class UserController {
         model.addAttribute("following", following);
         model.addAttribute("followers", followers);
 
-        int numberOfPosts = postRepository.numberOfPosts(user.getId());
+        int numberOfPosts = posts.size() + comments.size();
         model.addAttribute("numberOfPosts", numberOfPosts);
 
         AuthController.randomUsers(model, principal, username, principalUsername, userService, followerService);
 
+        isUserFollowed(model, principal, userRepository, followerService);
+
         return "profile";
+    }
+
+    public static void isUserFollowed(Model model, Principal principal, UserRepository userRepository, FollowerService followerService){
+        List<User> users = userRepository.findAll();
+        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        for (User someUser : users) {
+            boolean isFollowing = followerService.isFollowing(principal, someUser.getUsername());
+            isFollowingMap.put(someUser.getUsername(), isFollowing);
+        }
+        model.addAttribute("users", users);
+        model.addAttribute("isFollowingMap", isFollowingMap);
     }
 
 }
