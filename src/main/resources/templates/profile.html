@@ -243,6 +243,61 @@
                 </a>
             </div>
 
+            <div class="replies" th:each="comment : ${comments}">
+                <a th:href="@{'/' + ${comment.user.username} + '/comment/' + ${comment.id}}">
+                    <div class="postMain">
+                        <div class="postUp">
+                            <div class="ifPostReposted">
+                                <div th:each="repost : ${comment.reposts}">
+                                    <div th:if="${repost.whoReposted.username == user.username}">
+                                        <i class="fa-solid fa-retweet"></i>
+                                        <span th:text="${repost.whoReposted.username} + ' '"></span>
+                                        <span>reposted</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="postDown">
+                        <div class="userPhotoMain">
+                            <img src="/images/userPhoto.png">
+                        </div>
+                        <div class="right">
+                            <div class="username">
+                                <div class="usernameLeft" th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></div>
+                                <div class="usernameRight" th:text="'@' + ${comment.getUser().getUsername()}"></div>
+                                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
+                                <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
+                                <div class="postDots"><i class="fa-solid fa-ellipsis"></i></div>
+                            </div>
+                            <div class="content" th:text="${comment.body}"></div>
+                            <div class="postIcons">
+                                <div class="openCommentModal" th:data-comment-id="${comment.id}">
+                                    <i class="fa-regular fa-comment"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
+                                </div>
+                                <div th:if="${isRepostedMapComments[comment.id]}"  class="retweet unRetweetComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-solid fa-retweet"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                                </div>
+                                <div th:unless="${isRepostedMapComments[comment.id]}"  class="retweet retweetComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-solid fa-retweet"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
+                                </div>
+                                <div th:if="${isLikedMapComments[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
+                                </div>
+                                <div th:unless="${isLikedMapComments[comment.id]}" class="like-heart likeComment" th:data-comment-id="${comment.id}">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </a>
+            </div>
+
             <div id="commentModal" class="modal">
                 <div class="modal-content">
                     <span class="closeCommentModal">&times;</span>
