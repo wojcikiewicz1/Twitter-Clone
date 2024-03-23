@@ -274,16 +274,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//--------------------------------Deleting account-----------------------------------------
-function confirmDelete() {
-    let confirmAction = confirm("Are you sure you want to delete your account?");
-    if (confirmAction) {
-        document.getElementById('deleteForm').submit();
-    } else {
-        console.log('Account deletion cancelled.');
-    }
-}
 
 
 
 
+
+
+//------------------------
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#postModal .modal-content form');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Zapobiegamy domyślnemu przesłaniu formularza
+
+        const formData = new FormData(form);
+
+        fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+            .then(response => {
+                if(response.ok) {
+                    // Tutaj zamykamy modal
+                    document.getElementById('postModal').style.display = 'none';
+
+                    location.reload();
+                    console.log('Post added successfully');
+
+                } else {
+                    // Obsługa błędów, np. wyświetlenie komunikatu
+                    console.error('Something went wrong');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+});

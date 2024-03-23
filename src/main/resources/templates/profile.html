@@ -218,7 +218,9 @@
                                 </div>
 
                                 <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                    <div>Delete post</div>
+                                    <div class="mowoption" th:data-id="${post.id}">
+                                        Delete post
+                                    </div>
                                 </div>
                                 <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
                                     <div th:if="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
@@ -284,7 +286,9 @@
                             </div>
 
                             <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                <div>Delete comment</div>
+                                <div class="mowoption" th:data-comment-id="${comment.id}">
+                                    Delete comment
+                                </div>
                             </div>
                             <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
                                 <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
@@ -456,5 +460,6 @@
 <script src="/javascript/like.js"></script>
 <script src="/javascript/repost.js"></script>
 <script src="/javascript/modals.js"></script>
+<script src="/javascript/delete.js"></script>
 </body>
 </html>

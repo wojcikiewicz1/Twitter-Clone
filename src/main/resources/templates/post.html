@@ -120,7 +120,9 @@
                 </div>
 
                 <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                    <div>Delete comment</div>
+                    <div class="mowoption" th:data-id="${post.id}">
+                        Delete post
+                    </div>
                 </div>
                 <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
                     <div th:if="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
@@ -195,7 +197,9 @@
                             </div>
 
                             <div class="optionsWindow" style="display: none;" th:if="${isAuthorMap[comment.id]}">
-                                <div>Delete comment</div>
+                                <div class="mowoption" th:data-comment-id="${comment.id}">
+                                    Delete comment
+                                </div>
                             </div>
                             <div class="optionsWindow" style="display: none;" th:if="${!isAuthorMap[comment.id]}">
                                 <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
@@ -270,7 +274,7 @@
 
             <div class="relevant">
                 <div class="relevantTop">Revelant people</div>
-                <a th:href="@{/{username}(username=${user.username})}">
+                <a th:href="@{/{username}(username=${post.user.username})}">
                     <div class="relevantmiddle">
                         <div class="wtfprofile">
                             <div class="wtfphoto">
@@ -278,12 +282,12 @@
                             </div>
                             <div class="wtffollow">
                                 <div class="wtfusername">
-                                    <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
-                                    <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
+                                    <div class="wtfusernameFLN" th:text="${post.user.firstName} + ' ' + ${post.user.lastName}"></div>
+                                    <div class="wtfusernameUN" th:text="'@' + ${post.user.username}"></div>
                                 </div>
                                 <div class="wtfbutton">
-                                    <div th:if="${isFollowed}" class="unfollowBtn js-followToggle " th:data-username="${user.username}">Unfollow</div>
-                                    <div th:unless="${isFollowed}" class="followBtn js-followToggle " th:data-username="${user.username}">Follow</div>
+                                    <div th:if="${isFollowed}" class="unfollowBtn js-followToggle " th:data-username="${post.user.username}">Unfollow</div>
+                                    <div th:unless="${isFollowed}" class="followBtn js-followToggle " th:data-username="${post.user.username}">Follow</div>
                                 </div>
                             </div>
                         </div>
@@ -363,5 +367,6 @@
 <script src="/javascript/like.js"></script>
 <script src="/javascript/repost.js"></script>
 <script src="/javascript/modals.js"></script>
+<script src="/javascript/delete.js"></script>
 </body>
 </html>

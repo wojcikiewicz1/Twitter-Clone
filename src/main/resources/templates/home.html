@@ -100,7 +100,7 @@
                 <div class="settings"><a href="#"><i class="fa-solid fa-gear"></i></a></div>
             </div>
 
-            <form th:action="@{/api/addPost}" method="post">
+            <form th:action="@{/addPost}" method="post">
                 <div class="addPost">
                     <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
                     <div class="addPostRight">
@@ -326,5 +326,6 @@
 <script src="/javascript/like.js"></script>
 <script src="/javascript/repost.js"></script>
 <script src="/javascript/modals.js"></script>
+<script src="/javascript/delete.js"></script>
 </body>
 </html>
