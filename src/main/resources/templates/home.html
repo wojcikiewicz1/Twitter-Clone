@@ -85,7 +85,7 @@
                     </div>
                     <div class="profileOptionsWindow" style="display: none;">
                         <div class="powoption">Add an existing account</div>
-                        <a th:href="@{/logout}"><div class="powoption">Log out <span th:text="'@' + ${myUser.username}"></span></div></a>
+                        <a th:href="@{/logout}"><div>Log out <span th:text="'@' + ${myUser.username}"></span></div></a>
                     </div>
                 </div>
         </div>
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                 </a>
-            </a>
+            </div>
 
             <div id="commentModal" class="modal">
                 <div class="modal-content">
@@ -217,7 +217,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </main>
 

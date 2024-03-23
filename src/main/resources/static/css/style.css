@@ -143,7 +143,6 @@ nav
     position: absolute;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
-    padding: 10px 0;
     border-radius: 10px;
     width: 320px;
     bottom: 100%;
@@ -154,21 +153,29 @@ nav
     font-weight: 700;
 }
 
+.profileOptionsWindow a
+{
+    display: block;
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+}
+
+.profileOptionsWindow a:hover
+{
+    background-color: #f0f0f0;
+    border-radius: 0 0 10px 10px;
+}
+
 .powoption
 {
     padding: 20px;
-    border-bottom: 1px solid #eee;
     cursor: pointer;
-}
-
-.powoption:last-child
-{
-    border-bottom: none;
 }
 
 .powoption:hover
 {
     background-color: #f0f0f0;
+    border-radius: 10px 10px 0 0;
 }
 
 .moreOptionsWindow
@@ -510,7 +517,7 @@ a:hover .post, a:hover .postMain
     cursor: pointer;
 }
 
-.fa-comment:hover {
+.fa-comment:hover, .fa-ellipsisPost:hover {
     box-shadow: 0 0 0 5px dodgerblue;
     background-color: dodgerblue;
     border-radius: 50%;
@@ -1349,6 +1356,11 @@ aside
     color: #000000;
     font-weight: 700;
     right: 20%;
+}
+
+.postCommentPage
+{
+    top: 8%;
 }
 
 .optionsWindowOptionUnfollow

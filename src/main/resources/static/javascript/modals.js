@@ -260,7 +260,7 @@ function postOrCommentPostModal() {
 }
 
 
-//--------------------------------Textareas resizing------------------------
+//------------------------------------------------Textareas resizing----------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
     const textareas = document.querySelectorAll('.whatishappening, .postyourreply');
 
@@ -275,17 +275,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-
-
-
-//------------------------
+//-----------------------------------Refreshing page after adding post in modal-----------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('#postModal .modal-content form');
 
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Zapobiegamy domyślnemu przesłaniu formularza
+        e.preventDefault();
 
         const formData = new FormData(form);
 
@@ -296,14 +291,12 @@ document.addEventListener('DOMContentLoaded', function() {
         })
             .then(response => {
                 if(response.ok) {
-                    // Tutaj zamykamy modal
                     document.getElementById('postModal').style.display = 'none';
 
                     location.reload();
                     console.log('Post added successfully');
 
                 } else {
-                    // Obsługa błędów, np. wyświetlenie komunikatu
                     console.error('Something went wrong');
                 }
             })

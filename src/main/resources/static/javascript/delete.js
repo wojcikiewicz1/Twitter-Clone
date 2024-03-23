@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (confirmActionPost) {
                     const formData = new FormData();
                     formData.append('id', postId);
+                    const isPostPage = /\/\w+\/\d+$/.test(window.location.pathname);
 
                     fetch('/deletePost', {
                         method: 'POST',
@@ -19,7 +20,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         credentials: 'include'
                     }).then(response => {
                         if (response.ok) {
-                            location.reload();
+                            if (isPostPage) {
+                                window.location.href = '/home';
+                            } else {
+                                location.reload();
+                            }
                         } else {
                             throw new Error('Action failed');
                         }
@@ -35,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (confirmActionComment) {
                     const formData = new FormData();
                     formData.append('commentId', commentId);
+                    const isCommentPage = /\/\w+\/comment\/\d+$/.test(window.location.pathname);
 
                     fetch('/deleteComment', {
                         method: 'POST',
@@ -42,7 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         credentials: 'include'
                     }).then(response => {
                         if (response.ok) {
-                            location.reload();
+                            if (isCommentPage) {
+                                window.location.href = '/home';
+                            } else {
+                                location.reload();
+                            }
                         } else {
                             throw new Error('Action failed');
                         }

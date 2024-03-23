@@ -85,7 +85,7 @@
                 </div>
                 <div class="profileOptionsWindow" style="display: none;">
                     <div class="powoption">Add an existing account</div>
-                    <a th:href="@{/logout}"><div class="powoption">Log out <span th:text="'@' + ${myUser.username}"></span></div></a>
+                    <a th:href="@{/logout}"><div>Log out <span th:text="'@' + ${myUser.username}"></span></div></a>
                 </div>
             </div>
         </div>
@@ -119,12 +119,12 @@
                     </div>
                 </div>
 
-                <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
+                <div class="optionsWindow postCommentPage" style="display: none;" th:if="${isOwner}">
                     <div class="mowoption" th:data-comment-id="${comment.id}">
                         Delete comment
                     </div>
                 </div>
-                <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
+                <div class="optionsWindow postCommentPage" style="display: none;" th:if="${!isOwner}">
                     <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
                     <div th:unless="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${comment.user.username}" th:text="'Follow @' + ${comment.getUser().getUsername()}"></div>
                 </div>
@@ -285,7 +285,7 @@
                                     <div class="wtfusernameFLN" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
                                     <div class="wtfusernameUN" th:text="'@' + ${user.username}"></div>
                                 </div>
-                                <div class="wtfbutton">
+                                <div class="wtfbutton" th:if="${!isOwner}">
                                     <div th:if="${isFollowed}" class="unfollowBtn js-followToggle " th:data-username="${user.username}">Unfollow</div>
                                     <div th:unless="${isFollowed}" class="followBtn js-followToggle " th:data-username="${user.username}">Follow</div>
                                 </div>
