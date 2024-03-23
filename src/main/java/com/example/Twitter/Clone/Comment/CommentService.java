@@ -1,5 +1,6 @@
 package com.example.Twitter.Clone.Comment;
 
+import com.example.Twitter.Clone.Like.LikeRepository;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.Repost.Repost;
@@ -9,6 +10,7 @@ import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -26,6 +28,10 @@ public class CommentService {
     private PostService postService;
     @Autowired
     private RepostRepository repostRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private LikeRepository likeRepository;
 
 
     public List<Comment> getCommentsByPostId (Long id) {
@@ -57,6 +63,13 @@ public class CommentService {
         comment.setComment(comment1);
         comment.setBody(body);
         commentRepository.save(comment);
+    }
+
+    @Transactional
+    public void deleteComment (Comment comment) {
+        likeRepository.deleteByCommentId(comment.getId());
+        commentRepository.deleteByCommentId(comment.getId());
+        commentRepository.delete(comment);
     }
 
     public List<Comment> getCommentsWithCommentsCount() {
@@ -94,8 +107,6 @@ public class CommentService {
         return repost !=null;
     }
 
-    @Autowired
-    private UserRepository userRepository;
     public List<Comment> getAllUserRepostedComments(String username) {
         User user = userRepository.findByUsername(username);
 
@@ -111,17 +122,4 @@ public class CommentService {
         return comments;
     }
 
-
-
-    /**
-    public void DeleteComment (Long commentId) {
-        boolean exists = commentRepository.existsById(commentId);
-        if (!exists) {
-            throw new IllegalStateException("comment with id " + commentId + " does not exists");
-        }
-        commentRepository.deleteById(commentId);
-
-    }
-
-     **/
 }

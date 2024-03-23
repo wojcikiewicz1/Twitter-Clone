@@ -102,13 +102,6 @@ public class AuthController {
         return "home";
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser(Principal principal) {
-        User user = userService.findByUserName(principal.getName());
-        userService.deleteUser(user);
-        return "redirect:/logout";
-    }
-
     public static void randomUsers(Model model, Principal principal, String username, String principalUsername, UserService userService, FollowerService followerService) {
         List<User> randomUsers = userService.findRandomUsers(principalUsername,username, 3);
         Map<String, Boolean> isFollowingMapRandom = new HashMap<>();

@@ -2,17 +2,17 @@ package com.example.Twitter.Clone.Comment;
 
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
+import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserController;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -106,13 +106,16 @@ public class CommentController {
         return "redirect:/" + username + "/comment/" + commentId;
     }
 
-    /**
-
-    @DeleteMapping(path = "comments/{commentId}")
-    public ResponseEntity deleteComment(@PathVariable("commentId") Long commentId) {
-        commentService.DeleteComment(commentId);
-        return ResponseEntity.ok("Comment deleted");
+    @PostMapping("/deleteComment")
+    public ResponseEntity<?> deleteComment(@RequestParam("commentId") Long commentId) {
+        try {
+            Comment comment = commentService.getCommentById(commentId);
+            commentService.deleteComment(comment);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting comment");
+        }
     }
 
-    **/
 }

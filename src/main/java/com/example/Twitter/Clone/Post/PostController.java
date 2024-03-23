@@ -10,12 +10,11 @@ import com.example.Twitter.Clone.User.UserController;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -100,19 +99,33 @@ public class PostController {
         return "post";
     }
 
-    @PostMapping("/api/addPost")
-    public String addPost(@ModelAttribute("content") String content, Principal principal) {
+    @PostMapping("/addPost")
+    public String addPostMain(@ModelAttribute("content") String content, Principal principal) {
         postService.addNewPost(principal, content);
         return "redirect:/home";
     }
 
+    @PostMapping("/api/addPost")
+    @ResponseBody
+    public ResponseEntity<?> addPost(@ModelAttribute("content") String content, Principal principal) {
+        try {
+            postService.addNewPost(principal, content);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error message");
+        }
+    }
 
-/**
- @DeleteMapping (path = " / posts / { postId } ")
- public ResponseEntity deletePost (@PathVariable("postId") Long postId) {
- postService.deletePost(postId);
- return ResponseEntity.ok("Post deleted");
- }
- **/
+    @PostMapping("/deletePost")
+    public ResponseEntity<?> deletePost(@RequestParam("id") Long postId) {
+        try {
+            Post post = postService.getPostById(postId);
+            postService.deletePost(post);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting post");
+        }
+    }
 
 }

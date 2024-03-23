@@ -1,6 +1,8 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
+import com.example.Twitter.Clone.Like.LikeRepository;
 import com.example.Twitter.Clone.Repost.Repost;
 import com.example.Twitter.Clone.Repost.RepostRepository;
 import com.example.Twitter.Clone.User.User;
@@ -8,6 +10,7 @@ import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.*;
@@ -26,6 +29,10 @@ public class PostService {
     private FollowerRepository followerRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private LikeRepository likeRepository;
 
     public Post getPostById(Long postId) {
         return postRepository.getPostById(postId);
@@ -69,6 +76,13 @@ public class PostService {
         post.setContent(content);
         post.setReposted(false);
         postRepository.save(post);
+    }
+
+    @Transactional
+    public void deletePost (Post post) {
+        likeRepository.deleteByPostId(post.getId());
+        commentRepository.deleteByPostId(post.getId());
+        postRepository.delete(post);
     }
 
     public List<Post> getPostsWithCommentsCount() {
@@ -129,11 +143,5 @@ public class PostService {
         return allPosts;
     }
 
-/**
-    public void deletePost(Long postId) {
-
-        postRepository.deleteById(postId);
-    }
-     **/
 }
 
