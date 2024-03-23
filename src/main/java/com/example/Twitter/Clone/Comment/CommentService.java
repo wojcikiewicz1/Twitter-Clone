@@ -66,9 +66,13 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment (Comment comment) {
+    public void deleteComment(Comment comment) {
         likeRepository.deleteByCommentId(comment.getId());
-        commentRepository.deleteByCommentId(comment.getId());
+        repostRepository.deleteByCommentId(comment.getId());
+        List<Comment> responses = commentRepository.findResponsesByCommentId(comment.getId());
+        for (Comment response : responses) {
+            deleteComment(response);
+        }
         commentRepository.delete(comment);
     }
 

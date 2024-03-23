@@ -10,6 +10,10 @@ import java.util.List;
 public interface RepostRepository extends JpaRepository<Repost, Long> {
     List<Repost> findByWhoReposted(User user);
 
+    void deleteByPostId(Long postId);
+
+    void deleteByCommentId(Long commentId);
+
     Repost findByWhoRepostedAndPostId(User myUser, Long postId);
 
     Repost findByWhoRepostedAndCommentId(User myUser, Long commentId);

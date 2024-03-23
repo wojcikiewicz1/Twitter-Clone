@@ -1,6 +1,8 @@
 package com.example.Twitter.Clone.Post;
 
+import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Comment.CommentRepository;
+import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Like.LikeRepository;
 import com.example.Twitter.Clone.Repost.Repost;
@@ -81,8 +83,23 @@ public class PostService {
     @Transactional
     public void deletePost (Post post) {
         likeRepository.deleteByPostId(post.getId());
-        commentRepository.deleteByPostId(post.getId());
+        repostRepository.deleteByPostId(post.getId());
+        List<Comment> comments = commentRepository.findCommentsByPostId(post.getId());
+        for (Comment comment : comments) {
+            deleteComment(comment);
+        }
         postRepository.delete(post);
+    }
+
+    @Transactional
+    public void deleteComment(Comment comment) {
+        likeRepository.deleteByCommentId(comment.getId());
+        repostRepository.deleteByCommentId(comment.getId());
+        List<Comment> responses = commentRepository.findResponsesByCommentId(comment.getId());
+        for (Comment response : responses) {
+            deleteComment(response);
+        }
+        commentRepository.delete(comment);
     }
 
     public List<Post> getPostsWithCommentsCount() {
