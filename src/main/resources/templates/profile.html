@@ -107,11 +107,11 @@
             </div>
             <div class="profilemain">
                 <div class="background">
-                    <img src="images/football.jpg">
+                    <img src="/images/football.jpg">
                 </div>
                 <div class="user">
                     <div class="profileOptions" th:if="${isOwner}">
-                        <div class="profileEditbtn" role="button">Edit profile</div>
+                        <div id="openEditModal" class="profileEditbtn">Edit profile</div>
                     </div>
                     <div class="profileOptions" th:if="${!isOwner}">
                         <div class="profileoptionsIcons" role="button">
@@ -132,25 +132,30 @@
                         <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
                         <div class="profileNameUserName" th:text="'@' + ${user.username}"></div>
                     </div>
-                    <div class="profileDescription">Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Accusamus possimus officia earum natus. Totam eligendi, tempora laborum aperiam nam delectus voluptatibus.
-                        Vel at architecto tempore alias temporibus, numquam sit minus.</div>
+                    <div class="profileDescription" th:text="${user.bio}"></div>
                     <div class="profileInfo">
-                        <div class="profileInfoDiv">
+                        <div class="profileInfoDiv" th:if="${user.location != null and user.location != ''}">
                             <span class="profileInfoIcon"><i class="fa-solid fa-location-dot"></i></span>
-                            <span class="profileInfoSpan">Łódź, Polska</span>
+                            <span class="profileInfoSpan" th:text="${user.location}"></span>
                         </div>
-                        <div class="profileInfoDiv">
+                        <div class="profileInfoDiv" th:if="${user.dateOfBirth != null and user.dateOfBirth != ''}">
                             <span class="profileInfoIcon"><i class="fa-solid fa-cake-candles"></i></span>
-                            <span class="profileInfoSpan">Born 1995</span>
+                            <span class="profileInfoSpan" th:text="'Born ' + ${user.dateOfBirth}"></span>
                         </div>
-                        <div class="profileInfoDiv">
+                        <div class="profileInfoDiv" th:if="${user.joinedDate  != null and user.joinedDate != ''}">
                             <span class="profileInfoIcon"><i class="fa-solid fa-calendar-days"></i></span>
-                            <span class="profileInfoSpan">Joined November 2020</span>
+                            <span class="profileInfoSpan" th:text="'Joined ' + ${#temporals.format(user.joinedDate, 'MMMM yyyy')}"></span>
                         </div>
-                        <div class="profileInfoDiv">
+                        <div class="profileInfoDiv" th:if="${user.email  != null and user.email != ''}">
                             <span class="profileInfoIcon"><i class="fa-regular fa-envelope"></i></span>
-                            <span class="profileInfoSpan">user@gmail.com</span>
+                            <span class="profileInfoSpan" th:text="${user.email}"></span>
+                        </div>
+                        <div class="profileInfoDiv" th:if="${user.website != null and user.website != ''}">
+                            <span class="profileInfoIcon"><i class="fa-solid fa-link"></i></span>
+                            <a th:href="${user.website}"
+                               th:text="${user.website.replaceFirst('https://', '').replaceFirst('http://', '')}"
+                               target="_blank"
+                               rel="noopener noreferrer"></a>
                         </div>
                     </div>
                     <div class="profileFollow">
@@ -347,6 +352,43 @@
                                     <span><button class="btn" type="submit">Reply</button></span>
                                 </div>
                             </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <div class="topBarEditProfile">
+                        <div class="closeEditModal">&times;</div>
+                        <div>Edit profile</div>
+                    </div>
+                    <form method="post" th:action="@{/api/updateUserData}">
+                        <div class="edit">
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <input class="form-control" id="bio" name="bio" placeholder="Bio"
+                                       th:field="*{myUser.bio}" type="text" maxlength="160">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input class="form-control" id="location" name="location" placeholder="Location"
+                                       th:field="*{myUser.location}" type="text" maxlength="30">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Birthday</label>
+                                <input class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Birthday"
+                                       th:field="*{myUser.dateOfBirth}" type="date">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Website</label>
+                                <input class="form-control" id="website" name="website" placeholder="Website"
+                                       th:field="*{myUser.website}" type="text" maxlength="100">
+                            </div>
+                            <span><button class="btn" type="submit">Save</button></span>
                         </div>
                     </form>
                 </div>

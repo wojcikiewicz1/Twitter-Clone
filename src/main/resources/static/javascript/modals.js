@@ -1,4 +1,4 @@
-//--------------------------------Window for logout------------------------
+//---------------------------------------------Window for logout-------------------------------------------------------
 function logoutWindow(event) {
     event.stopPropagation();
     let  options = event.currentTarget.querySelector('.profileOptionsWindow');
@@ -92,6 +92,7 @@ if (document.body.id === 'homePage') {
 } else if (document.body.id === 'profilePage') {
     profileCommentModal();
     profilePostModal();
+    profileEditModal();
 } else if (document.body.id === 'postPage' || document.body.id === 'commentPage') {
     postOrCommentCommentModal();
     postOrCommentPostModal();
@@ -191,7 +192,7 @@ function postOrCommentCommentModal() {
     };
 }
 
-//--------------------------------Modal for adding post---------------------------
+//-----------------------------------------Modal for adding post--------------------------------------------------------
 function homePostModal() {
 
     initializeModalHandlers("postModal", "closePostModal");
@@ -259,7 +260,31 @@ function postOrCommentPostModal() {
     };
 }
 
+//------------------------------------------------Profile edit modal----------------------------------------------------
+function profileEditModal() {
 
+    initializeModalHandlers("editModal", "closeEditModal");
+
+    document.getElementById('openEditModal').onclick = function () {
+        document.getElementById('editModal').style.display = 'block';
+        document.querySelector('.top').style.position = 'relative';
+        document.querySelector('.top').style.zIndex = '-1';
+        document.querySelector('.profilemain').style.position = 'relative';
+        document.querySelector('.profilemain').style.zIndex = '-1';
+        document.querySelector('.search').style.position = 'relative';
+        document.querySelector('.search').style.zIndex = '-1';
+    };
+
+    document.querySelector('.closeEditModal').onclick = function () {
+        document.getElementById('editModal').style.display = 'none';
+        document.querySelector('.top').style.position = 'sticky';
+        document.querySelector('.top').style.zIndex = '1';
+        document.querySelector('.profilemain').style.position = 'sticky';
+        document.querySelector('.profilemain').style.zIndex = '1';
+        document.querySelector('.search').style.position = 'sticky';
+        document.querySelector('.search').style.zIndex = '1';
+    };
+}
 //------------------------------------------------Textareas resizing----------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
     const textareas = document.querySelectorAll('.whatishappening, .postyourreply');

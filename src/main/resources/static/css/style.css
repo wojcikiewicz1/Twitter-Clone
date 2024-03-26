@@ -1308,7 +1308,7 @@ aside
     min-height: 200px;
 }
 
-.closePostModal, .closeCommentModal {
+.closePostModal, .closeCommentModal, .closeEditModal {
     color: #aaa;
     float: right;
     font-size: 28px;
@@ -1316,10 +1316,19 @@ aside
 }
 
 .closePostModal:hover, .closeCommentModal:hover,
-.closePostModal:focus, .closeCommentModal:focus {
+.closePostModal:focus, .closeCommentModal:focus,
+.closeEditModal:hover, .closeEditModal:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.topBarEditProfile {
+    display: flex;
+}
+
+.profileInfoDiv a {
+    color: #0C90E1;
 }
 
 /*-----------------------------------------SETTINGS----------------------------------------------------*/
