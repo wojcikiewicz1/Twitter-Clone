@@ -1397,3 +1397,56 @@ aside
     background-color: #f0f0f0;
 }
 
+
+
+
+
+
+
+
+
+.topBarEditProfile
+{
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.editProfileH
+{
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-left: 20px;
+
+}
+
+.form-group
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label
+{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.form-control
+{
+    padding: 16px 12px 16px 12px;
+    border-radius: 4px;
+    border: 1px solid #cfd9de;
+    text-overflow: unset;
+    word-wrap: break-word;
+    font-size: 17px;
+    align-items: center;
+    font-weight: 400;
+    width: 100%;
+    line-height: 24px;
+    box-sizing: border-box;
+}
+
