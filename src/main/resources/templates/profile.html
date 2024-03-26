@@ -110,24 +110,28 @@
                     <img src="/images/football.jpg">
                 </div>
                 <div class="user">
-                    <div class="profileOptions" th:if="${isOwner}">
-                        <div id="openEditModal" class="profileEditbtn">Edit profile</div>
-                    </div>
-                    <div class="profileOptions" th:if="${!isOwner}">
-                        <div class="profileoptionsIcons" role="button">
-                            <i class="fa-solid fa-ellipsis"></i>
-                            <span class="tooltip">More</span>
+
+                    <div class="photoAndOptions">
+                        <div class="profileOptions" th:if="${isOwner}">
+                            <div id="openEditModal" class="profileEditbtn">Edit profile</div>
                         </div>
-                        <div class="profileoptionsIcons" role="button">
-                            <i class="fa-regular fa-bell"></i>
-                            <span class="tooltip">Notify</span>
+                        <div class="profileOptions" th:if="${!isOwner}">
+                            <div class="profileoptionsIcons" role="button">
+                                <i class="fa-solid fa-ellipsis"></i>
+                                <span class="tooltip">More</span>
+                            </div>
+                            <div class="profileoptionsIcons" role="button">
+                                <i class="fa-regular fa-bell"></i>
+                                <span class="tooltip">Notify</span>
+                            </div>
+                            <div th:if="${isFollowingMain}" class="unfollowButton js-followToggle " th:data-username="${user.username}">Unfollow</div>
+                            <div th:unless="${isFollowingMain}" class="followButton js-followToggle " th:data-username="${user.username}">Follow</div>
                         </div>
-                        <div th:if="${isFollowingMain}" class="unfollowButton js-followToggle " th:data-username="${user.username}">Unfollow</div>
-                        <div th:unless="${isFollowingMain}" class="followButton js-followToggle " th:data-username="${user.username}">Follow</div>
+                        <div class="profilePhoto">
+                            <img src="images/userPhoto.png">
+                        </div>
                     </div>
-                    <div class="profilePhoto">
-                        <img src="images/userPhoto.png">
-                    </div>
+
                     <div class="profileName">
                         <div class="topMuser" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
                         <div class="profileNameUserName" th:text="'@' + ${user.username}"></div>
@@ -380,7 +384,7 @@
                             <div class="form-group">
                                 <label class="form-label">Birthday</label>
                                 <input class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Birthday"
-                                       th:field="*{myUser.dateOfBirth}" type="date">
+                                       th:value="*{myUser.dateOfBirth}" type="date">
                             </div>
 
                             <div class="form-group">

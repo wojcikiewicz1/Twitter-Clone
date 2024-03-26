@@ -23,7 +23,7 @@ a
 }
 
 
-/*--------------------------NAV---------------------------------*/
+/*------------------------------------------------NAV----------------------------------------------------------------*/
 nav
 {
     flex: 0 0 26%;
@@ -231,7 +231,7 @@ nav
     background-color: #f0f0f0;
 }
 
-/*--------------------------MAIN---------------------------------*/
+/*------------------------------------------------------MAIN--------------------------------------------------------*/
 main
 {
     display: flex;
@@ -384,7 +384,7 @@ main
     cursor: pointer;
 }
 
-/*--------------------------------------------------------------------------------------*/
+/*------------------------------------------------Posts in main-------------------------------------------------------*/
 .posts
 {
     display: flex;
@@ -525,7 +525,7 @@ a:hover .post, a:hover .postMain
     color: darkblue;
 }
 
-/*--------------------------ASIDE---------------------------------*/
+/*--------------------------------------------------ASIDE------------------------------------------------------------*/
 aside
 {
     flex: 0 0 34%;
@@ -828,7 +828,7 @@ aside
     cursor: pointer;
 }
 
-/*----------------------------------PROFILE-----------------------*/
+/*-------------------------------------------------------PROFILE-----------------------------------------------------*/
 
 .top
 {
@@ -899,6 +899,7 @@ aside
 .background
 {
     overflow: hidden;
+    position: relative;
 }
 
 .background img
@@ -915,25 +916,29 @@ aside
     flex-direction: column;
 }
 
-.profilePhoto
+.photoAndOptions
 {
-    padding-bottom: 30px;
+    position: relative;
 }
 
-.profilePhoto img
-{
-    max-width: 150px;
-    max-height: 150px;
-    min-width: 50px;
-    min-height: 50px;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+.profilePhoto {
     position: absolute;
-    top: 25%;
+    top: -75px;
     left: 3%;
+    width: 150px;
+    height: 150px;
     border: 5px solid white;
     border-radius: 9999px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profilePhoto img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
 }
 
 .profileOptions
@@ -1056,8 +1061,7 @@ aside
 
 .profileName
 {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin: 35px 15px 0 15px;
 }
 
 .profileNameUserName
