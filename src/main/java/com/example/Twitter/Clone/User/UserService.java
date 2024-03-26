@@ -6,12 +6,15 @@ import com.example.Twitter.Clone.Like.LikeRepository;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Role.Role;
 import com.example.Twitter.Clone.Role.RoleRepository;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +44,7 @@ public class UserService {
         user1.setEmail(user.getEmail());
         user1.setFirstName(user.getFirstName());
         user1.setLastName(user.getLastName());
+        user1.setJoinedDate(LocalDate.now());
 
         Role role = roleRepository.findByName("USER");
         if(role == null){
@@ -100,6 +104,20 @@ public class UserService {
         userRepository.delete(user);
     }
     public void updateUser (User user) {
+        userRepository.save(user);
+    }
+
+    public void updateUserData (User user) {
+        user.setBio(user.getBio());
+        user.setLocation(user.getLocation());
+        user.setDateOfBirth(user.getDateOfBirth());
+
+        String website = user.getWebsite();
+        if (StringUtils.isNotEmpty(website) && !website.startsWith("http://") && !website.startsWith("https://")) {
+            website = "https://" + website;
+            user.setWebsite(website);
+        }
+
         userRepository.save(user);
     }
 

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -148,6 +149,27 @@ public class UserController {
         User user = userService.findByUserName(principal.getName());
         userService.deleteUser(user);
         return "redirect:/logout";
+    }
+
+    @GetMapping("/api/updateUserData")
+    public String updateUserData (Principal principal, Model model) {
+        User myUser = userService.findByUserName(principal.getName());
+        model.addAttribute("myUser", myUser);
+        return "redirect:/" + principal.getName();
+    }
+
+    @PostMapping("/api/updateUserData")
+    public String updateUserData (@ModelAttribute("user") User user, Principal principal, Model model) {
+        User myUser = userService.findByUserName(principal.getName());
+        model.addAttribute("myUser", myUser);
+
+        myUser.setBio(user.getBio());
+        myUser.setLocation(user.getLocation());
+        myUser.setDateOfBirth(user.getDateOfBirth());
+        myUser.setWebsite(user.getWebsite());
+
+        userService.updateUserData(myUser);
+        return "redirect:/" + principal.getName();
     }
 
 }

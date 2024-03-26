@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -50,5 +51,17 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+
+    @Column
+    private LocalDate joinedDate;
+    @Column
+    private String bio;
+    @Column
+    private String location;
+    @Column
+    private LocalDate dateOfBirth;
+    @Column
+    private String website;
+
 
 }

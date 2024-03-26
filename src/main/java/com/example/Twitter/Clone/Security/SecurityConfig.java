@@ -38,6 +38,7 @@ public class SecurityConfig {
                                 .requestMatchers("/{username}/**").authenticated()
                                 .requestMatchers("/api/follow", "/api/unfollow").authenticated()
                                 .requestMatchers("/settings/**").authenticated()
+                                .requestMatchers("/api/**").authenticated()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

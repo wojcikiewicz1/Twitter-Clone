@@ -59,10 +59,9 @@ public class UserSettingsController {
     }
 
     @GetMapping("/updateUser")
-    public String updateUSer (Principal principal, Model model) {
+    public String updateUser (Principal principal, Model model) {
         User myUser = userService.findByUserName(principal.getName());
         model.addAttribute("myUser", myUser);
-        model.addAttribute("user", myUser);
         return "updateUser";
     }
 
@@ -103,5 +102,4 @@ public class UserSettingsController {
         userService.updateUser(myUser);
         return "redirect:/logout";
     }
-
 }
