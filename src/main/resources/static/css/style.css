@@ -275,7 +275,7 @@ main
 }
 
 .settings {
-    padding: 0px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -379,7 +379,7 @@ main
     text-align: center;
     border-radius: 50px;
     padding: 10px 20px;
-    margin: 13px 15px 13px 0px;;
+    margin: 13px 15px 13px 0;
     font-weight: 600;
     cursor: pointer;
 }
@@ -735,8 +735,8 @@ aside
 .showmore:hover
 {
     background-color: #f0f0f1;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 
 }
 
@@ -792,10 +792,7 @@ aside
 
 .footer
 {
-    margin-top: 20px;
-    margin-right: clamp(5px, 8vw, 150px);
-    margin-left: clamp(5px, 10vw, 25px);
-    margin-bottom: 15px;
+    margin: 20px clamp(5px, 8vw, 150px) 15px clamp(5px, 10vw, 25px);
     display: flex;
     flex-wrap: wrap;
     padding: 0 15px;
@@ -1397,14 +1394,6 @@ aside
     background-color: #f0f0f0;
 }
 
-
-
-
-
-
-
-
-
 .topBarEditProfile
 {
     display: flex;
@@ -1448,5 +1437,19 @@ aside
     width: 100%;
     line-height: 24px;
     box-sizing: border-box;
+}
+
+.f-c2
+{
+    width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-p2
+{
+    width: 30% !important;
+    margin-left: auto;
+    margin-right: auto;
 }
 
