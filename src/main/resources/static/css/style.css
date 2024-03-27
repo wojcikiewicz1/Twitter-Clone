@@ -336,6 +336,12 @@ main
     min-height: 50px;
 }
 
+.form-control
+{
+    resize: none;
+    overflow-y: hidden;
+}
+
 .whatishappening:focus
 {
     border: none;

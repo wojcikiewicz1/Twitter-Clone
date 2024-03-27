@@ -371,14 +371,14 @@
                         <div class="edit">
                             <div class="form-group">
                                 <label class="form-label">Bio</label>
-                                <input class="form-control" id="bio" name="bio" placeholder="Bio"
-                                       th:field="*{myUser.bio}" type="text" maxlength="160">
+                                <textarea class="form-control" id="bio" name="bio" placeholder="Bio"
+                                       th:field="*{myUser.bio}" type="text" oninput="limitInputLength(this, 160)"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Location</label>
-                                <input class="form-control" id="location" name="location" placeholder="Location"
-                                       th:field="*{myUser.location}" type="text" maxlength="30">
+                                <textarea class="form-control" id="location" name="location" placeholder="Location"
+                                       th:field="*{myUser.location}" type="text" oninput="limitInputLength(this, 30)"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -389,8 +389,8 @@
 
                             <div class="form-group">
                                 <label class="form-label">Website</label>
-                                <input class="form-control" id="website" name="website" placeholder="Website"
-                                       th:field="*{myUser.website}" type="text" maxlength="100">
+                                <textarea class="form-control" id="website" name="website" placeholder="Website"
+                                       th:field="*{myUser.website}" type="text" oninput="limitInputLength(this, 100)"></textarea>
                             </div>
                             <span><button class="btn" type="submit">Save</button></span>
                         </div>
