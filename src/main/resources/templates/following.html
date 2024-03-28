@@ -93,28 +93,30 @@
 
     <main>
         <div class="main">
-            <div class="postTop">
-                <div class="topL">
-                    <a onclick="window.history.back();"><i class="fa-solid fa-arrow-left"></i></a>
-                </div>
-                <div class="postR">
-                    <div class="profileRight">
-                        <div class="profileFL">
-                            <div class="profileFLname" th:text="${user.firstName}"></div>
-                            <div class="profileFLname" th:text="${user.lastName}"></div>
+            <div class="stickyTopBar">
+                <div class="postTop">
+                    <div class="topL">
+                        <a onclick="window.history.back();"><i class="fa-solid fa-arrow-left"></i></a>
+                    </div>
+                    <div class="postR">
+                        <div class="profileRight">
+                            <div class="profileFL">
+                                <div class="profileFLname" th:text="${user.firstName}"></div>
+                                <div class="profileFLname" th:text="${user.lastName}"></div>
+                            </div>
+                            <div class="profileUname pu2" th:text="'@' + ${user.username}"></div>
                         </div>
-                        <div class="profileUname" th:text="'@' + ${user.username}"></div>
                     </div>
                 </div>
-            </div>
 
-            <div class="topbar">
-                <a href="#"><div id="for-you" class="foryoufollowing">Followers</div></a>
-                <a href="#"><div id="following" class="foryoufollowing">Following</div></a>
+                <div class="topbar tb2">
+                    <a th:href="@{'/' + ${user.username} + '/followers'}"><div id="for-you" class="foryoufollowing">Followers</div></a>
+                    <a th:href="@{'/' + ${user.username} + '/following'}"><div id="following" class="foryoufollowing">Following</div></a>
+                </div>
             </div>
 
             <div class="posts" th:each="following : ${followings}">
-                <div class="relevant">
+                <div class="followerIng">
                     <a th:href="@{/{username}(username=${following.userToFollow.username})}">
                         <div class="relevantmiddle">
                             <div class="wtfprofile">
@@ -137,8 +139,6 @@
                     </a>
                 </div>
             </div>
-
-
         </div>
     </main>
 
@@ -248,5 +248,6 @@
 <script src="/javascript/repost.js"></script>
 <script src="/javascript/modals.js"></script>
 <script src="/javascript/delete.js"></script>
+<script src="/javascript/others.js"></script>
 </body>
 </html>

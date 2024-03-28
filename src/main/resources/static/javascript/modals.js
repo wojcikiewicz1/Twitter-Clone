@@ -285,34 +285,6 @@ function profileEditModal() {
         document.querySelector('.search').style.zIndex = '1';
     };
 }
-//--------------------------------------Textareas & inputs resizing and lengths------------------------------------------
-document.addEventListener('DOMContentLoaded', function() {
-    const textareas = document.querySelectorAll('.whatishappening, .postyourreply, .form-control');
-
-    textareas.forEach(textarea => {
-        textarea.addEventListener('input', autoResize, false);
-    });
-
-    function autoResize() {
-        console.log("Auto resizing...");
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-    }
-
-    const inputs = document.querySelectorAll('input.form-control');
-
-    inputs.forEach(input => {
-        input.addEventListener('input', autoResize, false)
-    });
-});
-
-function limitInputLength(element, maxLength) {
-    if (element.value.length > maxLength) {
-        element.value = element.value.slice(0, maxLength);
-    }
-}
-
-
 //-----------------------------------Refreshing page after adding post in modal-----------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('#postModal .modal-content form');

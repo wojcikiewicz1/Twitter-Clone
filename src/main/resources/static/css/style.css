@@ -1,42 +1,35 @@
-*
-{
+* {
     box-sizing: border-box;
 }
 
-body
-{
+body {
     margin: 0;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a
-{
+a {
     text-decoration: none;
     color: #000;
 }
 
-.container
-{
+.container {
     display: flex;
     width: 100%;
 }
 
 
 /*------------------------------------------------NAV----------------------------------------------------------------*/
-nav
-{
+nav {
     flex: 0 0 26%;
 }
 
-.navbar
-{
+.navbar {
     position: sticky;
     top: 0;
 }
 
-.menu
-{
+.menu {
     list-style-type: none;
     font-size: 21px;
     line-height: 240%;
@@ -46,39 +39,33 @@ nav
     min-width: 40px;
 }
 
-.menu i
-{
+.menu i {
     padding-right: 20px;
     font-size: 25px;
 }
 
-.menu li:first-child i
-{
+.menu li:first-child i {
     padding-right: 0;
     padding-top: 10px;
 }
 
-.menu li:first-child a .fa-brands.fa-twitter
-{
+.menu li:first-child a .fa-brands.fa-twitter {
     font-size: 35px;
 }
 
-.menu a, .menu-link
-{
+.menu a, .menu-link {
     display: inline-block;
     border-radius: 9999px;
     padding: 0 10px;
     box-sizing: border-box;
 }
 
-.menu a:hover, .menu-link:hover
-{
+.menu a:hover, .menu-link:hover {
     background-color: #f0f0f1;
     cursor: pointer;
 }
 
-.postNav
-{
+.postNav {
     background-color: #1DA1F2;
     color: white;
     text-align: center;
@@ -91,14 +78,12 @@ nav
     margin-right: 30px;
 }
 
-.postNav:hover
-{
+.postNav:hover {
     background-color: #0C90E1;
     cursor: pointer;
 }
 
-.profile
-{
+.profile {
     display: flex;
     border-radius: 50px;
     margin-top: 15px;
@@ -110,36 +95,36 @@ nav
     position: relative;
 }
 
-.profileRight
-{
+.profileRight {
     display: flex;
     flex-direction: column;
 }
 
-.profileFL
-{
+.profileFL {
     display: flex;
+    padding: 5px 0;
 }
 
-.profileFLname
-{
+.profileFLname {
     font-weight: 600;
     margin-right: 5px;
 }
 
-.profileUname
-{
+.profileUname {
     color: #536471;
 }
 
-.profile:hover
-{
+.pu2 {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.profile:hover {
     background-color: #f0f0f1;
     cursor: pointer;
 }
 
-.profileOptionsWindow
-{
+.profileOptionsWindow {
     position: absolute;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
@@ -153,34 +138,29 @@ nav
     font-weight: 700;
 }
 
-.profileOptionsWindow a
-{
+.profileOptionsWindow a {
     display: block;
     cursor: pointer;
     padding: 20px;
     border-radius: 0 0 10px 10px;
 }
 
-.profileOptionsWindow a:hover
-{
+.profileOptionsWindow a:hover {
     background-color: #f0f0f0;
     border-radius: 0 0 10px 10px;
 }
 
-.powoption
-{
+.powoption {
     padding: 20px;
     cursor: pointer;
 }
 
-.powoption:hover
-{
+.powoption:hover {
     background-color: #f0f0f0;
     border-radius: 10px 10px 0 0;
 }
 
-.moreOptionsWindow
-{
+.moreOptionsWindow {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -196,27 +176,23 @@ nav
     font-weight: 700;
 }
 
-.moreOptionsWindow a
-{
+.moreOptionsWindow a {
     display: block;
     padding: 10px;
     font-size: 15px;
 }
 
-.mowoptionLink1:hover
-{
+.mowoptionLink1:hover {
     cursor: pointer;
     border-radius: 10px 10px 0 0;
 }
 
-.mowoptionLink2:hover
-{
+.mowoptionLink2:hover {
     cursor: pointer;
     border-radius: 0;
 }
 
-.mowoption
-{
+.mowoption {
     padding: 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
@@ -226,14 +202,12 @@ nav
     color: red;
 }
 
-.mowoption:hover
-{
+.mowoption:hover {
     background-color: #f0f0f0;
 }
 
 /*------------------------------------------------------MAIN--------------------------------------------------------*/
-main
-{
+main {
     display: flex;
     flex-direction: column;
     flex: 0 0 40%;
@@ -242,8 +216,7 @@ main
     min-width: 400px;
 }
 
-.topbar
-{
+.topbar {
     display: flex;
     position: sticky;
     top: 0;
@@ -257,20 +230,29 @@ main
     backdrop-filter: blur(3px);
 }
 
-.foryoufollowing
-{
+.tb2 {
+    margin-top: 5px;
+}
+
+.stickyTopBar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #FFFFFFF2;
+    backdrop-filter: blur(3px);
+}
+
+.foryoufollowing {
     padding: 20px 10px;
 }
 
-.topbar a
-{
+.topbar a {
     color: gray;
     flex: 1;
     text-align: center;
 }
 
-.foryoufollowing:hover
-{
+.foryoufollowing:hover {
     background-color: #f0f0f1;
 }
 
@@ -282,52 +264,44 @@ main
     margin: 0 10px;
 }
 
-.settings a
-{
+.settings a {
     font-size: 15px;
     color: #000;
     border-radius: 50%;
     padding: 10px;
 }
 
-.settings a:hover
-{
+.settings a:hover {
     background-color: #f0f0f1;
 }
 
-.addPost
-{
+.addPost {
     display: flex;
     border-bottom: 1px solid #f0f0f1;
 }
 
-.userPhoto
-{
+.userPhoto {
     display: flex;
     height: 40px;
     margin: 17px 10px 50px 15px;
 }
 
-.userPhoto a:hover
-{
+.userPhoto a:hover {
     border-radius: 9999px;
     background-color: #f0f0f1;
 }
 
-.addPostRight
-{
+.addPostRight {
     display: flex;
     flex: 1;
     flex-direction: column;
 }
 
-.happening
-{
+.happening {
     margin-top: 25px;
 }
 
-.whatishappening
-{
+.whatishappening {
     width: 97%;
     font-size: 22px;
     border: none;
@@ -336,48 +310,41 @@ main
     min-height: 50px;
 }
 
-.form-control
-{
+.form-control {
     resize: none;
     overflow-y: hidden;
 }
 
-.whatishappening:focus
-{
+.whatishappening:focus {
     border: none;
     outline: none;
     border-bottom: 1px solid #f0f0f1;
     padding-bottom: 20px;
 }
 
-.addPostBottom
-{
+.addPostBottom {
     display: flex;
 }
 
-.icons
-{
+.icons {
     padding-top: 20px;
     padding-bottom: 20px;
     flex: 1;
 }
 
-.icons a
-{
+.icons a {
     color: #1DA1F2;
     font-size: 17px;
     margin-right: 10px;
 }
 
-.icons a:hover
-{
+.icons a:hover {
     background-color: #d6eefd;
     border-radius: 9999px;
     padding: 5px;
 }
 
-.btn
-{
+.btn {
     flex: 1;
     background-color: #1DA1F2;
     border: none;
@@ -391,81 +358,69 @@ main
 }
 
 /*------------------------------------------------Posts in main-------------------------------------------------------*/
-.posts
-{
+.posts {
     display: flex;
     flex-direction: column;
 }
 
-.post
-{
+.post {
     display: flex;
     border-bottom: 1px solid #f0f0f1;
     padding: 10px;
 }
 
-.postMain
-{
+.postMain {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid #f0f0f1;
     padding: 10px;
 }
 
-.postDown
-{
+.postDown {
     display: flex;
 }
 
-a:hover .post, a:hover .postMain
-{
+a:hover .post, a:hover .postMain {
     background-color: #f0f0f1;
 }
 
-.ifPostReposted
-{
+.ifPostReposted {
     color: #536471FF ;
     margin-left: 40px;
     font-size: 14px;
     font-weight: 400;
 }
 
-.userPhotoMain
-{
+.userPhotoMain {
     padding: 5px;
     min-height: fit-content;
 }
 
-.right
-{
+.right {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 0 10px;
 }
 
-.username
-{
+.username {
     display: flex;
     margin-top: 5px;
     justify-content: flex-start;
     width: 100%;
 }
 
-.usernameLeft
-{
+.usernameLeft {
     margin-right: 5px;
     font-weight: 600;
 }
 
-.usernameRight
-{
+.usernameRight {
     color: #536471;
     margin-right: 5px;
 }
 
-.usernameDOT
-{
+.usernameDOT {
     display: flex;
     color: #536471;
     margin-right: 5px;
@@ -532,44 +487,38 @@ a:hover .post, a:hover .postMain
 }
 
 /*--------------------------------------------------ASIDE------------------------------------------------------------*/
-aside
-{
+aside {
     flex: 0 0 34%;
     display: flex;
     flex-direction: column;
 }
 
-.search
-{
+.search {
     display: flex;
     background-color: #f7f9f9;
     border-radius: 20px;
     margin-right: clamp(5px, 8vw, 150px);
     margin-left: clamp(5px, 10vw, 25px);
     padding: 12px 16px;
-    padding-top: 10px;
     position: sticky;
     top: 0;
     z-index: 1;
 }
 
-.searchimg
-{
+.searchimg {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 12px;
 }
 
-.searchaside
-{
+.searchaside {
     width: 100%;
     display: flex;
     align-items: center;
 }
 
-#searchtxt
-{
+#searchtxt {
     height: 100%;
     width: 100%;
     border: none;
@@ -578,16 +527,14 @@ aside
     font-size: 16px;
 }
 
-#searchtxt:focus
-{
+#searchtxt:focus {
     background-color: #f7f9f9;
     border: none;
     outline: none;
 
 }
 
-.subscribe
-{
+.subscribe {
     margin-top: 20px;
     background-color: #f7f9f9;
     border-radius: 20px;
@@ -597,14 +544,12 @@ aside
     text-align: justify;
 }
 
-.subscribetop
-{
+.subscribetop {
     font-size: 20px;
     font-weight: 700;
 }
 
-.subscribebtn
-{
+.subscribebtn {
     border: none;
     background-color: #000;
     color: white;
@@ -612,17 +557,14 @@ aside
     font-size: 15px;
     font-weight: 700;
     padding: 10px 17px;
-
 }
 
-.subscribebtn:hover
-{
+.subscribebtn:hover {
     cursor: pointer;
     background-color: #222;
 }
 
-.whotofollow
-{
+.whotofollow {
     margin-top: 20px;
     background-color: #f7f9f9;
     border-radius: 20px;
@@ -632,34 +574,29 @@ aside
     flex-direction: column;
 }
 
-.wtftop
-{
+.wtftop {
     padding: 12px 16px;
     font-size: 20px;
     font-weight: 700;
 }
 
-.proposed a
-{
+.proposed a {
     display: flex;
     flex-direction: row;
 }
 
-.proposed a:hover
-{
+.proposed a:hover {
     display: flex;
     background-color: #f0f0f1;
 }
 
-.wtfprofile
-{
+.wtfprofile {
     display: flex;
     padding: 12px 16px;
     width: 100%;
 }
 
-.wtfphoto
-{
+.wtfphoto {
     margin-right: 12px;
     display: flex;
 }
@@ -670,33 +607,28 @@ aside
     object-fit: cover;
 }
 
-.wtffollow
-{
+.wtffollow {
     width: 100%;
     flex-grow: 1;
     display: flex;
     justify-content: space-between;
 }
 
-.wtfusername
-{
+.wtfusername {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.wtfusernameFLN
-{
+.wtfusernameFLN {
     font-weight: 700;
 }
 
-.wtfusernameUN
-{
+.wtfusernameUN {
     color: #536471;
 }
 
-.followBtn
-{
+.followBtn {
     background-color: #000;
     color: white;
     border-radius: 50px;
@@ -706,8 +638,7 @@ aside
     padding: 10px;
 }
 
-.unfollowBtn
-{
+.unfollowBtn {
     background-color: #ffffff;
     color: black;
     border-radius: 50px;
@@ -717,37 +648,32 @@ aside
     padding: 10px;
 }
 
-.followBtn:hover
-{
+.followBtn:hover {
     cursor: pointer;
     background-color: #333333;
 }
 
-.unfollowBtn:hover
-{
+.unfollowBtn:hover {
     cursor: pointer;
     background-color: #ff8c73;
     color: red;
     border: 1px solid red;
 }
 
-.showmore
-{
+.showmore {
     color: #0C90E1;
     padding: 20px;
     border-radius: 20px;
 }
 
-.showmore:hover
-{
+.showmore:hover {
     background-color: #f0f0f1;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 
 }
 
-.trends
-{
+.trends {
     margin-top: 20px;
     background-color: #f7f9f9;
     border-radius: 20px;
@@ -757,47 +683,40 @@ aside
     flex-direction: column;
 }
 
-.trendstop
-{
+.trendstop {
     padding: 12px 16px;
     font-size: 20px;
     font-weight: 700;
 }
 
-.trendsprofile
-{
+.trendsprofile {
     padding: 12px 16px;
     width: 100%;
 }
 
-.firstline
-{
+.firstline {
     display: flex;
     justify-content: space-between;
     margin: 5px 0;
 }
 
-.trendsnumber
-{
+.trendsnumber {
     color: #536471;
     font-size: 13px;
 }
 
-.trendsusername
-{
+.trendsusername {
     margin: 5px 0;
     font-weight: 700;
 }
 
-.trendsnumberofposts
-{
+.trendsnumberofposts {
     margin: 5px 0;
     color: #536471;
     font-size: 13px;
 }
 
-.footer
-{
+.footer {
     margin: 20px clamp(5px, 8vw, 150px) 15px clamp(5px, 10vw, 25px);
     display: flex;
     flex-wrap: wrap;
@@ -806,35 +725,29 @@ aside
     font-size: 13px;
 }
 
-.footer a
-{
+.footer a {
     color: rgb(83, 100, 113);
     font-size: 13px;
     padding-right: 12px;
 }
 
-.footer a:hover
-{
+.footer a:hover {
     cursor: pointer;
     text-decoration: underline;
 }
 
-#footermore
-{
+#footermore {
     display: flex
 }
 
-#footerdots
-{
+#footerdots {
     align-items: center;
     margin-left: 2px;
     cursor: pointer;
 }
 
 /*-------------------------------------------------------PROFILE-----------------------------------------------------*/
-
-.top
-{
+.top {
     display: flex;
     flex-direction: row;
     position: sticky;
@@ -849,8 +762,7 @@ aside
     backdrop-filter: blur(3px);
 }
 
-.topL
-{
+.topL {
     display: flex;
     min-width: 56px;
     min-height: 32px;
@@ -859,68 +771,58 @@ aside
     align-items: center;
 }
 
-.topL a
-{
+.topL a {
     padding: 10px 12px;
 }
 
-.topL a:hover
-{
+.topL a:hover {
     border-radius: 9999px;
     background-color: #f0f0f1;
 
 }
 
-.topM
-{
+.topM {
     display: flex;
     flex-direction: column;
     margin-left: 20px;
 }
 
-.topMuser
-{
+.topMuser {
     font-size: 19px;
     font-weight: 700;
 }
 
-.topMposts
-{
+.topMposts {
     font-size: 13px;
     color: #536471;
     margin-top: 6px;
 }
 
-.profilemain
-{
+.profilemain {
     display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
 }
 
-.background
-{
+.background {
     overflow: hidden;
     position: relative;
 }
 
-.background img
-{
+.background img {
     max-width: 607px;
     width: 100%;
     max-height: 200px;
     height: auto;
 }
 
-.user
-{
+.user {
     display: flex;
     flex-direction: column;
 }
 
-.photoAndOptions
-{
+.photoAndOptions {
     position: relative;
 }
 
@@ -944,15 +846,13 @@ aside
     object-fit: cover;
 }
 
-.profileOptions
-{
+.profileOptions {
     display: flex;
     flex-direction: row;
     justify-content: end;
 }
 
-.profileoptionsIcons
-{
+.profileoptionsIcons {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -965,15 +865,13 @@ aside
     position: relative;
 }
 
-.profileoptionsIcons:hover
-{
+.profileoptionsIcons:hover {
     cursor: pointer;
     background-color: #f0f0f1;
     border-radius: 9999px;
 }
 
-.tooltip
-{
+.tooltip {
     visibility: hidden;
     width: 40px;
     background-color:#536471;
@@ -988,13 +886,11 @@ aside
     margin-left: -20px;
 }
 
-.profileoptionsIcons:hover .tooltip
-{
+.profileoptionsIcons:hover .tooltip {
     visibility: visible;
 }
 
-.followButton
-{
+.followButton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1009,8 +905,7 @@ aside
     margin-right: 15px;
 }
 
-.unfollowButton
-{
+.unfollowButton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1026,22 +921,19 @@ aside
     margin-right: 15px;
 }
 
-.followButton:hover
-{
+.followButton:hover {
     cursor: pointer;
     background-color: #333333;
 }
 
-.unfollowButton:hover
-{
+.unfollowButton:hover {
     cursor: pointer;
     background-color: #ff8c73;
     color: red;
     border: 1px solid red;
 }
 
-.profileEditbtn
-{
+.profileEditbtn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1056,33 +948,28 @@ aside
     margin-right: 15px;
 }
 
-.profileEditbtn:hover
-{
+.profileEditbtn:hover {
     cursor: pointer;
     background-color: #333333;
 }
 
-.profileName
-{
+.profileName {
     margin: 35px 15px 0 15px;
 }
 
-.profileNameUserName
-{
+.profileNameUserName {
     color: #536471;
     margin-top: 6px;
 }
 
-.profileDescription
-{
+.profileDescription {
     margin-top: 15px;
     margin-left: 15px;
     margin-right: 15px;
     text-align: justify;
 }
 
-.profileInfo
-{
+.profileInfo {
     margin-top: 15px;
     margin-left: 15px;
     margin-right: 15px;
@@ -1090,51 +977,42 @@ aside
     flex-wrap: wrap;
 }
 
-.profileInfoDiv
-{
+.profileInfoDiv {
     margin-bottom: 2px;
 }
 
-.profileInfoIcon
-{
+.profileInfoIcon {
     color: #536471;
     margin-right: 2px;
 }
 
-.profileInfoSpan
-{
+.profileInfoSpan {
     color: #536471;
     margin-right: 15px;
 }
 
-.profileFollow
-{
+.profileFollow {
     display: flex;
     margin: 15px 15px;
 }
 
-.profileFollow a:hover
-{
+.profileFollow a:hover {
     text-decoration: underline;
 }
 
-.profileFollowing
-{
+.profileFollowing {
     margin-right: 10px;
 }
 
-.profileFollowNumber
-{
+.profileFollowNumber {
     font-weight: 700;
 }
 
-.profileFollowType
-{
+.profileFollowType {
     color: #536471;
 }
 
-.options
-{
+.options {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
@@ -1144,21 +1022,18 @@ aside
     border-bottom: 1px solid #f0f0f1;
 }
 
-.options a
-{
+.options a {
     color: #536471;
     flex-grow: 1;
     padding: 20px 0;
 }
 
-.options a:hover
-{
+.options a:hover {
     background-color: #f0f0f1;
 }
 
 /**--------------------------------POST----------------------------**/
-.postTop
-{
+.postTop {
     display: flex;
     position: sticky;
     top: 0;
@@ -1167,8 +1042,7 @@ aside
     backdrop-filter: blur(3px);
 }
 
-.postR
-{
+.postR {
     justify-content: center;
     align-items: center;
     font-size: 19px;
@@ -1178,23 +1052,20 @@ aside
     margin-left: 20px;
 }
 
-.postContent
-{
+.postContent {
     text-align: justify;
     margin-left: 25px;
     margin-right: 15px;
 }
 
-.postData
-{
+.postData {
     display: flex;
     align-items: center;
     margin-top: 20px;
     margin-left: 25px;
 }
 
-.postIcons2
-{
+.postIcons2 {
     color: #536471;
     display: flex;
     justify-content: space-around;
@@ -1205,31 +1076,26 @@ aside
     margin: 10px 0;
 }
 
-.postIcons2Numbers
-{
+.postIcons2Numbers {
     font-size: 13px;
 }
 
-.reply
-{
+.reply {
     border-bottom: 1px solid #f0f0f1;
 }
 
-.replytext
-{
+.replytext {
     width: 97%;
 }
 
-.wtfusername
-{
+.wtfusername {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100%;
 }
 
-.replybtn
-{
+.replybtn {
     background-color: #1DA1F2;
     color: white;
     border-radius: 50px;
@@ -1239,8 +1105,7 @@ aside
     padding: 10px
 }
 
-.postyourreply
-{
+.postyourreply {
     width: 100%;
     font-size: 22px;
     border: none;
@@ -1249,15 +1114,13 @@ aside
     min-height: 10px;
 }
 
-.postyourreply:focus
-{
+.postyourreply:focus {
     border: none;
     outline: none;
     padding-bottom: 20px;
 }
 
-.relevant
-{
+.relevant {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
@@ -1267,22 +1130,19 @@ aside
     margin-left: clamp(5px, 10vw, 25px);
 }
 
-.relevantTop
-{
+.relevantTop {
     padding: 12px 16px;
     font-size: 20px;
     font-weight: 700;
 }
 
-.relevant a:hover
-{
+.relevant a:hover {
     background-color: #f0f0f1;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 
-.revelantbottom
-{
+.revelantbottom {
     display: flex;
     margin-left: 80px;
     margin-right: 30px;
@@ -1339,31 +1199,26 @@ aside
 }
 
 /*-----------------------------------------SETTINGS----------------------------------------------------*/
-.card-header
-{
+.card-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.card-body
-{
+.card-body {
     text-align: center;
 }
 
-.form-group
-{
+.form-group {
     font-size: 15px;
     font-weight: 600;
     padding-bottom: 20px;
 }
 
-.text-danger
-{
+.text-danger {
     color: red;
 }
 
-.optionsWindow
-{
+.optionsWindow {
     position: absolute;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,.2);
@@ -1375,33 +1230,28 @@ aside
     right: 20%;
 }
 
-.postCommentPage
-{
+.postCommentPage {
     top: 8%;
 }
 
-.optionsWindowOptionUnfollow
-{
+.optionsWindowOptionUnfollow {
     padding: 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     color: red;
 }
 
-.optionsWindowOptionFollow
-{
+.optionsWindowOptionFollow {
     padding: 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
 
-.optionsWindowOptionUnfollow:hover, .optionsWindowOptionFollow:hover
-{
+.optionsWindowOptionUnfollow:hover, .optionsWindowOptionFollow:hover {
     background-color: #f0f0f0;
 }
 
-.topBarEditProfile
-{
+.topBarEditProfile {
     display: flex;
     flex-direction: row;
     height: 40px;
@@ -1409,29 +1259,24 @@ aside
     margin-bottom: 30px;
 }
 
-.editProfileH
-{
+.editProfileH {
     font-size: 25px;
     font-weight: 700;
     margin-top: 10px;
     margin-left: 20px;
-
 }
 
-.form-group
-{
+.form-group {
     display: flex;
     flex-direction: column;
 }
 
-.form-label
-{
+.form-label {
     margin-left: 5px;
     margin-bottom: 5px;
 }
 
-.form-control
-{
+.form-control {
     padding: 16px 12px 16px 12px;
     border-radius: 4px;
     border: 1px solid #cfd9de;
@@ -1445,17 +1290,27 @@ aside
     box-sizing: border-box;
 }
 
-.f-c2
-{
+.f-c2 {
     width: 80% !important;
     margin-left: auto;
     margin-right: auto;
 }
 
-.btn-p2
-{
+.btn-p2 {
     width: 30% !important;
     margin-left: auto;
     margin-right: auto;
 }
 
+.followerIng {
+    width: 100%;
+}
+
+.followerIng:hover{
+    cursor: pointer;
+    background-color: #f0f0f1;
+}
+
+.activeTab {
+    color: black;
+}
