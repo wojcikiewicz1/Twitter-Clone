@@ -21,6 +21,10 @@ public class FollowerService {
         return followerRepository.findFollowingsByUsername(username);
     }
 
+    public List<Follower> findFollowsByUsername(String username) {
+        return followerRepository.findFollowsByUsername(username);
+    }
+
     public void followUser(Principal principal, String username) {
         User myUser = userService.findByUserName(principal.getName());
         User userToFollow = userService.findByUserName(username);
