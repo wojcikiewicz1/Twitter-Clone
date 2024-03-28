@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Followers</title>
+  <script src="https://kit.fontawesome.com/7bdca9e143.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div class="container">
+  <nav>
+    <div class="navbar">
+      <ul class="menu">
+        <li><a th:href="@{/home}"><i class="fa-brands fa-twitter"></i></a></li>
+        <li><a th:href="@{/home}"><i class="fa-solid fa-house"></i>Home</a></li>
+        <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i>Explore</a></li>
+        <li><a href="#"><i class="fa-regular fa-bell"></i>Notifications</a></li>
+        <li><a href="#"><i class="fa-regular fa-envelope"></i>Messages</a></li>
+        <li><a href="#"><i class="fa-regular fa-rectangle-list"></i>Lists</a></li>
+        <li><a href="#"><i class="fa-solid fa-user-group"></i>Communities</a></li>
+        <li><a href="#"><i class="fa-brands fa-twitter"></i>Premium</a></li>
+        <li><a th:href="@{/{username}(username=${myUser.username})}"><i class="fa-regular fa-user"></i>Profile</a></li>
+        <li class="menu-item">
+          <div class="menu-link" onclick="moreWindow(event)"><i class="fa-solid fa-ellipsis"></i>More</div>
+
+          <div class="moreOptionsWindow" style="display: none;">
+            <a th:href="@{/settings/updateUser}" id="updateAccountModal" class="mowoptionLink1">Update account</a>
+            <a th:href="@{/settings/changePassword}" id="changePasswordModal" class="mowoptionLink2">Change password</a>
+            <div class="mowoption" onclick="confirmDelete()">
+              <form id="deleteForm" action="/deleteUser" method="post" style="display: none;">
+                <button type="submit" id="deleteButton"></button>
+              </form>
+              Delete your account
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div id="openPostModal" class="postNav">Post</div>
+
+      <div id="postModal" class="modal">
+        <div class="modal-content">
+          <span class="closePostModal">&times;</span>
+          <form th:action="@{/api/addPost}" method="post">
+            <div class="addPost">
+              <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+              <div class="addPostRight">
+                <div class="happening">
+                                    <textarea class="whatishappening" rows="1" placeholder="What is happening?"
+                                              id="contentModal" name="content" required th:value="${content}"></textarea>
+                </div>
+                <div class="addPostBottom">
+                  <div class="icons">
+                    <a href="#"><i class="fa-regular fa-image"></i></a>
+                    <a href="#"><i class="fa-solid fa-video"></i></a>
+                    <a href="#"><i class="fa-solid fa-sliders"></i></a>
+                    <a href="#"><i class="fa-regular fa-face-smile"></i></a>
+                    <a href="#"><i class="fa-regular fa-calendar"></i></a>
+                    <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                  </div>
+                  <span><button class="btn" type="submit">Post</button></span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <br>
+      <div class="profile" onclick="logoutWindow(event)">
+        <div class="profileLeft">
+          <img src="/images/userPhoto.png">
+        </div>
+        <div class="profileRight">
+          <div class="profileFL">
+            <div class="profileFLname" th:text="${myUser.firstName}"></div>
+            <div class="profileFLname" th:text="${myUser.lastName}"></div>
+          </div>
+          <div class="profileUname" th:text="'@' + ${myUser.username}"></div>
+        </div>
+        <div class="profileDots">
+          <i class="fa-solid fa-ellipsis"></i>
+        </div>
+        <div class="profileOptionsWindow" style="display: none;">
+          <div class="powoption">Add an existing account</div>
+          <a th:href="@{/logout}"><div>Log out <span th:text="'@' + ${myUser.username}"></span></div></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="main">
+      <div class="postTop">
+        <div class="topL">
+          <a onclick="window.history.back();"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+        <div class="postR">
+          <div class="profileRight">
+            <div class="profileFL">
+              <div class="profileFLname" th:text="${user.firstName}"></div>
+              <div class="profileFLname" th:text="${user.lastName}"></div>
+            </div>
+            <div class="profileUname" th:text="'@' + ${user.username}"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar">
+        <a href="#"><div id="for-you" class="foryoufollowing">Followers</div></a>
+        <a href="#"><div id="following" class="foryoufollowing">Following</div></a>
+      </div>
+
+      <div class="posts" th:each="follower : ${followers}">
+        <div class="relevant">
+          <a th:href="@{/{username}(username=${follower.user.username})}">
+            <div class="relevantmiddle">
+              <div class="wtfprofile">
+                <div class="wtfphoto">
+                  <img src="/images/userPhoto.png">
+                </div>
+                <div class="wtffollow">
+                  <div class="wtfusername">
+                    <div class="wtfusernameFLN" th:text="${follower.user.firstName} + ' ' + ${follower.user.lastName}"></div>
+                    <div class="wtfusernameUN" th:text="'@' + ${follower.user.username}"></div>
+                  </div>
+                  <div class="wtfbutton" th:if="${follower.user.username != myUser.getUsername()}">
+                    <div th:if="${isFollowingMap[follower.user.username]}" class="unfollowBtn js-followToggle " th:data-username="${follower.user.username}">Unfollow</div>
+                    <div th:unless="${isFollowingMap[follower.user.username]}" class="followBtn js-followToggle " th:data-username="${follower.user.username}">Follow</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="revelantbottom" th:text="${follower.user.bio}"></div>
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+  </main>
+
+  <aside>
+    <div class="aside">
+      <div class="search">
+        <div class="searchimg"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="searchaside"><input type="text" id="searchtxt" placeholder="Search"></div>
+      </div>
+
+      <div class="subscribe">
+        <div class="subscribetop">Subscribe to premium</div>
+        <p>Subscribe to unlock new features and if  <br>
+          eligible, receive a share of ads revenue.</p>
+        <span><button class="subscribebtn" type="submit">Subscribe</button></span>
+      </div>
+
+      <div class="whotofollow">
+        <div class="wtftop">Who to follow</div>
+        <div th:each="randomUser : ${randomUsers}">
+          <div class="proposed">
+            <a th:href="@{/{username}(username=${randomUser.username})}">
+              <div class="wtfprofile">
+                <div class="wtfphoto">
+                  <img src="/images/userPhoto.png">
+                </div>
+                <div class="wtffollow">
+                  <div class="wtfusername">
+                    <div class="wtfusernameFLN" th:text="${randomUser.firstName} + ' ' + ${randomUser.lastName}"></div>
+                    <div class="wtfusernameUN" th:text="'@' + ${randomUser.username}"></div>
+                  </div>
+                  <div class="wtfbutton">
+                    <div th:if="${isFollowingMapRandom[randomUser.username]}" class="unfollowBtn js-followToggle " th:data-username="${randomUser.username}">Unfollow</div>
+                    <div th:unless="${isFollowingMapRandom[randomUser.username]}" class="followBtn js-followToggle " th:data-username="${randomUser.username}">Follow</div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <a href="#" class="showmore"><div>Show more</div></a>
+      </div>
+
+      <div class="trends">
+        <div class="trendstop">Poland trends</div>
+
+        <div class="proposed">
+          <a href="#">
+            <div class="trendsprofile">
+              <div class="firstline">
+                <div class="trendsnumber">1*Politics*Trending</div>
+                <div class="dots"><i class="fa-solid fa-ellipsis"></i></div>
+              </div>
+              <div class="trendsusername">Trump</div>
+              <div class="trendsnumberofposts">1.78M posts</div>
+            </div>
+          </a>
+
+          <a href="#">
+            <div class="trendsprofile">
+              <div class="firstline">
+                <div class="trendsnumber">1*Politics*Trending</div>
+                <div class="dots"><i class="fa-solid fa-ellipsis"></i></div>
+              </div>
+              <div class="trendsusername">Trump</div>
+              <div class="trendsnumberofposts">1.78M posts</div>
+            </div>
+          </a>
+
+          <a href="#">
+            <div class="trendsprofile">
+              <div class="firstline">
+                <div class="trendsnumber">1*Politics*Trending</div>
+                <div class="dots"><i class="fa-solid fa-ellipsis"></i></div>
+              </div>
+              <div class="trendsusername">Trump</div>
+              <div class="trendsnumberofposts">1.78M posts</div>
+            </div>
+          </a>
+        </div>
+
+        <a href="#" class="showmore"><div>Show more</div></a>
+
+      </div>
+
+      <footer>
+        <div class="footer">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Accessibility</a>
+          <a href="#">Ads info</a>
+          <a href="#">
+            <div id="footermore">
+              <div>More</div>
+              <div id="footerdots"><i class="fa-solid fa-ellipsis"></i></div>
+            </div>
+          </a>
+          © 2024 X Corp.
+        </div>
+      </footer>
+    </div>
+  </aside>
+</div>
+<script src="/javascript/follow.js"></script>
+<script src="/javascript/like.js"></script>
+<script src="/javascript/repost.js"></script>
+<script src="/javascript/modals.js"></script>
+<script src="/javascript/delete.js"></script>
+</body>
+</html>

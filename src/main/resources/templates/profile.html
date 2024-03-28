@@ -164,7 +164,7 @@
                     </div>
                     <div class="profileFollow">
                         <div class="profileFollowing">
-                            <a href="#">
+                            <a th:href="@{'/' + ${user.username} + '/following'}">
                                 <div>
                                     <span class="profileFollowNumber" th:text="${following}"></span>
                                     <span class="profileFollowType">Following</span>
@@ -172,7 +172,7 @@
                             </a>
                         </div>
                         <div class="profileFollowers">
-                            <a href="#">
+                            <a th:href="@{'/' + ${user.username} + '/followers'}">
                                 <div>
                                     <span class="profileFollowNumber" th:text="${followers}"></span>
                                     <span class="profileFollowType">Followers</span>
