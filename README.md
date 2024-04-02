@@ -4,14 +4,14 @@ Simple Twitter clone app.
 
 ## Features
 
-- Authentication with Firebase Authentication
-- Users can add and delete tweets, like, retweet, and reply
+- Authentication with form-based authentication
+- Users can add and delete tweets, likes, retweets, and replies
 - Users can pin their tweet
 - Users can follow and unfollow other users
-- Users can see their and other followers and the following list
+- Users can see their and other followers and the following lists
 - Users can see all users
-- Realtime update likes, retweets, and user profile
-- User can edit their profile
+- Realtime update likes, follows and retweets
+- Users can edit their profile
 
 ## Tech Stack
 
