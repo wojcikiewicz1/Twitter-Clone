@@ -197,140 +197,142 @@
                 <a href="#"><div>Likes</div></a>
             </div>
 
-            <div class="posts" th:each="post : ${posts}">
-                <a th:href="@{'/' + ${post.user.username} + '/' + ${post.id}}">
-                    <div class="postMain">
-                        <div class="postUp">
-                            <div class="ifPostReposted">
-                                <div th:each="repost : ${post.reposts}">
-                                    <div th:if="${repost.whoReposted.username == user.username}">
-                                        <i class="fa-solid fa-retweet"></i>
-                                        <span th:text="${repost.whoReposted.username} + ' '"></span>
-                                        <span>reposted</span>
+            <div th:each="item : ${timelineItems}">
+                <div th:if="${item.type == 'Post'}">
+                    <a th:href="@{'/' + ${item.user.username} + '/' + ${item.id}}">
+                        <div class="postMain">
+                            <div class="postUp">
+                                <div class="ifPostReposted">
+                                    <div th:each="repost : ${item.reposts}">
+                                        <div th:if="${repost.whoReposted.username == user.username}">
+                                            <i class="fa-solid fa-retweet"></i>
+                                            <span th:text="${repost.whoReposted.username} + ' '"></span>
+                                            <span>reposted</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="postDown">
+                                <div class="userPhotoMain">
+                                    <img src="/images/userPhoto.png">
+                                </div>
+                                <div class="right">
+                                    <div class="username">
+                                        <div class="usernameLeft" th:text="${item.getUser().getFirstName()} + ' ' + ${item.getUser().getLastName()}"></div>
+                                        <div class="usernameRight" th:text="'@' + ${item.getUser().getUsername()}"></div>
+                                        <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
+                                        <div class="usernameRight" th:text="${#dates.format(item.dateTime, 'MMM dd')}"></div>
+                                        <div class="postDots" onclick="optionsWindow(event)">
+                                            <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
+                                        <div class="mowoption" th:data-id="${item.id}">
+                                            Delete post
+                                        </div>
+                                    </div>
+                                    <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
+                                        <div th:if="${isFollowingMap[item.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${item.user.username}" th:text="'Unfollow @' + ${item.getUser().getUsername()}"></div>
+                                        <div th:unless="${isFollowingMap[item.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${item.user.username}" th:text="'Follow @' + ${item.getUser().getUsername()}"></div>
+                                    </div>
+
+                                    <div class="content" th:text="${item.content}"></div>
+                                    <div class="postIcons">
+                                        <div class="openCommentModal" th:data-post-id="${item.id}">
+                                            <i class="fa-regular fa-comment"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp' + ${item.commentsCount}"></span>
+                                        </div>
+                                        <div th:if="${isRepostedMap[item.id]}" class="retweet unRetweetPost" th:data-id="${item.id}">
+                                            <i class="fa-solid fa-retweet"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.repostsCount}"></span>
+                                        </div>
+                                        <div th:unless="${isRepostedMap[item.id]}" class="retweet retweetPost" th:data-id="${item.id}">
+                                            <i class="fa-solid fa-retweet"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.repostsCount}"></span>
+                                        </div>
+                                        <div th:if="${isLikedMap[item.id]}" class="like-heart unlikePost" th:data-id="${item.id}">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.likesCount}"></span>
+                                        </div>
+                                        <div th:unless="${isLikedMap[item.id]}" class="like-heart likePost" th:data-id="${item.id}">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.likesCount}"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="postDown">
-                            <div class="userPhotoMain">
-                                <img src="/images/userPhoto.png">
+                    </a>
+                </div>
+
+                <div th:if="${item.type == 'Comment'}">
+                    <a th:href="@{'/' + ${item.user.username} + '/comment/' + ${item.id}}">
+                        <div class="postMain">
+                            <div class="postUp">
+                                <div class="ifPostReposted">
+                                    <div th:each="repost : ${item.reposts}">
+                                        <div th:if="${repost.whoReposted.username == user.username}">
+                                            <i class="fa-solid fa-retweet"></i>
+                                            <span th:text="${repost.whoReposted.username} + ' '"></span>
+                                            <span>reposted</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="right">
-                                <div class="username">
-                                    <div class="usernameLeft" th:text="${post.getUser().getFirstName()} + ' ' + ${post.getUser().getLastName()}"></div>
-                                    <div class="usernameRight" th:text="'@' + ${post.getUser().getUsername()}"></div>
-                                    <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                    <div class="usernameRight" th:text="${#dates.format(post.dateTime, 'MMM dd')}"></div>
-                                    <div class="postDots" onclick="optionsWindow(event)">
-                                        <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
-                                    </div>
+                            <div class="postDown">
+                                <div class="userPhotoMain">
+                                    <img src="/images/userPhoto.png">
                                 </div>
+                                <div class="right">
+                                    <div class="username">
+                                        <div class="usernameLeft" th:text="${item.getUser().getFirstName()} + ' ' + ${item.getUser().getLastName()}"></div>
+                                        <div class="usernameRight" th:text="'@' + ${item.getUser().getUsername()}"></div>
+                                        <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
+                                        <div class="usernameRight" th:text="${#dates.format(item.dateTime, 'MMM dd')}"></div>
+                                        <div class="postDots" onclick="optionsWindow(event)">
+                                            <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
+                                        </div>
+                                    </div>
 
-                                <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                    <div class="mowoption" th:data-id="${post.id}">
-                                        Delete post
+                                    <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
+                                        <div class="mowoption" th:data-comment-id="${item.id}">
+                                            Delete comment
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
-                                    <div th:if="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
-                                    <div th:unless="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${post.user.username}" th:text="'Follow @' + ${post.getUser().getUsername()}"></div>
-                                </div>
+                                    <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
+                                        <div th:if="${isFollowingMap[item.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${item.user.username}" th:text="'Unfollow @' + ${item.getUser().getUsername()}"></div>
+                                        <div th:unless="${isFollowingMap[item.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${item.user.username}" th:text="'Follow @' + ${item.getUser().getUsername()}"></div>
+                                    </div>
 
-                                <div class="content" th:text="${post.content}"></div>
-                                <div class="postIcons">
-                                    <div class="openCommentModal" th:data-post-id="${post.id}">
-                                        <i class="fa-regular fa-comment"></i>
-                                        <span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span>
-                                    </div>
-                                    <div th:if="${isRepostedMap[post.id]}" class="retweet unRetweetPost" th:data-id="${post.id}">
-                                        <i class="fa-solid fa-retweet"></i>
-                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.repostsCount}"></span>
-                                    </div>
-                                    <div th:unless="${isRepostedMap[post.id]}" class="retweet retweetPost" th:data-id="${post.id}">
-                                        <i class="fa-solid fa-retweet"></i>
-                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.repostsCount}"></span>
-                                    </div>
-                                    <div th:if="${isLikedMap[post.id]}" class="like-heart unlikePost" th:data-id="${post.id}">
-                                        <i class="fa-regular fa-heart"></i>
-                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
-                                    </div>
-                                    <div th:unless="${isLikedMap[post.id]}" class="like-heart likePost" th:data-id="${post.id}">
-                                        <i class="fa-regular fa-heart"></i>
-                                        <span class="postIcons2Numbers" th:text="'&nbsp;' + ${post.likesCount}"></span>
+                                    <div class="content" th:text="${item.body}"></div>
+                                    <div class="postIcons">
+                                        <div class="openCommentModal" th:data-comment-id="${item.id}">
+                                            <i class="fa-regular fa-comment"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp' + ${item.commentsCount}"></span>
+                                        </div>
+                                        <div th:if="${isRepostedMapComments[item.id]}"  class="retweet unRetweetComment" th:data-comment-id="${item.id}">
+                                            <i class="fa-solid fa-retweet"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.repostsCount}"></span>
+                                        </div>
+                                        <div th:unless="${isRepostedMapComments[item.id]}"  class="retweet retweetComment" th:data-comment-id="${item.id}">
+                                            <i class="fa-solid fa-retweet"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.repostsCount}"></span>
+                                        </div>
+                                        <div th:if="${isLikedMapComments[item.id]}" class="like-heart unlikeComment" th:data-comment-id="${item.id}">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.likesCount}"></span>
+                                        </div>
+                                        <div th:unless="${isLikedMapComments[item.id]}" class="like-heart likeComment" th:data-comment-id="${item.id}">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <span class="postIcons2Numbers" th:text="'&nbsp;' + ${item.likesCount}"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="replies" th:each="comment : ${comments}">
-                <a th:href="@{'/' + ${comment.user.username} + '/comment/' + ${comment.id}}">
-                    <div class="postMain">
-                        <div class="postUp">
-                            <div class="ifPostReposted">
-                                <div th:each="repost : ${comment.reposts}">
-                                    <div th:if="${repost.whoReposted.username == user.username}">
-                                        <i class="fa-solid fa-retweet"></i>
-                                        <span th:text="${repost.whoReposted.username} + ' '"></span>
-                                        <span>reposted</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postDown">
-                        <div class="userPhotoMain">
-                            <img src="/images/userPhoto.png">
-                        </div>
-                        <div class="right">
-                            <div class="username">
-                                <div class="usernameLeft" th:text="${comment.getUser().getFirstName()} + ' ' + ${comment.getUser().getLastName()}"></div>
-                                <div class="usernameRight" th:text="'@' + ${comment.getUser().getUsername()}"></div>
-                                <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
-                                <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
-                                <div class="postDots" onclick="optionsWindow(event)">
-                                    <i class="fa-solid fa-ellipsis fa-ellipsisPost"></i>
-                                </div>
-                            </div>
-
-                            <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                <div class="mowoption" th:data-comment-id="${comment.id}">
-                                    Delete comment
-                                </div>
-                            </div>
-                            <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
-                                <div th:if="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${comment.user.username}" th:text="'Unfollow @' + ${comment.getUser().getUsername()}"></div>
-                                <div th:unless="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${comment.user.username}" th:text="'Follow @' + ${comment.getUser().getUsername()}"></div>
-                            </div>
-
-                            <div class="content" th:text="${comment.body}"></div>
-                            <div class="postIcons">
-                                <div class="openCommentModal" th:data-comment-id="${comment.id}">
-                                    <i class="fa-regular fa-comment"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp' + ${comment.commentsCount}"></span>
-                                </div>
-                                <div th:if="${isRepostedMapComments[comment.id]}"  class="retweet unRetweetComment" th:data-comment-id="${comment.id}">
-                                    <i class="fa-solid fa-retweet"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
-                                </div>
-                                <div th:unless="${isRepostedMapComments[comment.id]}"  class="retweet retweetComment" th:data-comment-id="${comment.id}">
-                                    <i class="fa-solid fa-retweet"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.repostsCount}"></span>
-                                </div>
-                                <div th:if="${isLikedMapComments[comment.id]}" class="like-heart unlikeComment" th:data-comment-id="${comment.id}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
-                                </div>
-                                <div th:unless="${isLikedMapComments[comment.id]}" class="like-heart likeComment" th:data-comment-id="${comment.id}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span class="postIcons2Numbers" th:text="'&nbsp;' + ${comment.likesCount}"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
 
             <div id="commentModal" class="modal">
