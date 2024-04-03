@@ -1,8 +1,8 @@
 package com.example.Twitter.Clone.Follower;
 
 import com.example.Twitter.Clone.AuthController.AuthController;
-import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.User.User;
+import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,9 @@ public class FollowerController {
     private FollowerService followerService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+
 
     @GetMapping("/{username}/following")
     public String getFollowings (Principal principal, @PathVariable("username") String username, Model model){
@@ -89,4 +93,26 @@ public class FollowerController {
         }
     }
 
+    @GetMapping("/whoToFollow")
+    public String whoToFollow (Principal principal, Model model){
+        User myUser = userService.findByUserName(principal.getName());
+        model.addAttribute("myUser", myUser);
+
+        List<User> users = userRepository.findAll();
+        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        List<User> notFollowingUsers = new ArrayList<>();
+
+        for (User user : users) {
+            boolean isFollowing = followerService.isFollowing(principal, user.getUsername());
+            isFollowingMap.put(user.getUsername(), isFollowing);
+            if (!isFollowing && !user.getUsername().equals(principal.getName())) {
+                notFollowingUsers.add(user);
+            }
+        }
+
+        model.addAttribute("isFollowingMap", isFollowingMap);
+        model.addAttribute("notFollowingUsers", notFollowingUsers);
+
+        return "whoToFollow";
+    }
 }
