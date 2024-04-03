@@ -9,6 +9,7 @@ Simple Twitter clone app.
 - Users can follow and unfollow other users
 - Users can see their and other followers and the following lists
 - Users can see all users
+- Users can pin their posts and reposted posts or comments
 - Realtime update likes, follows and retweets
 - Users can edit their profile
 
