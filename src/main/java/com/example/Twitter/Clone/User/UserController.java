@@ -10,6 +10,7 @@ import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
+import com.example.Twitter.Clone.Post.TimelineItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -66,6 +65,17 @@ public class UserController {
                 return "redirect:/error";
             }
         }
+
+        List<TimelineItem> timelineItems = new ArrayList<>();
+        timelineItems.addAll(posts);
+        timelineItems.addAll(comments);
+        timelineItems.sort((item1, item2) -> {
+            Date date1 = item1.getRepostTime() != null ? item1.getRepostTime() : item1.getDateTime();
+            Date date2 = item2.getRepostTime() != null ? item2.getRepostTime() : item2.getDateTime();
+
+            return date2.compareTo(date1);
+        });
+        model.addAttribute("timelineItems", timelineItems);
 
         for (Post post : posts) {
             int commentsCount = postRepository.countByPostId(post.getId());

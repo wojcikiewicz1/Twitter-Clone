@@ -1,6 +1,7 @@
 package com.example.Twitter.Clone.Comment;
 
 import com.example.Twitter.Clone.Post.Post;
+import com.example.Twitter.Clone.Post.TimelineItem;
 import com.example.Twitter.Clone.Repost.Repost;
 import com.example.Twitter.Clone.User.User;
 import jakarta.persistence.*;
@@ -19,7 +20,7 @@ import java.util.Set;
 
 @Entity
 @Table (name = "comments")
-public class Comment {
+public class Comment implements TimelineItem {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -49,4 +50,20 @@ public class Comment {
     private boolean isReposted;
     @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY)
     private Set<Repost> reposts = new HashSet<>();
+    @Column(name = "reposted_at")
+    private Date repostTime;
+
+    @Override
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    @Override
+    public Date getRepostTime() {
+        return repostTime;
+    }
+
+    public String getType() {
+        return "Comment";
+    }
 }

@@ -33,6 +33,9 @@ public class RepostService {
         repost.setPost(post);
         repost.setRepostTime(new Date());
         repostRepository.save(repost);
+
+        post.setRepostTime(repost.getRepostTime());
+        postRepository.save(post);
     }
 
     public void unRepostPost(Long postId, Principal principal) {
@@ -44,9 +47,6 @@ public class RepostService {
         repostRepository.delete(repost);
     }
 
-    @Autowired
-    PostService postService;
-
     public void repostComment(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new RuntimeException("Comment not found"));
         Repost repost = new Repost();
@@ -55,6 +55,9 @@ public class RepostService {
         repost.setComment(comment);
         repost.setRepostTime(new Date());
         repostRepository.save(repost);
+
+        comment.setRepostTime(repost.getRepostTime());
+        commentRepository.save(comment);
     }
 
     public void unRepostComment(Long commentId, Principal principal) {

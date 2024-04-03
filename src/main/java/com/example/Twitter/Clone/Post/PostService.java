@@ -160,5 +160,18 @@ public class PostService {
         return allPosts;
     }
 
+    /**
+    public void pinPost(Long postId) {
+        Post post = postRepository.getPostById(postId);
+        post.setPinned(true);
+        postRepository.save(post);
+    }
+
+    public void unpinPost(Long postId) {
+        Post post = postRepository.getPostById(postId);
+        post.setPinned(false);
+        postRepository.save(post);
+    }
+**/
 }
 

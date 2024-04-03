@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post implements TimelineItem{
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -44,4 +44,24 @@ public class Post {
     private boolean isReposted;
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private Set<Repost> reposts = new HashSet<>();
+    @Column(name = "reposted_at")
+    private Date repostTime;
+
+    /**
+    @Column(name = "is_pinned")
+    private boolean isPinned = false;
+**/
+    @Override
+    public Date getDateTime() {
+        return dateTime;
+    }
+
+    @Override
+    public Date getRepostTime() {
+        return repostTime;
+    }
+
+    public String getType() {
+        return "Post";
+    }
 }
