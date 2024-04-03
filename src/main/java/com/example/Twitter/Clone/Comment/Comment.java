@@ -52,6 +52,9 @@ public class Comment implements TimelineItem {
     private Set<Repost> reposts = new HashSet<>();
     @Column(name = "reposted_at")
     private Date repostTime;
+    @Column(name = "is_pinned")
+    private boolean isPinned = false;
+
 
     @Override
     public Date getDateTime() {
@@ -62,6 +65,7 @@ public class Comment implements TimelineItem {
     public Date getRepostTime() {
         return repostTime;
     }
+
 
     public String getType() {
         return "Comment";

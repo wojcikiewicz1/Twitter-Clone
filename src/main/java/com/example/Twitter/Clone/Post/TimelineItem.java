@@ -6,4 +6,6 @@ public interface TimelineItem {
     Date getDateTime();
 
     Date getRepostTime();
+
+    boolean isPinned();
 }

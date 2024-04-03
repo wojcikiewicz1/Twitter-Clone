@@ -126,4 +126,16 @@ public class CommentService {
         return comments;
     }
 
+    public void pinComment(Long commentId) {
+        Comment comment = commentRepository.getCommentById(commentId);
+        comment.setPinned(true);
+        commentRepository.save(comment);
+    }
+
+    public void unpinComment(Long commentId) {
+        Comment comment = commentRepository.getCommentById(commentId);
+        comment.setPinned(false);
+        commentRepository.save(comment);
+    }
+
 }

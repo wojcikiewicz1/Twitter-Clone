@@ -4,7 +4,6 @@ import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
-import com.example.Twitter.Clone.Post.PostService;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

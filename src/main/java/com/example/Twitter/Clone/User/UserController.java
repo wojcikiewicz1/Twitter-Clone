@@ -70,6 +70,11 @@ public class UserController {
         timelineItems.addAll(posts);
         timelineItems.addAll(comments);
         timelineItems.sort((item1, item2) -> {
+            int pinnedCompare = Boolean.compare(item2.isPinned(), item1.isPinned());
+            if (pinnedCompare != 0) {
+                return pinnedCompare;
+            }
+
             Date date1 = item1.getRepostTime() != null ? item1.getRepostTime() : item1.getDateTime();
             Date date2 = item2.getRepostTime() != null ? item2.getRepostTime() : item2.getDateTime();
 

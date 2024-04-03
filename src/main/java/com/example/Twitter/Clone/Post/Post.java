@@ -47,10 +47,10 @@ public class Post implements TimelineItem{
     @Column(name = "reposted_at")
     private Date repostTime;
 
-    /**
+
     @Column(name = "is_pinned")
     private boolean isPinned = false;
-**/
+
     @Override
     public Date getDateTime() {
         return dateTime;

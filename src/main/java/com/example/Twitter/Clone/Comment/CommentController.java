@@ -2,7 +2,6 @@ package com.example.Twitter.Clone.Comment;
 
 import com.example.Twitter.Clone.Follower.FollowerService;
 import com.example.Twitter.Clone.Like.LikeService;
-import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserController;
 import com.example.Twitter.Clone.User.UserRepository;
@@ -116,6 +115,18 @@ public class CommentController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting comment");
         }
+    }
+
+    @PostMapping("/api/pinComment/{id}")
+    public ResponseEntity<?> pinComment(@PathVariable Long id) {
+        commentService.pinComment(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/unpinComment/{id}")
+    public ResponseEntity<?> unpinComment(@PathVariable Long id) {
+        commentService.unpinComment(id);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -128,17 +128,16 @@ public class PostController {
         }
     }
 
-    /**
-    @PostMapping("/api/pin")
+    @PostMapping("/api/pinPost/{id}")
     public ResponseEntity<?> pinPost(@PathVariable Long id) {
         postService.pinPost(id);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/api/unpin")
+    @PostMapping("/api/unpinPost/{id}")
     public ResponseEntity<?> unpinPost(@PathVariable Long id) {
         postService.unpinPost(id);
         return ResponseEntity.ok().build();
     }
-**/
+
 }

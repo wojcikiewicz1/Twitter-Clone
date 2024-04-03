@@ -2,7 +2,6 @@ package com.example.Twitter.Clone.Post;
 
 import com.example.Twitter.Clone.Comment.Comment;
 import com.example.Twitter.Clone.Comment.CommentRepository;
-import com.example.Twitter.Clone.Comment.CommentService;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Like.LikeRepository;
 import com.example.Twitter.Clone.Repost.Repost;
@@ -160,7 +159,6 @@ public class PostService {
         return allPosts;
     }
 
-    /**
     public void pinPost(Long postId) {
         Post post = postRepository.getPostById(postId);
         post.setPinned(true);
@@ -172,6 +170,6 @@ public class PostService {
         post.setPinned(false);
         postRepository.save(post);
     }
-**/
+
 }
 
