@@ -1032,6 +1032,27 @@ aside {
     background-color: #f0f0f1;
 }
 
+.deleteOption {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: red;
+}
+
+.post-pinoption, .comment-pinoption{
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.deleteOption:hover, .post-pinoption:hover, .comment-pinoption:hover {
+    background-color: #f0f0f0;
+}
+
 /**--------------------------------POST----------------------------**/
 .postTop {
     display: flex;

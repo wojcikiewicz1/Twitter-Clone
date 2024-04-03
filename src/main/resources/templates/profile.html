@@ -202,6 +202,10 @@
                     <a th:href="@{'/' + ${item.user.username} + '/' + ${item.id}}">
                         <div class="postMain">
                             <div class="postUp">
+                                <div th:if="${item.isPinned}" class="ifPostReposted">
+                                    <i class="fa-solid fa-thumbtack"></i>
+                                    <span>Pinned</span>
+                                </div>
                                 <div class="ifPostReposted">
                                     <div th:each="repost : ${item.reposts}">
                                         <div th:if="${repost.whoReposted.username == user.username}">
@@ -228,8 +232,12 @@
                                     </div>
 
                                     <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                        <div class="mowoption" th:data-id="${item.id}">
+                                        <div class="deleteOption" th:data-id="${item.id}">
                                             Delete post
+                                        </div>
+                                        <div class="post-pinoption" th:data-id="${item.id}" th:data-is-pinned="${item.isPinned}">
+                                            <span th:if="${item.isPinned}">Unpin post</span>
+                                            <span th:if="${!item.isPinned}">Pin post</span>
                                         </div>
                                     </div>
                                     <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
@@ -270,6 +278,10 @@
                     <a th:href="@{'/' + ${item.user.username} + '/comment/' + ${item.id}}">
                         <div class="postMain">
                             <div class="postUp">
+                                <div th:if="${item.isPinned}" class="ifPostReposted">
+                                    <i class="fa-solid fa-thumbtack"></i>
+                                    <span>Pinned</span>
+                                </div>
                                 <div class="ifPostReposted">
                                     <div th:each="repost : ${item.reposts}">
                                         <div th:if="${repost.whoReposted.username == user.username}">
@@ -296,8 +308,12 @@
                                     </div>
 
                                     <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                        <div class="mowoption" th:data-comment-id="${item.id}">
+                                        <div class="deleteOption" th:data-comment-id="${item.id}">
                                             Delete comment
+                                        </div>
+                                        <div class="comment-pinoption" th:data-id="${item.id}" th:data-is-pinned="${item.isPinned}">
+                                            <span th:if="${item.isPinned}">Unpin comment</span>
+                                            <span th:if="${!item.isPinned}">Pin comment</span>
                                         </div>
                                     </div>
                                     <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">

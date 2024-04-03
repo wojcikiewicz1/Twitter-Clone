@@ -38,3 +38,43 @@ function limitInputLength(element, maxLength) {
     }
 }
 
+//--------------------------------------------Pin/Unpin post or comment------------------------------------------------
+document.addEventListener('DOMContentLoaded', function () {
+    const updatePinStatus = (element, isPinned) => {
+        element.dataset.isPinned = isPinned ? 'false' : 'true';
+        element.innerHTML = !isPinned ? 'Unpin' : 'Pin';
+    };
+
+    const handlePinClick = (actionUrl, element) => {
+        fetch(actionUrl, {
+            method: 'POST',
+            credentials: 'include'
+        }).then(response => {
+            if (response.ok) {
+                const isPinned = element.dataset.isPinned === 'true';
+                updatePinStatus(element, isPinned);
+                window.location.reload();
+            } else {
+                throw new Error('Action failed');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('Action failed');
+        });
+    };
+
+    document.querySelectorAll('.post-pinoption, .comment-pinoption').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const isComment = this.classList.contains('comment-pinoption');
+            const id = this.dataset.id;
+            const isPinned = this.dataset.isPinned === 'true';
+            const actionType = isPinned ? 'unpin' : 'pin';
+            const entityType = isComment ? 'Comment' : 'Post';
+            const actionUrl = `/api/${actionType}${entityType}/${id}`;
+
+            handlePinClick(actionUrl, this);
+        });
+    });
+});
