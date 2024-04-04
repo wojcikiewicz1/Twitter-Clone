@@ -45,7 +45,7 @@
                     <span class="closePostModal">&times;</span>
                     <form th:action="@{/api/addPost}" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png" alt="user photo"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
@@ -53,12 +53,12 @@
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
-                                        <a href="#"><i class="fa-regular fa-image"></i></a>
-                                        <a href="#"><i class="fa-solid fa-video"></i></a>
-                                        <a href="#"><i class="fa-solid fa-sliders"></i></a>
-                                        <a href="#"><i class="fa-regular fa-face-smile"></i></a>
-                                        <a href="#"><i class="fa-regular fa-calendar"></i></a>
-                                        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                                        <i class="fa-regular fa-image"></i>
+                                        <i class="fa-solid fa-video"></i>
+                                        <i class="fa-solid fa-sliders"></i>
+                                        <i class="fa-regular fa-face-smile"></i>
+                                        <i class="fa-regular fa-calendar"></i>
+                                        <i class="fa-solid fa-location-dot"></i>
                                     </div>
                                     <span><button class="btn" type="submit">Post</button></span>
                                 </div>
@@ -71,7 +71,7 @@
             <br>
                 <div class="profile" onclick="logoutWindow(event)">
                     <div class="profileLeft">
-                        <img src="/images/userPhoto.png">
+                        <img src="/images/userPhoto.png" alt="user photo">
                     </div>
                     <div class="profileRight">
                         <div class="profileFL">
@@ -102,7 +102,7 @@
 
             <form th:action="@{/addPost}" method="post">
                 <div class="addPost">
-                    <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+                    <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png" alt="user photo"></a></div>
                     <div class="addPostRight">
                         <div class="happening">
                             <textarea class="whatishappening" rows="1" placeholder="What is happening?"
@@ -110,12 +110,12 @@
                         </div>
                         <div class="addPostBottom">
                             <div class="icons">
-                                <a href="#"><i class="fa-regular fa-image"></i></a>
-                                <a href="#"><i class="fa-solid fa-video"></i></a>
-                                <a href="#"><i class="fa-solid fa-sliders"></i></a>
-                                <a href="#"><i class="fa-regular fa-face-smile"></i></a>
-                                <a href="#"><i class="fa-regular fa-calendar"></i></a>
-                                <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                                <i class="fa-regular fa-image"></i>
+                                <i class="fa-solid fa-video"></i>
+                                <i class="fa-solid fa-sliders"></i>
+                                <i class="fa-regular fa-face-smile"></i>
+                                <i class="fa-regular fa-calendar"></i>
+                                <i class="fa-solid fa-location-dot"></i>
                             </div>
                             <span><button class="btn" type="submit">Post</button></span>
                         </div>
@@ -143,7 +143,7 @@
                         </div>
                         <div class="postDown">
                             <div class="userPhotoMain">
-                                <img src="/images/userPhoto.png">
+                                <img src="/images/userPhoto.png" alt="user photo">
                             </div>
                             <div class="right">
                                 <div class="username">
@@ -195,7 +195,7 @@
                     <span class="closeCommentModal">&times;</span>
                     <form id="commentForm" action="" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png" alt="user photo"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
                                          <textarea class="whatishappening" rows="1" placeholder="Post your reply"
@@ -203,12 +203,12 @@
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
-                                        <a href="#"><i class="fa-regular fa-image"></i></a>
-                                        <a href="#"><i class="fa-solid fa-video"></i></a>
-                                        <a href="#"><i class="fa-solid fa-sliders"></i></a>
-                                        <a href="#"><i class="fa-regular fa-face-smile"></i></a>
-                                        <a href="#"><i class="fa-regular fa-calendar"></i></a>
-                                        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+                                        <i class="fa-regular fa-image"></i>
+                                        <i class="fa-solid fa-video"></i>
+                                        <i class="fa-solid fa-sliders"></i>
+                                        <i class="fa-regular fa-face-smile"></i>
+                                        <i class="fa-regular fa-calendar"></i>
+                                        <i class="fa-solid fa-location-dot"></i>
                                     </div>
                                     <span><button class="btn" type="submit">Reply</button></span>
                                 </div>
@@ -241,7 +241,7 @@
                             <a th:href="@{/{username}(username=${randomUser.username})}">
                                 <div class="wtfprofile">
                                     <div class="wtfphoto">
-                                        <img src="images/userPhoto.png">
+                                        <img src="/images/userPhoto.png" alt="user photo">
                                     </div>
                                     <div class="wtffollow">
                                         <div class="wtfusername">

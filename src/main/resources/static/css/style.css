@@ -332,16 +332,18 @@ main {
     flex: 1;
 }
 
-.icons a {
+.icons i{
     color: #1DA1F2;
     font-size: 17px;
     margin-right: 10px;
+    padding: 5px;
 }
 
-.icons a:hover {
+.icons i:hover {
     background-color: #d6eefd;
     border-radius: 9999px;
-    padding: 5px;
+    cursor: pointer;
+
 }
 
 .btn {
