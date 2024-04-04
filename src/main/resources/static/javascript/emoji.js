@@ -8097,3 +8097,5 @@ const openTab =  (tab) => {
         }
     }
 }
+
+//Copyright (c) 2022 AnonymousXCV@15
