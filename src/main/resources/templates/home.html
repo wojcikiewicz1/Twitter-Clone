@@ -49,7 +49,8 @@
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
-                                              id="contentModal" name="content" required th:value="${content}"></textarea>
+                                              id="contentModal" name="content" required th:value="${content}">
+                                    </textarea>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
@@ -327,5 +328,16 @@
 <script src="/javascript/modals.js"></script>
 <script src="/javascript/delete.js"></script>
 <script src="/javascript/others.js"></script>
+<script src="/javascript/emoji.js"></script>
+<script>
+    new EmojiPicker({
+        trigger: [
+            {
+                selector: '.fa-face-smile',
+                insertInto: ['.whatishappening']
+            }
+        ]
+    })
+</script>
 </body>
 </html>

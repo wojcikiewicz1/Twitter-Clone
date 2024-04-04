@@ -45,7 +45,10 @@
                     <span class="closePostModal">&times;</span>
                     <form th:action="@{/api/addPost}" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
+                            <div class="userPhoto">
+                                <a th:href="@{/{username}(username=${myUser.username})}">
+                                    <img src="/images/userPhoto.png"></a>
+                            </div>
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?"
@@ -526,5 +529,16 @@
 <script src="/javascript/modals.js"></script>
 <script src="/javascript/delete.js"></script>
 <script src="/javascript/others.js"></script>
+<script src="/javascript/emoji.js"></script>
+<script>
+    new EmojiPicker({
+        trigger: [
+            {
+                selector: '.fa-face-smile',
+                insertInto: ['.whatishappening', `.postyourreply`]
+            }
+        ]
+    })
+</script>
 </body>
 </html>
