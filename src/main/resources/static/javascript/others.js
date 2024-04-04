@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     setActiveTabColor();
     autoResizeSetup();
     pinUnpinSetup();
@@ -37,7 +37,7 @@ function autoResizeSetup() {
 
 function pinUnpinSetup() {
     document.querySelectorAll('.post-pinoption, .comment-pinoption').forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.preventDefault();
             const isComment = this.classList.contains('comment-pinoption');
             const id = this.dataset.id;
@@ -79,3 +79,52 @@ function limitInputLength(element, maxLength) {
         element.value = element.value.slice(0, maxLength);
     }
 }
+
+//------------------------
+
+document.addEventListener('DOMContentLoaded', function () {
+    const emojis = [
+
+
+    ];
+
+    let activeEmojiPicker = null;
+
+    const emojiButtons = document.querySelectorAll('.fa-face-smile');
+    const emojiPickers = document.querySelectorAll('.emoji-picker');
+
+    emojiPickers.forEach(emojiPicker => {
+        emojis.forEach(emoji => {
+            const span = document.createElement('span');
+            span.textContent = emoji.emoji;
+            span.title = emoji.title;
+            span.onclick = function () {
+                const activeTextArea = emojiPicker.closest('.addPostRight').querySelector('textarea');
+                if (activeTextArea) {
+                    activeTextArea.value += emoji.emoji;
+                }
+                emojiPicker.style.display = 'none';
+            };
+            emojiPicker.appendChild(span);
+        });
+    });
+
+    emojiButtons.forEach((button, index) => button.onclick = function () {
+        activeEmojiPicker = emojiPickers[index];
+        activeEmojiPicker.style.display = 'block';
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!activeEmojiPicker) return;
+
+        let isEmojiButtonClicked = Array.from(emojiButtons).some(button => button.contains(e.target));
+        let isPickerClicked = activeEmojiPicker.contains(e.target);
+
+        if (!isPickerClicked && !isEmojiButtonClicked) {
+            activeEmojiPicker.style.display = 'none';
+        }
+    });
+});
+
+
+

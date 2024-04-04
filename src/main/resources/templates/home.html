@@ -45,12 +45,12 @@
                     <span class="closePostModal">&times;</span>
                     <form th:action="@{/api/addPost}" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png" alt="user photo"></a></div>
+                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}">
+                                <img src="/images/userPhoto.png" alt="user photo"></a>
+                            </div>
                             <div class="addPostRight">
                                 <div class="happening">
-                                    <textarea class="whatishappening" rows="1" placeholder="What is happening?"
-                                              id="contentModal" name="content" required th:value="${content}">
-                                    </textarea>
+                                    <textarea class="whatishappening" rows="1" placeholder="What is happening?" id="contentModal" name="content" required th:value="${content}"></textarea>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
@@ -58,6 +58,7 @@
                                         <i class="fa-solid fa-video"></i>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
+                                        <div class="emoji-picker" style="display:none;"></div>
                                         <i class="fa-regular fa-calendar"></i>
                                         <i class="fa-solid fa-location-dot"></i>
                                     </div>
@@ -103,11 +104,12 @@
 
             <form th:action="@{/addPost}" method="post">
                 <div class="addPost">
-                    <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png" alt="user photo"></a></div>
+                    <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}">
+                        <img src="/images/userPhoto.png" alt="user photo"></a>
+                    </div>
                     <div class="addPostRight">
                         <div class="happening">
-                            <textarea class="whatishappening" rows="1" placeholder="What is happening?"
-                            id="contentMain" name="content" required th:value="${content}"></textarea>
+                            <textarea class="whatishappening" rows="1" placeholder="What is happening?" id="contentMain" name="content" required th:value="${content}"></textarea>
                         </div>
                         <div class="addPostBottom">
                             <div class="icons">
@@ -115,6 +117,7 @@
                                 <i class="fa-solid fa-video"></i>
                                 <i class="fa-solid fa-sliders"></i>
                                 <i class="fa-regular fa-face-smile"></i>
+                                <div class="emoji-picker" style="display:none;"></div>
                                 <i class="fa-regular fa-calendar"></i>
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
@@ -199,8 +202,7 @@
                             <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png" alt="user photo"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
-                                         <textarea class="whatishappening" rows="1" placeholder="Post your reply"
-                                                   id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                         <textarea class="whatishappening" rows="1" placeholder="Post your reply" id="bodyModal" name="body" required th:value="${body}"></textarea>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
@@ -208,6 +210,7 @@
                                         <i class="fa-solid fa-video"></i>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
+                                        <div class="emoji-picker" style="display:none;"></div>
                                         <i class="fa-regular fa-calendar"></i>
                                         <i class="fa-solid fa-location-dot"></i>
                                     </div>
@@ -328,16 +331,6 @@
 <script src="/javascript/modals.js"></script>
 <script src="/javascript/delete.js"></script>
 <script src="/javascript/others.js"></script>
-<script src="/javascript/emoji.js"></script>
-<script>
-    new EmojiPicker({
-        trigger: [
-            {
-                selector: '.fa-face-smile',
-                insertInto: ['.whatishappening']
-            }
-        ]
-    })
-</script>
+
 </body>
 </html>
