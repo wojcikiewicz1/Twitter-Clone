@@ -12,6 +12,7 @@ Simple Twitter clone app.
 - Users can pin their posts and reposted posts or comments
 - Realtime update likes, follows and retweets
 - Users can edit their profile
+- Users can add emojis and gifs to their posts or comments
 
 ## Tech Stack
 
