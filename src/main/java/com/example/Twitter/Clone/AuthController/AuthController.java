@@ -96,6 +96,14 @@ public class AuthController {
         }
         model.addAttribute("posts", posts);
 
+        List<User> users = userRepository.findAll();
+        Map<String, Boolean> isFollowingMap = new HashMap<>();
+        for (User isUserFollowed : users) {
+            boolean isFollowing = followerService.isFollowing(principal, isUserFollowed.getUsername());
+            isFollowingMap.put(isUserFollowed.getUsername(), isFollowing);
+        }
+        model.addAttribute("isFollowingMap", isFollowingMap);
+
         preparePostsData(model, principal, principalUsername, postService, likeService);
         randomUsers(model, principal, username, principalUsername, userService, followerService);
 

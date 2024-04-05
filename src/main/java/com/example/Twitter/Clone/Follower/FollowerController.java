@@ -41,10 +41,11 @@ public class FollowerController {
 
         List<Follower> followings = followerService.findFollowingsByUsername(username);
         Map<String, Boolean> isFollowingMap = new HashMap<>();
-        for (Follower follower : followings) {
-            boolean isFollowing = followerService.isFollowing(principal, follower.getUser().getUsername());
-            isFollowingMap.put(follower.getUser().getUsername(), isFollowing);
+        for (Follower following : followings) {
+            boolean isFollowing = followerService.isFollowing(principal, following.getUserToFollow().getUsername());
+            isFollowingMap.put(following.getUserToFollow().getUsername(), isFollowing);
         }
+
         model.addAttribute("isFollowingMap", isFollowingMap);
         model.addAttribute("followings", followings);
 
