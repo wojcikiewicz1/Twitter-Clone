@@ -177,7 +177,7 @@
                                     <img th:if="${post.gifUrl}" th:src="${post.gifUrl}"/>
                                 </div>
                                 <div class="postIcons">
-                                    <div class="openCommentModal" th:data-post-id="${post.id}">
+                                    <div class="openCommentModal" th:data-post-id="${post.id}" th:data-username='${post.getUser().username}'>
                                         <i class="fa-regular fa-comment"></i>
                                         <span class="postIcons2Numbers" th:text="'&nbsp' + ${post.commentsCount}"></span>
                                     </div>

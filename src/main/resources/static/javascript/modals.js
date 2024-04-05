@@ -109,9 +109,9 @@ document.querySelectorAll('.openCommentModal').forEach(item => {
 
         const postId = item.getAttribute('data-post-id');
         const commentId = item.getAttribute('data-comment-id');
-        let myUser = {username: 'defaultUsername'};
+        const userName = item.getAttribute('data-username');
 
-        const formAction = commentId ? `/${myUser.username}/comment/${commentId}` : `/${myUser.username}/${postId}`;
+        const formAction = commentId ? `/${userName}/comment/${commentId}` : `/${userName}/${postId}`;
         document.getElementById('commentForm').setAttribute('action', formAction);
         document.getElementById('commentModal').style.display = 'block';
     });

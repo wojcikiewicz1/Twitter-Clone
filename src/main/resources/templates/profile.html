@@ -256,7 +256,7 @@
                                         <img th:if="${item.gifUrl}" th:src="${item.gifUrl}"/>
                                     </div>
                                     <div class="postIcons">
-                                        <div class="openCommentModal" th:data-post-id="${item.id}">
+                                        <div class="openCommentModal" th:data-post-id="${item.id}" th:data-username='${item.getUser().username}'>
                                             <i class="fa-regular fa-comment"></i>
                                             <span class="postIcons2Numbers" th:text="'&nbsp' + ${item.commentsCount}"></span>
                                         </div>
@@ -335,7 +335,7 @@
                                         <img th:if="${item.gifUrl}" th:src="${item.gifUrl}"/>
                                     </div>
                                     <div class="postIcons">
-                                        <div class="openCommentModal" th:data-comment-id="${item.id}">
+                                        <div class="openCommentModal" th:data-comment-id="${item.id}" th:data-username='${item.getUser().username}'>
                                             <i class="fa-regular fa-comment"></i>
                                             <span class="postIcons2Numbers" th:text="'&nbsp' + ${item.commentsCount}"></span>
                                         </div>
