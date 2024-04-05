@@ -49,11 +49,13 @@
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?" id="contentModal" name="content" required th:value="${content}"></textarea>
+                                    <div class="gif-display"></div>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
                                         <i class="fa-regular fa-image"></i>
                                         <i class="fa-solid fa-video"></i>
+                                        <div class="gif-picker" style="display:none;"></div>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
                                         <div class="emoji-picker" style="display:none;"></div>
@@ -64,6 +66,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" class="gifUrl" name="gifUrl">
                     </form>
                 </div>
             </div>
@@ -130,7 +133,10 @@
                 </div>
 
             </div>
-            <div class="postContent" th:text="${comment.body}"></div>
+            <div class="postContent">
+                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                <img th:if="${comment.gifUrl}" th:src="${comment.gifUrl}"/>
+            </div>
             <div class="postData">
                 <div class="usernameRight" th:text="${#dates.format(comment.dateTime, 'MMM dd')}"></div>
                 <div class="usernameDOT"><i class="fa-solid fa-circle"></i></div>
@@ -170,11 +176,13 @@
                             <div class="addPostRight">
                                 <div class="replytext">
                                     <textarea class="postyourreply" rows="1" placeholder="Post your reply" id="body" name="body" required th:value="${body}"></textarea>
+                                    <div class="gif-display"></div>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
                                         <i class="fa-regular fa-image"></i>
                                         <i class="fa-solid fa-video"></i>
+                                        <div class="gif-picker" style="display:none;"></div>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
                                         <div class="emoji-picker" style="display:none;"></div>
@@ -187,6 +195,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" class="gifUrl" name="gifUrl">
             </form>
 
             <div class="replies" th:each="comment : ${responses}">
@@ -216,7 +225,10 @@
                                 <div th:unless="${isFollowingMap[comment.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${comment.user.username}" th:text="'Follow @' + ${comment.getUser().getUsername()}"></div>
                             </div>
 
-                            <div class="content" th:text="${comment.body}"></div>
+                            <div class="content">
+                                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                <img th:if="${comment.gifUrl}" th:src="${comment.gifUrl}"/>
+                            </div>
                             <div class="postIcons">
                                 <div class="openCommentModal" th:data-comment-id="${comment.id}">
                                     <i class="fa-regular fa-comment"></i>
@@ -252,12 +264,14 @@
                             <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
-                                         <textarea class="whatishappening" rows="1" placeholder="Post your reply" id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                    <textarea class="whatishappening" rows="1" placeholder="Post your reply" id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                    <div class="gif-display"></div>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
                                         <i class="fa-regular fa-image"></i>
                                         <i class="fa-solid fa-video"></i>
+                                        <div class="gif-picker" style="display:none;"></div>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
                                         <div class="emoji-picker" style="display:none;"></div>
@@ -268,6 +282,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" class="gifUrl" name="gifUrl">
                     </form>
                 </div>
             </div>

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setActiveTabColor();
     autoResizeSetup();
     pinUnpinSetup();
+    emojiPickerSetup();
+    gifPickerSetup();
 });
 
 function setActiveTabColor() {
@@ -80,34 +82,35 @@ function limitInputLength(element, maxLength) {
     }
 }
 
-//------------------------
 
-document.addEventListener('DOMContentLoaded', function () {
-    const emojis = [
-
-
-    ];
-
+function emojiPickerSetup() {
     let activeEmojiPicker = null;
 
     const emojiButtons = document.querySelectorAll('.fa-face-smile');
     const emojiPickers = document.querySelectorAll('.emoji-picker');
 
-    emojiPickers.forEach(emojiPicker => {
-        emojis.forEach(emoji => {
-            const span = document.createElement('span');
-            span.textContent = emoji.emoji;
-            span.title = emoji.title;
-            span.onclick = function () {
-                const activeTextArea = emojiPicker.closest('.addPostRight').querySelector('textarea');
-                if (activeTextArea) {
-                    activeTextArea.value += emoji.emoji;
-                }
-                emojiPicker.style.display = 'none';
-            };
-            emojiPicker.appendChild(span);
-        });
-    });
+    function loadEmojisForPicker(emojiPicker) {
+        fetch('https://emoji-api.com/emojis?access_key=f3cd92a9df25935aef5ea13894a092f2247ec290')
+            .then(response => response.json())
+            .then(emojis => {
+                emojis.forEach(emoji => {
+                    const span = document.createElement('span');
+                    span.textContent = emoji.character;
+                    span.title = emoji.slug;
+                    span.onclick = function () {
+                        const activeTextArea = emojiPicker.closest('.addPostRight').querySelector('textarea');
+                        if (activeTextArea) {
+                            activeTextArea.value += emoji.character;
+                        }
+                        emojiPicker.style.display = 'none';
+                    };
+                    emojiPicker.appendChild(span);
+                });
+            })
+            .catch(error => console.error('Error loading emojis:', error));
+    }
+
+    emojiPickers.forEach(loadEmojisForPicker);
 
     emojiButtons.forEach((button, index) => button.onclick = function () {
         activeEmojiPicker = emojiPickers[index];
@@ -124,7 +127,77 @@ document.addEventListener('DOMContentLoaded', function () {
             activeEmojiPicker.style.display = 'none';
         }
     });
-});
+}
 
+function gifPickerSetup() {
+    const gifButtons = document.querySelectorAll('.fa-video');
+    const gifPickers = document.querySelectorAll('.gif-picker');
+    const apiKey = "QyiUiQSkUpN9nicD1QrTfzQoldke2QJg";
 
+    gifPickers.forEach(gifPicker => {
+        // Tworzenie pola do wyszukiwania GIF-ów
+        const searchInput = document.createElement('input');
+        searchInput.setAttribute('type', 'text');
+        searchInput.setAttribute('placeholder', 'Search GIFs');
+        searchInput.classList.add('gif-search-input');
+        gifPicker.prepend(searchInput);
 
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value;
+            loadGifsForPicker(gifPicker, searchTerm);
+        });
+
+        loadGifsForPicker(gifPicker, '');
+    });
+
+    gifButtons.forEach((button, index) => button.onclick = function() {
+        const gifPicker = gifPickers[index];
+        gifPicker.style.display = 'block';
+    });
+
+    document.addEventListener('click', function(e) {
+        gifPickers.forEach(gifPicker => {
+            if (!gifPicker.contains(e.target) && !Array.from(gifButtons).some(button => button.contains(e.target))) {
+                gifPicker.style.display = 'none';
+            }
+        });
+    });
+
+    function loadGifsForPicker(gifPicker, searchTerm) {
+        const url = searchTerm ? `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchTerm}` : `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const gifs = data.data;
+                const gifsContainer = document.createElement('div');
+                gifsContainer.classList.add('gifs-container');
+
+                gifs.forEach(gif => {
+                    const img = document.createElement('img');
+                    img.src = gif.images.fixed_height_small.url;
+                    img.title = gif.title;
+                    img.onclick = function () {
+                        // Znalezienie kontenera do wyświetlania GIF-a
+                        const gifDisplay = gifPicker.closest('.addPostRight').querySelector('.gif-display');
+                        gifDisplay.innerHTML = ''; // Czyści poprzednie wybrane GIF-y
+                        const clonedImg = img.cloneNode();
+                        gifDisplay.appendChild(clonedImg);
+                        gifPicker.style.display = 'none';
+
+                        // Aktualizacja ukrytego pola wejściowego z URL-em GIF-a
+                        const gifUrlInput = gifPicker.closest('form').querySelector('.gifUrl');
+                        gifUrlInput.value = img.src;
+                    };
+                    gifsContainer.appendChild(img);
+                });
+
+                const existingContainer = gifPicker.querySelector('.gifs-container');
+                if (existingContainer) {
+                    gifPicker.removeChild(existingContainer);
+                }
+
+                gifPicker.appendChild(gifsContainer);
+            })
+            .catch(error => console.error('Error loading GIFs:', error));
+    }
+}

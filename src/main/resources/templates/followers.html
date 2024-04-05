@@ -48,12 +48,14 @@
               <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
               <div class="addPostRight">
                 <div class="happening">
-                    <textarea class="whatishappening" rows="1" placeholder="What is happening?" id="contentModal" name="content" required th:value="${content}"></textarea>
+                  <textarea class="whatishappening" rows="1" placeholder="What is happening?" id="contentModal" name="content" required th:value="${content}"></textarea>
+                  <div class="gif-display"></div>
                 </div>
                 <div class="addPostBottom">
                   <div class="icons">
                     <i class="fa-regular fa-image"></i>
                     <i class="fa-solid fa-video"></i>
+                    <div class="gif-picker" style="display:none;"></div>
                     <i class="fa-solid fa-sliders"></i>
                     <i class="fa-regular fa-face-smile"></i>
                     <div class="emoji-picker" style="display:none;"></div>
@@ -64,6 +66,7 @@
                 </div>
               </div>
             </div>
+            <input type="hidden" class="gifUrl" name="gifUrl">
           </form>
         </div>
       </div>

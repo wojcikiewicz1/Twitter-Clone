@@ -52,11 +52,13 @@
                             <div class="addPostRight">
                                 <div class="happening">
                                     <textarea class="whatishappening" rows="1" placeholder="What is happening?" id="contentModal" name="content" required th:value="${content}"></textarea>
+                                    <div class="gif-display"></div>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
                                         <i class="fa-regular fa-image"></i>
                                         <i class="fa-solid fa-video"></i>
+                                        <div class="gif-picker" style="display:none;"></div>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
                                         <div class="emoji-picker" style="display:none;"></div>
@@ -67,6 +69,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" class="gifUrl" name="gifUrl">
                     </form>
                 </div>
             </div>
@@ -235,12 +238,12 @@
                                     </div>
 
                                     <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                        <div class="deleteOption" th:data-id="${item.id}">
-                                            Delete post
-                                        </div>
                                         <div class="post-pinoption" th:data-id="${item.id}" th:data-is-pinned="${item.isPinned}">
                                             <span th:if="${item.isPinned}">Unpin post</span>
                                             <span th:if="${!item.isPinned}">Pin post</span>
+                                        </div>
+                                        <div class="mowoption" th:data-id="${item.id}">
+                                            Delete post
                                         </div>
                                     </div>
                                     <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
@@ -248,7 +251,10 @@
                                         <div th:unless="${isFollowingMap[item.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${item.user.username}" th:text="'Follow @' + ${item.getUser().getUsername()}"></div>
                                     </div>
 
-                                    <div class="content" th:text="${item.content}"></div>
+                                    <div class="content">
+                                        <span th:utext="${#strings.replace(item.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                        <img th:if="${item.gifUrl}" th:src="${item.gifUrl}"/>
+                                    </div>
                                     <div class="postIcons">
                                         <div class="openCommentModal" th:data-post-id="${item.id}">
                                             <i class="fa-regular fa-comment"></i>
@@ -311,12 +317,12 @@
                                     </div>
 
                                     <div class="optionsWindow" style="display: none;" th:if="${isOwner}">
-                                        <div class="deleteOption" th:data-comment-id="${item.id}">
-                                            Delete comment
-                                        </div>
                                         <div class="comment-pinoption" th:data-id="${item.id}" th:data-is-pinned="${item.isPinned}">
                                             <span th:if="${item.isPinned}">Unpin comment</span>
                                             <span th:if="${!item.isPinned}">Pin comment</span>
+                                        </div>
+                                        <div class="mowoption" th:data-comment-id="${item.id}">
+                                            Delete comment
                                         </div>
                                     </div>
                                     <div class="optionsWindow" style="display: none;" th:if="${!isOwner}">
@@ -324,7 +330,10 @@
                                         <div th:unless="${isFollowingMap[item.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${item.user.username}" th:text="'Follow @' + ${item.getUser().getUsername()}"></div>
                                     </div>
 
-                                    <div class="content" th:text="${item.body}"></div>
+                                    <div class="content">
+                                        <span th:utext="${#strings.replace(item.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                        <img th:if="${item.gifUrl}" th:src="${item.gifUrl}"/>
+                                    </div>
                                     <div class="postIcons">
                                         <div class="openCommentModal" th:data-comment-id="${item.id}">
                                             <i class="fa-regular fa-comment"></i>
@@ -362,12 +371,14 @@
                             <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}"><img src="/images/userPhoto.png"></a></div>
                             <div class="addPostRight">
                                 <div class="happening">
-                                         <textarea class="whatishappening" rows="1" placeholder="Post your reply" id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                    <textarea class="whatishappening" rows="1" placeholder="Post your reply" id="bodyModal" name="body" required th:value="${body}"></textarea>
+                                    <div class="gif-display"></div>
                                 </div>
                                 <div class="addPostBottom">
                                     <div class="icons">
                                         <i class="fa-regular fa-image"></i>
                                         <i class="fa-solid fa-video"></i>
+                                        <div class="gif-picker" style="display:none;"></div>
                                         <i class="fa-solid fa-sliders"></i>
                                         <i class="fa-regular fa-face-smile"></i>
                                         <div class="emoji-picker" style="display:none;"></div>
@@ -378,6 +389,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" class="gifUrl" name="gifUrl">
                     </form>
                 </div>
             </div>
@@ -392,26 +404,22 @@
                         <div class="edit">
                             <div class="form-group">
                                 <label class="form-label">Bio</label>
-                                <textarea class="form-control" id="bio" name="bio" placeholder="Bio"
-                                       th:field="*{myUser.bio}" type="text" oninput="limitInputLength(this, 160)"></textarea>
+                                <textarea class="form-control" id="bio" name="bio" placeholder="Bio" th:field="*{myUser.bio}" type="text" oninput="limitInputLength(this, 160)"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Location</label>
-                                <textarea class="form-control" id="location" name="location" placeholder="Location"
-                                       th:field="*{myUser.location}" type="text" oninput="limitInputLength(this, 30)"></textarea>
+                                <textarea class="form-control" id="location" name="location" placeholder="Location" th:field="*{myUser.location}" type="text" oninput="limitInputLength(this, 30)"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Birthday</label>
-                                <input class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Birthday"
-                                       th:value="*{myUser.dateOfBirth}" type="date">
+                                <input class="form-control" id="dateOfBirth" name="dateOfBirth" placeholder="Birthday" th:value="*{myUser.dateOfBirth}" type="date">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Website</label>
-                                <textarea class="form-control" id="website" name="website" placeholder="Website"
-                                       th:field="*{myUser.website}" type="text" oninput="limitInputLength(this, 100)"></textarea>
+                                <textarea class="form-control" id="website" name="website" placeholder="Website" th:field="*{myUser.website}" type="text" oninput="limitInputLength(this, 100)"></textarea>
                             </div>
                             <span><button class="btn" type="submit">Save</button></span>
                         </div>

@@ -1034,24 +1034,15 @@ aside {
     background-color: #f0f0f1;
 }
 
-.deleteOption {
+.post-pinoption, .comment-pinoption{
     padding: 10px;
     border-bottom: 1px solid #eee;
     cursor: pointer;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    color: red;
 }
 
-.post-pinoption, .comment-pinoption{
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.deleteOption:hover, .post-pinoption:hover, .comment-pinoption:hover {
+.post-pinoption:hover, .comment-pinoption:hover {
     background-color: #f0f0f0;
 }
 
@@ -1344,8 +1335,8 @@ aside {
     background-color: #fff;
     border-radius: 5px;
     padding: 10px;
-    width: 200px;
-    height: 150px;
+    width: 310px;
+    height: 200px;
     overflow-y: scroll;
     display: none;
     z-index: 3;
@@ -1355,4 +1346,25 @@ aside {
     cursor: pointer;
     padding: 5px;
     display: inline-block;
+    font-size: 25px;
+}
+
+.gif-picker {
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    width: 500px;
+    height: 400px;
+    overflow-y: scroll;
+    display: none;
+    z-index: 3;
+}
+
+.gifs-container {
+    cursor: pointer;
+    padding: 5px;
+    display: inline-block;
+    font-size: 25px;
 }
