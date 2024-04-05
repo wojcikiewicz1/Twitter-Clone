@@ -96,6 +96,10 @@ if (document.body.id === 'homePage') {
 } else if (document.body.id === 'postPage' || document.body.id === 'commentPage') {
     postOrCommentCommentModal();
     postOrCommentPostModal();
+} else if (document.body.id === 'settings') {
+    settingsPostModal();
+} else if (document.body.id === 'follow') {
+    followPostModal();
 }
 //--------------------------------Modal for adding comment----------------------------------------------------------
 document.querySelectorAll('.openCommentModal').forEach(item => {
@@ -255,6 +259,48 @@ function postOrCommentPostModal() {
         document.getElementById('postModal').style.display = 'none';
         document.querySelector('.postTop').style.position = 'sticky';
         document.querySelector('.postTop').style.zIndex = '1';
+        document.querySelector('.search').style.position = 'sticky';
+        document.querySelector('.search').style.zIndex = '1';
+    };
+}
+
+function settingsPostModal() {
+
+    initializeModalHandlers("postModal", "closePostModal");
+
+    document.getElementById('openPostModal').onclick = function () {
+        document.getElementById('postModal').style.display = 'block';
+        document.querySelector('.top').style.position = 'relative';
+        document.querySelector('.top').style.zIndex = '-1';
+        document.querySelector('.search').style.position = 'relative';
+        document.querySelector('.search').style.zIndex = '-1';
+    };
+
+    document.querySelector('.closePostModal').onclick = function () {
+        document.getElementById('postModal').style.display = 'none';
+        document.querySelector('.top').style.position = 'sticky';
+        document.querySelector('.top').style.zIndex = '1';
+        document.querySelector('.search').style.position = 'sticky';
+        document.querySelector('.search').style.zIndex = '1';
+    };
+}
+
+function followPostModal() {
+
+    initializeModalHandlers("postModal", "closePostModal");
+
+    document.getElementById('openPostModal').onclick = function () {
+        document.getElementById('postModal').style.display = 'block';
+        document.querySelector('.stickyTopBar').style.position = 'relative';
+        document.querySelector('.stickyTopBar').style.zIndex = '-1';
+        document.querySelector('.search').style.position = 'relative';
+        document.querySelector('.search').style.zIndex = '-1';
+    };
+
+    document.querySelector('.closePostModal').onclick = function () {
+        document.getElementById('postModal').style.display = 'none';
+        document.querySelector('.stickyTopBar').style.position = 'sticky';
+        document.querySelector('.stickyTopBar').style.zIndex = '1';
         document.querySelector('.search').style.position = 'sticky';
         document.querySelector('.search').style.zIndex = '1';
     };
