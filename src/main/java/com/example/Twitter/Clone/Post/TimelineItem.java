@@ -8,4 +8,6 @@ public interface TimelineItem {
     Date getRepostTime();
 
     boolean isPinned();
+
+    String getGifUrl();
 }

@@ -54,6 +54,8 @@ public class Comment implements TimelineItem {
     private Date repostTime;
     @Column(name = "is_pinned")
     private boolean isPinned = false;
+    @Column(name = "gif_url")
+    private String gifUrl;
 
 
     @Override
@@ -64,6 +66,11 @@ public class Comment implements TimelineItem {
     @Override
     public Date getRepostTime() {
         return repostTime;
+    }
+
+    @Override
+    public String getGifUrl() {
+        return gifUrl;
     }
 
 

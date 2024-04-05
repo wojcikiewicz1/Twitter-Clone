@@ -45,23 +45,25 @@ public class CommentService {
     public Comment getCommentById (Long id) {
         return commentRepository.getCommentById(id);}
 
-    public void AddCommentToPost (Principal principal, Long postId, String body) {
+    public void AddCommentToPost (Principal principal, Long postId, String body, String gifUrl) {
         User myUser = userService.findByUserName(principal.getName());
         Post post = postService.getPostById(postId);
         Comment comment = new Comment();
         comment.setUser(myUser);
         comment.setPost(post);
         comment.setBody(body);
+        comment.setGifUrl(gifUrl);
         commentRepository.save(comment);
     }
 
-    public void AddCommentToComment (Principal principal, Long commentId, String body) {
+    public void AddCommentToComment (Principal principal, Long commentId, String body, String gifUrl) {
         User myUser = userService.findByUserName(principal.getName());
         Comment comment1 = commentRepository.getCommentById(commentId);
         Comment comment = new Comment();
         comment.setUser(myUser);
         comment.setComment(comment1);
         comment.setBody(body);
+        comment.setGifUrl(gifUrl);
         commentRepository.save(comment);
     }
 

@@ -100,16 +100,16 @@ public class PostController {
     }
 
     @PostMapping("/addPost")
-    public String addPostMain(@ModelAttribute("content") String content, Principal principal) {
-        postService.addNewPost(principal, content);
+    public String addPostMain(@ModelAttribute("content") String content, @RequestParam(name = "gifUrl", required = false) String gifUrl, Principal principal) {
+        postService.addNewPost(principal, content, gifUrl);
         return "redirect:/home";
     }
 
     @PostMapping("/api/addPost")
     @ResponseBody
-    public ResponseEntity<?> addPost(@ModelAttribute("content") String content, Principal principal) {
+    public ResponseEntity<?> addPost(@ModelAttribute("content") String content, @RequestParam(name = "gifUrl", required = false) String gifUrl, Principal principal) {
         try {
-            postService.addNewPost(principal, content);
+            postService.addNewPost(principal, content, gifUrl);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error message");

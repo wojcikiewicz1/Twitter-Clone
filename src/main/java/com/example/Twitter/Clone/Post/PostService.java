@@ -70,12 +70,13 @@ public class PostService {
         return allPosts;
     }
 
-    public void addNewPost(Principal principal, String content) {
+    public void addNewPost(Principal principal, String content, String gifUrl) {
         User user = userRepository.findByUsername(principal.getName());
         Post post = new Post();
         post.setUser(user);
         post.setContent(content);
         post.setReposted(false);
+        post.setGifUrl(gifUrl);
         postRepository.save(post);
     }
 

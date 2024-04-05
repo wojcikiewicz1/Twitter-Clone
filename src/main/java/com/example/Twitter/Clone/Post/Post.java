@@ -46,6 +46,8 @@ public class Post implements TimelineItem{
     private Set<Repost> reposts = new HashSet<>();
     @Column(name = "reposted_at")
     private Date repostTime;
+    @Column(name = "gif_url")
+    private String gifUrl;
 
 
     @Column(name = "is_pinned")
@@ -63,5 +65,10 @@ public class Post implements TimelineItem{
 
     public String getType() {
         return "Post";
+    }
+
+    @Override
+    public String getGifUrl() {
+        return gifUrl;
     }
 }

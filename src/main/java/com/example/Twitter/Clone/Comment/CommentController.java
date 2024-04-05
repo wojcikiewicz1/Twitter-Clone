@@ -94,14 +94,14 @@ public class CommentController {
         return "comment";
     }
     @PostMapping ("/{username}/{postId:[\\d]+}")
-    public String addCommentToPost(@PathVariable("username") String username, @PathVariable("postId") Long postId, @ModelAttribute("body") String body, Principal principal) {
-        commentService.AddCommentToPost(principal, postId, body);
+    public String addCommentToPost(@PathVariable("username") String username, @PathVariable("postId") Long postId, @RequestParam(name = "gifUrl", required = false) String gifUrl, @ModelAttribute("body") String body, Principal principal) {
+        commentService.AddCommentToPost(principal, postId, body, gifUrl);
         return "redirect:/" + username + "/" + postId;
     }
 
     @PostMapping ("/{username}/comment/{commentId:[\\d]+}")
-    public String addCommentToComment(@PathVariable("username") String username, @PathVariable("commentId") Long commentId, @ModelAttribute("body") String body, Principal principal) {
-        commentService.AddCommentToComment(principal, commentId, body);
+    public String addCommentToComment(@PathVariable("username") String username, @PathVariable("commentId") Long commentId, @RequestParam(name = "gifUrl", required = false) String gifUrl, @ModelAttribute("body") String body, Principal principal) {
+        commentService.AddCommentToComment(principal, commentId, body, gifUrl);
         return "redirect:/" + username + "/comment/" + commentId;
     }
 
