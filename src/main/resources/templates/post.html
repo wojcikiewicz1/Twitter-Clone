@@ -131,10 +131,9 @@
                     <div th:if="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
                     <div th:unless="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${post.user.username}" th:text="'Follow @' + ${post.getUser().getUsername()}"></div>
                 </div>
-
             </div>
-            <div class="content">
-                <span th:utext="${#strings.replace(post.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+            <div class="postContent">
+                <span th:utext="${#strings.replace(post.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                 <img th:if="${post.gifUrl}" th:src="${post.gifUrl}"/>
             </div>
             <div class="postData">
@@ -226,7 +225,7 @@
                             </div>
 
                             <div class="content">
-                                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                                 <img th:if="${comment.gifUrl}" th:src="${comment.gifUrl}"/>
                             </div>
                             <div class="postIcons">

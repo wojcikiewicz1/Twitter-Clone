@@ -252,7 +252,7 @@
                                     </div>
 
                                     <div class="content">
-                                        <span th:utext="${#strings.replace(item.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                        <span th:utext="${#strings.replace(item.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                                         <img th:if="${item.gifUrl}" th:src="${item.gifUrl}"/>
                                     </div>
                                     <div class="postIcons">
@@ -331,7 +331,7 @@
                                     </div>
 
                                     <div class="content">
-                                        <span th:utext="${#strings.replace(item.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                        <span th:utext="${#strings.replace(item.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                                         <img th:if="${item.gifUrl}" th:src="${item.gifUrl}"/>
                                     </div>
                                     <div class="postIcons">
@@ -426,7 +426,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </main>
 

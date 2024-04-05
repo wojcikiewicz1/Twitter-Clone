@@ -134,7 +134,7 @@
 
             </div>
             <div class="postContent">
-                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                 <img th:if="${comment.gifUrl}" th:src="${comment.gifUrl}"/>
             </div>
             <div class="postData">
@@ -226,7 +226,7 @@
                             </div>
 
                             <div class="content">
-                                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                <span th:utext="${#strings.replace(comment.body, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                                 <img th:if="${comment.gifUrl}" th:src="${comment.gifUrl}"/>
                             </div>
                             <div class="postIcons">

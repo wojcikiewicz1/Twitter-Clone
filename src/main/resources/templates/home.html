@@ -45,7 +45,8 @@
                     <span class="closePostModal">&times;</span>
                     <form th:action="@{/api/addPost}" method="post">
                         <div class="addPost">
-                            <div class="userPhoto"><a th:href="@{/{username}(username=${myUser.username})}">
+                            <div class="userPhoto">
+                                <a th:href="@{/{username}(username=${myUser.username})}">
                                 <img src="/images/userPhoto.png" alt="user photo"></a>
                             </div>
                             <div class="addPostRight">
@@ -172,7 +173,7 @@
                                 </div>
 
                                 <div class="content">
-                                    <span th:utext="${#strings.replace(post.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span>
+                                    <span th:utext="${#strings.replace(post.content, 'src=&quot;', '<img src=&quot;').replace('.gif&quot;', '.gif&quot; />')}"></span><br>
                                     <img th:if="${post.gifUrl}" th:src="${post.gifUrl}"/>
                                 </div>
                                 <div class="postIcons">
