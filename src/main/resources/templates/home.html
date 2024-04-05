@@ -141,7 +141,7 @@
                             <div class="ifPostReposted">
                                 <div th:if="${!post.reposts.isEmpty()}">
                                     <div th:each="repost : ${post.reposts}">
-                                        <div th:if="${isFollowingMapRandom[repost.whoReposted.username]}">
+                                        <div th:if="${isFollowingMap[repost.whoReposted.username]}">
                                             <div>
                                                 <i class="fa-solid fa-retweet"></i>
                                                 <span th:text="${repost.whoReposted.username}"></span>
@@ -168,8 +168,8 @@
                                 </div>
 
                                 <div class="optionsWindow" style="display: none;">
-                                    <div th:if="${isFollowingMapRandom[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
-                                    <div th:unless="${isFollowingMapRandom[post.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${post.user.username}" th:text="'Follow @' + ${post.getUser().getUsername()}"></div>
+                                    <div th:if="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionUnfollow" th:data-username="${post.user.username}" th:text="'Unfollow @' + ${post.getUser().getUsername()}"></div>
+                                    <div th:unless="${isFollowingMap[post.user.username]}" class="js-followToggle optionsWindowOptionFollow" th:data-username="${post.user.username}" th:text="'Follow @' + ${post.getUser().getUsername()}"></div>
                                 </div>
 
                                 <div class="content">
