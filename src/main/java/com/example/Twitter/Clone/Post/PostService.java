@@ -59,7 +59,9 @@ public class PostService {
             List<Repost> reposts = repostRepository.findByWhoReposted(followingUser);
             for (Repost repost : reposts) {
                 Post repostedPost = repost.getPost();
-                uniquePosts.putIfAbsent(repostedPost.getId(), repostedPost);
+                if (repostedPost != null) {
+                    uniquePosts.putIfAbsent(repostedPost.getId(), repostedPost);
+                }
             }
         }
 
