@@ -135,7 +135,6 @@ function gifPickerSetup() {
     const apiKey = "QyiUiQSkUpN9nicD1QrTfzQoldke2QJg";
 
     gifPickers.forEach(gifPicker => {
-        // Tworzenie pola do wyszukiwania GIF-ów
         const searchInput = document.createElement('input');
         searchInput.setAttribute('type', 'text');
         searchInput.setAttribute('placeholder', 'Search GIFs');
@@ -177,14 +176,12 @@ function gifPickerSetup() {
                     img.src = gif.images.fixed_height_small.url;
                     img.title = gif.title;
                     img.onclick = function () {
-                        // Znalezienie kontenera do wyświetlania GIF-a
                         const gifDisplay = gifPicker.closest('.addPostRight').querySelector('.gif-display');
-                        gifDisplay.innerHTML = ''; // Czyści poprzednie wybrane GIF-y
+                        gifDisplay.innerHTML = '';
                         const clonedImg = img.cloneNode();
                         gifDisplay.appendChild(clonedImg);
                         gifPicker.style.display = 'none';
 
-                        // Aktualizacja ukrytego pola wejściowego z URL-em GIF-a
                         const gifUrlInput = gifPicker.closest('form').querySelector('.gifUrl');
                         gifUrlInput.value = img.src;
                     };
