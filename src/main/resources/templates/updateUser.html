@@ -124,7 +124,7 @@
                     <div class="form-group">
                         <label class="form-label">Email</label>
                         <input class="form-control f-c2" id="email" name="email" placeholder="Enter user email"
-                               th:field="*{email}" type="email" required oninput="limitInputLength(this, 30)"/>
+                               th:field="*{email}" type="email" required oninput="limitInputLength(this, 30)">
                         <p th:errors = "*{email}" class="text-danger"
                            th:if="${#fields.hasErrors('email')}"></p>
                     </div>
