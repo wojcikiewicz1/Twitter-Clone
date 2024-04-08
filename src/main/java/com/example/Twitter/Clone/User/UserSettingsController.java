@@ -33,12 +33,10 @@ public class UserSettingsController {
     }
 
     @PostMapping("/changePassword")
-    public String changePassword (@ModelAttribute("passwordForm") @Validated PasswordForm passwordForm,
-                                  BindingResult result, Principal principal, Model model, String username) {
+    public String changePassword(@ModelAttribute("passwordForm") @Validated PasswordForm passwordForm,
+                                 BindingResult result, Principal principal, Model model) {
         User myUser = userService.findByUserName(principal.getName());
-        User user = userService.findByUserName(username);
         model.addAttribute("myUser", myUser);
-        model.addAttribute("user", user);
 
         if (!userService.verifyUserPassword(myUser, passwordForm.getCurrentPassword())) {
             result.rejectValue("currentPassword", null, "Invalid password.");
@@ -47,6 +45,10 @@ public class UserSettingsController {
         if (!passwordForm.getNewPassword().equals(passwordForm.getConfirmPassword())) {
             result.rejectValue("newPassword", null, "Passwords do not match.");
             result.rejectValue("confirmPassword", null, "Passwords do not match.");
+        }
+
+        if (!PasswordValidator.validate(passwordForm.getNewPassword())) {
+            result.rejectValue("newPassword", null, "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.");
         }
 
         if (result.hasErrors()) {

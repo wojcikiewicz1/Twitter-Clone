@@ -5,6 +5,7 @@ import com.example.Twitter.Clone.Like.LikeService;
 import com.example.Twitter.Clone.Post.Post;
 import com.example.Twitter.Clone.Post.PostRepository;
 import com.example.Twitter.Clone.Post.PostService;
+import com.example.Twitter.Clone.User.PasswordValidator;
 import com.example.Twitter.Clone.User.User;
 import com.example.Twitter.Clone.User.UserRepository;
 import com.example.Twitter.Clone.User.UserService;
@@ -65,6 +66,10 @@ public class AuthController {
 
         if(existingUser1 != null && existingUser1.getEmail() != null && !existingUser1.getEmail().isEmpty()){
             result.rejectValue("email", null, "There is already an account registered with the same email");
+        }
+
+        if (!PasswordValidator.validate(user.getPassword())) {
+            result.rejectValue("password", null, "Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.");
         }
 
         if(result.hasErrors()){
