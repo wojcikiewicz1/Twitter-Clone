@@ -66,31 +66,21 @@ public class UserSettingsController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser (@ModelAttribute("user") User user,Principal principal,
-                              Model model, BindingResult result) {
-
-        User myUser = userService.findByUserName(principal.getName());
-        model.addAttribute("myUser", myUser);
-
+    public String updateUser(@ModelAttribute("myUser") User user, BindingResult result, Principal principal, Model model) {
         User existingUser = userRepository.findByUsername(user.getUsername());
-        User existingUser1 = userRepository.findByEmail(user.getEmail());
+        User existingEmail = userRepository.findByEmail(user.getEmail());
+        User myUser = userService.findByUserName(principal.getName());
 
-        if (myUser.getUsername().equals(user.getUsername())){
-
-        }
-        else if(existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
-            result.rejectValue("username", null, "There is already an account registered with the same username.");
+        if (!myUser.getUsername().equals(user.getUsername()) && existingUser != null) {
+            result.rejectValue("username", "user.username", "There is already an account registered with that username.");
         }
 
-        if (myUser.getEmail().equals(user.getEmail())){
-
-        }
-        else if(existingUser1 != null && existingUser1.getEmail() != null && !existingUser1.getEmail().isEmpty()){
-            result.rejectValue("email", null, "There is already an account registered with the same email.");
+        if (!myUser.getEmail().equals(user.getEmail()) && existingEmail != null) {
+            result.rejectValue("email", "user.email", "There is already an account registered with that email.");
         }
 
-        if(result.hasErrors()){
-            model.addAttribute("user", user);
+        if (result.hasErrors()) {
+            model.addAttribute("myUser", user);
             return "updateUser";
         }
 
