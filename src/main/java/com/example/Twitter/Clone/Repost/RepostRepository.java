@@ -17,4 +17,6 @@ public interface RepostRepository extends JpaRepository<Repost, Long> {
     Repost findByWhoRepostedAndPostId(User myUser, Long postId);
 
     Repost findByWhoRepostedAndCommentId(User myUser, Long commentId);
+
+    void deleteByWhoRepostedId(Long id);
 }

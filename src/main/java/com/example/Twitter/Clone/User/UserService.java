@@ -4,6 +4,7 @@ import com.example.Twitter.Clone.Comment.CommentRepository;
 import com.example.Twitter.Clone.Follower.FollowerRepository;
 import com.example.Twitter.Clone.Like.LikeRepository;
 import com.example.Twitter.Clone.Post.PostRepository;
+import com.example.Twitter.Clone.Repost.RepostRepository;
 import com.example.Twitter.Clone.Role.Role;
 import com.example.Twitter.Clone.Role.RoleRepository;
 import io.micrometer.common.util.StringUtils;
@@ -36,6 +37,8 @@ public class UserService {
     private CommentRepository commentRepository;
     @Autowired
     private FollowerRepository followerRepository;
+    @Autowired
+    private RepostRepository repostRepository;
 
     public void saveUser (User user) {
         User user1 = new User();
@@ -100,6 +103,8 @@ public class UserService {
         followerRepository.deleteByUserIdOrUserToFollowId(user.getId(), user.getId());
 
         postRepository.deleteAll(user.getPosts());
+
+        repostRepository.deleteByWhoRepostedId(user.getId());
 
         userRepository.delete(user);
     }
