@@ -2,7 +2,7 @@
 
 Twitter clone developed with a microservice approach using the Java and JavaScript.
 
-![Twitter Clone](https://img.youtube.com/vi/Hz4mu7brAdY/0.jpg)
+![Twitter Clone](1.jpg)
 
 (https://www.youtube.com/watch?v=Hz4mu7brAdY)
 
