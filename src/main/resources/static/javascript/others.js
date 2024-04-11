@@ -132,7 +132,7 @@ function emojiPickerSetup() {
 function gifPickerSetup() {
     const gifButtons = document.querySelectorAll('.fa-video');
     const gifPickers = document.querySelectorAll('.gif-picker');
-    const apiKey = "QyiUiQSkUpN9nicD1QrTfzQoldke2QJg";
+    const apiKey = "Hj6GxD80xHbajuwuIkekQl21sPmCnVoL";
 
     gifPickers.forEach(gifPicker => {
         const searchInput = document.createElement('input');
