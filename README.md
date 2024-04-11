@@ -1,6 +1,12 @@
 # Twitter-Clone
 
-Simple Twitter clone app.
+Twitter clone developed with a microservice approach using the Java and JavaScript.
+
+![Twitter Clone](1.jpg)
+
+(https://www.youtube.com/watch?v=Hz4mu7brAdY)
+
+
 
 ## Features
 
