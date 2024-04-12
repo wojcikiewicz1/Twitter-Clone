@@ -10,9 +10,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository <Post, Long> {
 
-    @Query("SELECT COUNT(s) FROM Post s WHERE s.user.id = :id")
-    int numberOfPosts (Long id);
-
     @Query("SELECT COUNT(s) FROM Comment s WHERE s.post.id = :postId")
     int countByPostId(Long postId);
 
